@@ -1,2 +1,7 @@
 # Hack Reactor RFE5 Team Orcus FEC
-We plan on using react.
+> We are working on our front end capstone project.
+
+## Table of Contents
+## Usage
+## Requirements
+## Development
