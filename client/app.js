@@ -6,7 +6,7 @@ class App extends React.Component {
   render () {
     return (
     <div>
-      <h1>fec</h1>
+      <h1>fec running from react</h1>
     </div>)
   }
 }
