@@ -7,7 +7,7 @@ let port = process.env.PORT || 3000;
 
 app.use(express.static(__dirname + '/../public'));
 app.use(express.json());
-app.use(express.urlcoded({extended: true}));
+app.use(express.urlencoded({extended: true}));
 app.use(morgan('dev'));
 
 
