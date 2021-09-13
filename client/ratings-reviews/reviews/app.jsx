@@ -23,4 +23,4 @@ class Reviews extends React.Component {
 
 }
 
-export default reviews;
+export default Reviews;

@@ -1,6 +1,6 @@
 import React from 'react';
-import reviews from './reviews/app.jsx';
-import ratings from './ratings/app.jsx';
+import Reviews from './reviews/app.jsx';
+import Ratings from './ratings/app.jsx';
 
 class RateReview extends React.Component {
   constructor(props) {

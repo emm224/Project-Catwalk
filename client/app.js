@@ -10,7 +10,7 @@ class App extends React.Component {
       <div>Overview placeholder</div>
       <div id ='relatedAndComparison'>
           <RelatedList />
-          <h4>Placeholder for outfit section</h4>
+          <h4>Placeholder for outfit sections</h4>
       </div>
 
 

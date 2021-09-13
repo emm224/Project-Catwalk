@@ -20,4 +20,4 @@ class Ratings extends React.Component {
 
 }
 
-export default ratings;
+export default Ratings;
