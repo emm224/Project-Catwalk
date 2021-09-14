@@ -5,12 +5,14 @@ class ReviewListEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: ''
+      date: '',
+      stars: this.props.review.rating
     }
   }
 
   componentDidMount() {
     this.formatDate();
+    this.starRating();
   }
 
   formatDate() {
@@ -32,15 +34,19 @@ class ReviewListEntry extends React.Component {
     })
   }
 
+  starRating() {
+    console.log(this.state.stars);
+  }
+
   render () {
     return (
       <ReviewListEntryStyle>
 
         <TopRowStyle>
           <div>★★★☆☆</div>
-          <div>
+          <TopRightStyle>
             {this.props.review.reviewer_name}, {this.state.date}
-          </div>
+          </TopRightStyle>
         </TopRowStyle>
 
         <SummaryStyle> <b>{this.props.review.summary}</b> </SummaryStyle>
@@ -75,6 +81,12 @@ var TopRowStyle = styled.div`
   margin-bottom: 10px;
 `;
 
+var TopRightStyle = styled.div`
+  font-size: 12px;
+  color: gray;
+`;
+
+
 var SummaryStyle = styled.div`
   margin-bottom: 10px;
 `;
@@ -82,13 +94,15 @@ var SummaryStyle = styled.div`
 var BottomRowStyle = styled.div`
   margin-bottom: 10px;
   font-size: 12px;
+  color: gray;
 `;
 
 var ResponseStyle = styled.div`
   margin-bottom: 10px;
-  background-color: lightgray;
+  background-color: #E8E8E8;
   padding: 10px;
   margin-bottom: 10px;
+  color: gray;
 `;
 
 export default ReviewListEntry;
