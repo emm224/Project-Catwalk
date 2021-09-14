@@ -16,7 +16,6 @@ const reportReview = function(req,res) {
   //models.reviews.reportReview
 }
 
-
 module.exports = {
   getReviews,
   getReviewMetadata,
