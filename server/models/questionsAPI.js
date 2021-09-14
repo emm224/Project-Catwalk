@@ -1,17 +1,11 @@
 const axios = require('axios');
 const config = require('../../config.js');
 
-// const baseAPI =  `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/`;
-
-// Use of Parameters
 // In an HTTP GET request, parameters are sent as a query string:
-
-// http://example.com/page?parameter=value&also=another
 
 // In an HTTP POST or PUT request, the parameters are not sent along with the URI, but in the request body. Parameters noted for each route below follow this standard.
 
-
-const getQuestions = (callback) => {
+const getQuestions = (query, callback) => {
 
   // let queryString;
 

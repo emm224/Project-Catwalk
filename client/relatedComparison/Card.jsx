@@ -5,7 +5,7 @@ var Card =() =>{
   return (
   <CardStyle>
     <img></img>
-      <div class="container">
+      <div className="container">
         <p>Picture</p>
         <h4>Title</h4>
         <p>Description</p>
