@@ -14,9 +14,9 @@ class App extends React.Component {
       </div>
 
 
-      <div>Ratings and Review placeholder</div>
+      <div>RATINGS & REVIEWS</div>
       <div id='rateReview'>
-        <RateReview />
+          <RateReview />
       </div>
     </div>)
   }
