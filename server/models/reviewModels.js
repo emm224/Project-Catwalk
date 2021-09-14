@@ -34,21 +34,21 @@ const getReviewMetadata = function(product_id, callback) {
       callback(err);
     })
 }
-const addReview = function(product_id, rating, summary, body, recommend, name, email, photos, characteristics, callback) {
+const addReview = function(review, callback) {
 
-  let review = {
-    product_id: product_id,
-    rating: rating,
-    summary: summary,
-    body: body,
-    recommend: recommend,
-    name: name,
-    email: email,
-    photos: photos,
-    characteristics: characteristics
+  let newReview = {
+    product_id: review.product_id,
+    rating: review.rating,
+    summary: review.summary,
+    body: review.body,
+    recommend: review.recommend,
+    name: review.name,
+    email: review.email,
+    photos: review.photos,
+    characteristics: review.characteristics
   }
 
-  axios.post(options.url, review, options.head)
+  axios.post(options.url, newReview, options.head)
   .then(({data}) => {
     console.log('Your review: ', data);
     callback(null, data);
