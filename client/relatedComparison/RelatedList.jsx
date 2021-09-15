@@ -56,7 +56,7 @@ var ListContainer = styled.div`
 var Container = styled.div`
   width:80%;
   margin:0 auto;
-  overflow:hidden;
+  overflow-x:scroll;
 `;
 
 export default RelatedList;

@@ -29,7 +29,7 @@ class Card extends React.Component {
           <div className="container">
           <span className = 'heart'>&#9829;</span>
           <img src={this.state.photo} />
-            <p>Category:{this.props.item.category}</p>
+            <p>{this.props.item.category}</p>
             <p>{this.props.item.name}</p>
             <p>${this.props.item.default_price}</p>
             <StarRating rating = {this.state.rating}/>
@@ -43,6 +43,7 @@ var CardStyle = styled.div`
   margin-left:10px;
   border:black 2px solid;
   width:150px;
+  min-width:150px;
   position:relative;
   img{
     width:100%;
