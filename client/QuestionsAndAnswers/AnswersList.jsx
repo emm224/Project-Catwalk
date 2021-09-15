@@ -25,7 +25,7 @@ class AnswersList extends React.Component {
     return (
 
       <div>
-        <h1>Answers</h1>
+
 
       </div>
     )

@@ -1,17 +1,11 @@
 const axios = require('axios');
 const config = require('../../config.js');
 
-// const baseAPI =  `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/`;
-
-// Use of Parameters
 // In an HTTP GET request, parameters are sent as a query string:
-
-// http://example.com/page?parameter=value&also=another
 
 // In an HTTP POST or PUT request, the parameters are not sent along with the URI, but in the request body. Parameters noted for each route below follow this standard.
 
-
-const getQuestions = (callback) => {
+const getQuestions = (query, callback) => {
 
   // let queryString;
 
@@ -19,64 +13,68 @@ const getQuestions = (callback) => {
     `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`,
     {
       headers: {
-        'User-Agent': 'request',
-        'Authorization': config.TOKEN
-      },
-    },
+        "Authorization": config.TOKEN,
+        "Content-Type": "application/json"
+      }
+    }
   )
   .then((response) => {
     console.log('Fetch All Qs Response: ', response.data);
     callback(null, response.data);
   })
   .catch((error) => {
-    callback(error, null);
+    console.log('Fetching Error: ', error);
+    callback(error);
   });
 };
 
-const postQuestions = (query, callback) => {
+const postQuestion = (query, callback) => {
 
-  let options = {
+  // axios.post(
+  //   `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`, query,
+  //   {
+  //     headers: {
+  //       "Authorization": config.TOKEN,
+  //       "Content-Type": "application/json"
+  //     }
+  //   }
+  // )
+  // .then((response) => {
+  //   console.log('Created Question!: ', response.data);
+  //   callback(null, response.data);
+  // })
+  // .catch((error) => {
+  //   callback(error);
+  // });
+};
 
-    url: `${baseAPI}/qa/questions`,
-    headers: {
-      'User-Agent': 'request',
-      'Authorization': config.TOKEN
-    }
-  };
+const postAnswer = (query, callback) => {
 
   axios.post(
-    `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`, query,
+    `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${query.question_id}/answers`, query,
     {
       headers: {
-        'Authorization': config.TOKEN
+        Authorization: config.TOKEN
       },
     },
   )
   .then((response) => {
-    console.log('Created Question!: ', response.data);
+    console.log('Created Answer!: ', response.data);
     callback(null, response.data);
   })
   .catch((error) => {
-    callback(error, null);
+    callback(error);
   });
 };
 
+
 const putQuestions = (query, callback) => {
-
-  let options = {
-
-    url: `${baseAPI}/qa/questions`,
-    headers: {
-      'User-Agent': 'request',
-      'Authorization': config.TOKEN
-    }
-  };
 
   axios.put(
     `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`, query,
     {
       headers: {
-        'Authorization': config.TOKEN
+        Authorization: config.TOKEN
       },
     },
   )
@@ -85,10 +83,10 @@ const putQuestions = (query, callback) => {
     callback(null, response.data);
   })
   .catch((error) => {
-    callback(error, null);
+    callback(error);
   });
 };
 
 module.exports.getQuestions = getQuestions;
-module.exports.postQuestions = postQuestions;
+module.exports.postQuestion = postQuestion;
 module.exports.putQuestions = putQuestions;
