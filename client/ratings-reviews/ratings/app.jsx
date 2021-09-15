@@ -1,4 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
+import StarBreakdown from './StarBreakdown.jsx';
+import ReviewBreakdown from './ReviewBreakdown.jsx';
 
 class Ratings extends React.Component {
   constructor(props) {
@@ -9,15 +12,18 @@ class Ratings extends React.Component {
     //bind
   }
 
-
   render() {
     return (
-      <div>
-        <p>Ratings</p>
-      </div>
-    )
+      <RatingsStyle>
+        <StarBreakdown />
+        <ReviewBreakdown />
+      </RatingsStyle>
+    );
   }
-
 }
+
+var RatingsStyle = styled.div`
+  margin-left: 25px;
+`;
 
 export default Ratings;

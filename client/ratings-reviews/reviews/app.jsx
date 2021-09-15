@@ -1,12 +1,13 @@
 import React from 'react';
 import data from '../reviewData.js';
+import styled from 'styled-components';
 import ReviewList from './ReviewList.jsx';
 
 class Reviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviews: data
+      reviews: data[0].results
     }
     //bind
   }
@@ -14,13 +15,16 @@ class Reviews extends React.Component {
 
   render() {
     return (
-      <div>
-        <p>Reviews</p>
+      <ReviewsStyle>
         <ReviewList reviews={this.state.reviews}/>
-      </div>
+      </ReviewsStyle>
     )
   }
 
 }
+
+var ReviewsStyle = styled.div`
+  float: center;
+`;
 
 export default Reviews;
