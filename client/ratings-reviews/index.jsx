@@ -15,7 +15,7 @@ class RateReview extends React.Component {
 
   render() {
     return (
-      <div>
+      <div>RATINGS & REVIEWS
         <RateReviewStyle>
           <Ratings />
           <Reviews />
