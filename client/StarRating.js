@@ -11,7 +11,7 @@ class StarRating extends React.Component {
   render(){
     return (
       <div>
-      {[1,2,3,4,5].map((star, index) => {
+      {['one',2,3,4,5].map((star, index) => {
         index += 1;
         return (
           <Button
