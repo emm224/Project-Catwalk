@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import {listQuestionsData, answersListData} from './dummyData.js';
+// import {listQuestionsData, answersListData} from './dummyData.js';
 
 import Questions from './Questions.jsx';
 

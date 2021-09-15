@@ -6,7 +6,7 @@ import ReviewListEntry from './ReviewListEntry.jsx';
 
 const ReviewList = (props) => (
   <div className='review-list'>
-    {props.reviews.length} reviews, sorted by _____
+    {props.reviews.length} reviews, sorted by <u>relevance ∨</u>
 
     <ul>
       {props.reviews.map((review) => <ReviewListEntry review={review} key={review.review_id}/>)}

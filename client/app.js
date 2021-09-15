@@ -4,6 +4,8 @@ import RelatedList from './relatedComparison/RelatedList.jsx';
 import RateReview from './ratings-reviews/index.jsx';
 import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers.jsx';
 
+import Outfit from './relatedComparison/Outfit.jsx';
+
 class App extends React.Component {
   render () {
     return (
@@ -11,7 +13,8 @@ class App extends React.Component {
       <div>Overview placeholder</div>
       <div id ='relatedAndComparison'>
           <RelatedList />
-          <h4>Placeholder for outfit sections</h4>
+          <Outfit />
+
       </div>
 
       <div>QUESTIONS & ANSWERS</div>
@@ -19,11 +22,10 @@ class App extends React.Component {
           <QuestionsAndAnswers />
       </div>
 
-
-      <div>RATINGS & REVIEWS</div>
       <div id='rateReview'>
           <RateReview />
       </div>
+
     </div>)
   }
 }
