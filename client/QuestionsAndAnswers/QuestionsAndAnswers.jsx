@@ -7,7 +7,12 @@ import {listQuestionsData, answersListData} from './dummyData.js';
 import Questions from './Questions.jsx';
 import QuestionsList from './QuestionsList.jsx';
 
-
+const FlexContainer = styled.div`
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
+  max-width: 1280px;
+`;
 
 const Container = styled.div`
   border-radius: 10px;
@@ -56,6 +61,13 @@ const SearchButton = styled.button`
   }
 `;
 
+const photoContainers = styled.div`
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
+  max-width: 1280px;
+`;
+
 
 
 class QuestionsAndAnswers extends React.Component {
@@ -77,27 +89,23 @@ class QuestionsAndAnswers extends React.Component {
 
     var options = {
       headers: {
-        "Authorization": "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",
+        "Authorization": "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",
         "Content-Type": "application/json"
       }
     }
 
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`, options)
 
-
-
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`, options)
-
-    .then(data => data.json())
-    .then((data) => {
-        console.log('Fetch Q Response: ', data);
-        // this.setState({
-        //   questionsData: response.data
-        // });
-      })
+      .then((results) => {
+          console.log('Fetch Q Response: ', data);
+          callback(null, results.data);
+        })
       .catch((error) => {
-        console.log('ERRORRRRR', error)
+        console.log('ERRORRRRR', error);
       })
-    }
+  }
+
+
 
 
   handleSearch() {

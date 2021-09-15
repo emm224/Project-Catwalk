@@ -13,7 +13,7 @@ const getQuestions = (query, callback) => {
     `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`,
     {
       headers: {
-        "Authorization": "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",
+        "Authorization": config.TOKEN,
         "Content-Type": "application/json"
       }
     }
@@ -30,22 +30,22 @@ const getQuestions = (query, callback) => {
 
 const postQuestion = (query, callback) => {
 
-  axios.post(
-    `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`, query,
-    {
-      headers: {
-        "Authorization": "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",
-        "Content-Type": "application/json"
-      }
-    }
-  )
-  .then((response) => {
-    console.log('Created Question!: ', response.data);
-    callback(null, response.data);
-  })
-  .catch((error) => {
-    callback(error);
-  });
+  // axios.post(
+  //   `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`, query,
+  //   {
+  //     headers: {
+  //       "Authorization": config.TOKEN,
+  //       "Content-Type": "application/json"
+  //     }
+  //   }
+  // )
+  // .then((response) => {
+  //   console.log('Created Question!: ', response.data);
+  //   callback(null, response.data);
+  // })
+  // .catch((error) => {
+  //   callback(error);
+  // });
 };
 
 const postAnswer = (query, callback) => {
