@@ -7,14 +7,13 @@ let options = {
   url: reviewsUrl,
   head: {
     headers: {
-      Authorization: config.TOKEN
+      'Authorization': config.TOKEN
     }
   }
 };
 
-
-// // ?product_id=37311
 // const getReviews = (id, callback) => {
+  //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews?product_id=37311
 //   axios.get(`${options.url}/reviews/${id}`, options.head)
 //     .then((reviews) => {
 //       console.log('Reviews: ', reviews.data);
@@ -27,7 +26,9 @@ let options = {
 // }
 
 const getReviewMetadata = function(id, callback) {
-  axios.get(`${options.url}/meta/?product_id=${id}`, options.head)
+//https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/meta?product_id=37311
+
+  axios.get(`${options.url}/meta?product_id=${id}`, options.head)
     .then(({data}) => {
       console.log('Reviews Metadata: ', data);
       callback(null, data);

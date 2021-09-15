@@ -35,7 +35,7 @@ class ReviewListEntry extends React.Component {
   }
 
   starRating() {
-    console.log(this.state.stars);
+    //console.log(this.state.stars);
   }
 
   render () {

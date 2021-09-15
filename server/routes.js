@@ -19,7 +19,7 @@ router.post('/qa/questions', controller.questions.post);
 
 router.put('/qa/questions', controller.questions.put);
 
-// ========= Ratings and Reviews ========================
+// ========= Ratings and Reviews ==========================
 // router.get('/reviews', controller.reviews.getReviews);
 
 router.get('/reviews/meta', controller.reviews.getReviewMetadata);

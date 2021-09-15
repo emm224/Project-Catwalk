@@ -1,12 +1,12 @@
 var models = require('../models');
 
 // const getReviews = function(req, res) {
-//   models.reviews.getReviews(req.query.id, (err, reviews) => {
+//   models.reviewModels.getReviews(req.body.id, (err, reviews) => {
 //     if (err) {
 //       console.error(err);
 //       res.sendStatus(500)
 //     } else {
-//       console.log('Product reviews: ', reviews);
+//       console.log(`Product ${req.body.id} reviews: `, reviews);
 //       res.setStatus(200);
 //       res.json(reviews);
 //     }
@@ -14,12 +14,12 @@ var models = require('../models');
 // }
 
 const getReviewMetadata = function(req, res) {
-  models.reviews.getReviewMetadata(req.body.id, (err, metadata) => {
+  models.reviewModels.getReviewMetadata(req.body.id, (err, metadata) => {
     if (err) {
       console.error(err);
       res.sendStatus(500)
     } else {
-      console.log('Product metadata: ', metadata);
+      console.log(`Product ${req.body.id} metadata: `, metadata);
       res.setStatus(200);
       res.json(metadata);
     }

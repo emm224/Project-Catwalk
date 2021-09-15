@@ -12,7 +12,6 @@ class Reviews extends React.Component {
     //bind
   }
 
-
   render() {
     return (
       <ReviewsStyle>
