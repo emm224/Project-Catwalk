@@ -20,11 +20,10 @@ class App extends React.Component {
           <h4>Placeholder for Q and A sections</h4>
       </div>
 
-
-      <div>RATINGS & REVIEWS</div>
       <div id='rateReview'>
           <RateReview />
       </div>
+
     </div>)
   }
 }
