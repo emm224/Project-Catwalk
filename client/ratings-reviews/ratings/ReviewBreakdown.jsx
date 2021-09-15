@@ -4,12 +4,14 @@ import styled from 'styled-components';
 class ReviewBreakdown extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      characteristics: this.props.characteristics
+    }
   }
 
   render() {
     return (
       <div>
-
         <div>Size</div>
           <ScaleStyle>
             <div>============</div>
