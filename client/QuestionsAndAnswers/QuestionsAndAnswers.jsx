@@ -1,24 +1,26 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 
 // import {listQuestionsData, answersListData} from './dummyData.js';
+import config from '../../config.js';
 
 import Questions from './Questions.jsx';
 import QuestionsList from './QuestionsList.jsx';
 
 const FlexContainer = styled.div`
-  border-radius: 10px;
-  padding: 5px;
-  margin: 5px;
-  max-width: 1280px;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+
 `;
 
 const Container = styled.div`
   border-radius: 10px;
   padding: 5px;
   margin: 5px;
-  max-width: 1280px;
+
 `;
 
 const QuestionsContainer = styled.div`
@@ -28,13 +30,13 @@ const QuestionsContainer = styled.div`
 `;
 
 const SearchContainer = styled.div`
-  width: 80%;
+  width: 100%;
   position: relative;
   display: flex;
 `;
 
 const SearchBar = styled.input`
-  width: 80%;
+  width: 1000px;
   box-sizing: border-box;
   border: 1px lightgrey;
   border-style: groove;
@@ -55,10 +57,38 @@ const SearchButton = styled.button`
   &:hover {
     background-color: white;
     border: 1px solid black;
-
-
-  transition: all ease 0.3s;
+    transition: all ease 0.3s;
   }
+`;
+
+const MoreAnswersButton = styled.button`
+  display:flex;
+  text-align:center;
+  background:white;
+  padding: 20px;
+  margin-left: 25px;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover {
+    background-color: lightgrey;
+    border: 1px solid black;
+    transition: all ease 0.3s;
+`;
+
+const AddAQuestionButton = styled.button`
+  display:flex;
+  text-align:center;
+  background:white;
+  padding: 20px;
+  margin-left: 25px;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover {
+    background-color: lightgrey;
+    border: 1px solid black;
+    transition: all ease 0.3s;
 `;
 
 const photoContainers = styled.div`
@@ -68,11 +98,10 @@ const photoContainers = styled.div`
   max-width: 1280px;
 `;
 
-
-
 class QuestionsAndAnswers extends React.Component {
   constructor(props) {
     super(props);
+    console.log(this.props)
 
     this.state = {
       questionsData: [],
@@ -82,27 +111,31 @@ class QuestionsAndAnswers extends React.Component {
       expandList: false
     };
 
+
+
       //bind
   }
 
-  componentDidMount() {
-
-    var options = {
-      headers: {
-        "Authorization": "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",
-        "Content-Type": "application/json"
+  componentDidMount(){
+    console.log('PRODUCT ID', this.props.productID);
+    var option={
+      headers:{
+        'Authorization':config.TOKEN,
+        'Content-Type': 'application/json'
       }
     }
 
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`, options)
-
-      .then((results) => {
-          console.log('Fetch Q Response: ', data);
-          callback(null, results.data);
-        })
-      .catch((error) => {
-        console.log('ERRORRRRR', error);
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/?product_id=${this.props.productID}`,option)
+    .then((results)=>{
+      console.log('Item ID: ', this.props.productID);
+      this.setState({
+        questionsData: results.data
       })
+      console.log('QA FETCH: ', this.state.questionsData)
+    })
+    .catch((error) => {
+      console.log('QA FETCH Error', error)
+    })
   }
 
 
@@ -122,28 +155,27 @@ class QuestionsAndAnswers extends React.Component {
 
     return (
 
-      <Container>
+      <FlexContainer>
+        <Container>
+          <h3>QUESTIONS & ANSWERS</h3>
 
+          <SearchContainer>
+            <SearchBar placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." type="text" />
+            <SearchButton />
+          </SearchContainer>
 
-        <SearchContainer>
+          <QuestionsContainer>
+            <Questions />
+          </QuestionsContainer>
 
-          <SearchBar placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." type="text" />
-          <SearchButton />
+          <MoreAnswersButton onClick={this.showMoreList}><b>MORE ANSWERED QUESTIONS</b></MoreAnswersButton>
 
-        </SearchContainer>
-
-        <QuestionsContainer>
-
-          <Questions />
-
-
-        </QuestionsContainer>
-
-      </Container>
-
+          <AddAQuestionButton onClick={this.showMoreList}><b>ADD A QUESTION +</b></AddAQuestionButton>
 
 
 
+        </Container>
+      </FlexContainer>
     )
   }
 }
