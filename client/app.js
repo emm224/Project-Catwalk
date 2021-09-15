@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import RelatedList from './relatedComparison/RelatedList.jsx';
 import RateReview from './ratings-reviews/index.jsx';
 import QuestionsAndAnswers from './QuestionsAndAnswers/index.jsx';
+import StarRating from './StarRating.js';
+import Outfit from './relatedComparison/Outfit.jsx';
 
 class App extends React.Component {
   render () {
@@ -11,7 +13,8 @@ class App extends React.Component {
       <div>Overview placeholder</div>
       <div id ='relatedAndComparison'>
           <RelatedList />
-          <h4>Placeholder for outfit sections</h4>
+          <Outfit />
+
       </div>
 
       <div>Questions and Answers</div>
