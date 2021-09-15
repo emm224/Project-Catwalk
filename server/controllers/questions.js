@@ -4,12 +4,11 @@ module.exports = {
 
   get: function (req, res) {
 
-    console.log('GET request: ', req);
+    models.questionsAPI.getQuestions( req.query, (err, results) => {
 
-    models.questionsAPI.getQuestions((err, results) => {
-
+      console.log('REQUEST : ', req)
       if (error) {
-        res.status(404).send(error);
+        res.status(404);
       } else {
         console.log('Retrieved All Questions!! ', results);
         res.status(200).send(results);
@@ -19,10 +18,7 @@ module.exports = {
 
   post: function (req, res) {
 
-    console.log('POST request: ', req)
-    var params = [req.body];
-
-    models.questionsAPI.postQuestions(params, (error, results) => {
+    models.questionsAPI.postQuestion( req.body, (error, results) => {
 
       if (error) {
         console.log('Body: ', req.body);

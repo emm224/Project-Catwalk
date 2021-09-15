@@ -13,64 +13,68 @@ const getQuestions = (query, callback) => {
     `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`,
     {
       headers: {
-        'User-Agent': 'request',
-        'Authorization': config.TOKEN
-      },
-    },
+        "Authorization": "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",
+        "Content-Type": "application/json"
+      }
+    }
   )
   .then((response) => {
     console.log('Fetch All Qs Response: ', response.data);
     callback(null, response.data);
   })
   .catch((error) => {
-    callback(error, null);
+    console.log('Fetching Error: ', error);
+    callback(error);
   });
 };
 
-const postQuestions = (query, callback) => {
-
-  let options = {
-
-    url: `${baseAPI}/qa/questions`,
-    headers: {
-      'User-Agent': 'request',
-      'Authorization': config.TOKEN
-    }
-  };
+const postQuestion = (query, callback) => {
 
   axios.post(
     `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`, query,
     {
       headers: {
-        'Authorization': config.TOKEN
-      },
-    },
+        "Authorization": "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",
+        "Content-Type": "application/json"
+      }
+    }
   )
   .then((response) => {
     console.log('Created Question!: ', response.data);
     callback(null, response.data);
   })
   .catch((error) => {
-    callback(error, null);
+    callback(error);
   });
 };
 
+const postAnswer = (query, callback) => {
+
+  axios.post(
+    `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${query.question_id}/answers`, query,
+    {
+      headers: {
+        Authorization: config.TOKEN
+      },
+    },
+  )
+  .then((response) => {
+    console.log('Created Answer!: ', response.data);
+    callback(null, response.data);
+  })
+  .catch((error) => {
+    callback(error);
+  });
+};
+
+
 const putQuestions = (query, callback) => {
-
-  let options = {
-
-    url: `${baseAPI}/qa/questions`,
-    headers: {
-      'User-Agent': 'request',
-      'Authorization': config.TOKEN
-    }
-  };
 
   axios.put(
     `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`, query,
     {
       headers: {
-        'Authorization': config.TOKEN
+        Authorization: config.TOKEN
       },
     },
   )
@@ -79,10 +83,10 @@ const putQuestions = (query, callback) => {
     callback(null, response.data);
   })
   .catch((error) => {
-    callback(error, null);
+    callback(error);
   });
 };
 
 module.exports.getQuestions = getQuestions;
-module.exports.postQuestions = postQuestions;
+module.exports.postQuestion = postQuestion;
 module.exports.putQuestions = putQuestions;

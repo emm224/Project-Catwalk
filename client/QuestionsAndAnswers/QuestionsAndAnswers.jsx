@@ -74,22 +74,30 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchQuestionID();
-  }
 
-  fetchQuestionID() {
-  // console.log('DummyData: ', listQuestionsData);
-    axios.get('/qa/questions')
-      .then((response) => {
-        console.log('Fetch Q Response: ', response);
-        this.setState({
-          questionsData: response.data
-        });
+    var options = {
+      headers: {
+        "Authorization": "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",
+        "Content-Type": "application/json"
+      }
+    }
+
+
+
+
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`, options)
+
+    .then(data => data.json())
+    .then((data) => {
+        console.log('Fetch Q Response: ', data);
+        // this.setState({
+        //   questionsData: response.data
+        // });
       })
       .catch((error) => {
-        console.log('Cannot retrieve Questions: ', error)
-      });
-  }
+        console.log('ERRORRRRR', error)
+      })
+    }
 
 
   handleSearch() {
