@@ -14,3 +14,13 @@
   right:5px;
   cursor:pointer;
 }
+#slideLeft {
+  position: absolute;
+  top: 50%;
+  left:-10px;
+}
+#slideRight {
+  position: absolute;
+  top: 50%;
+  right:0px;
+}

@@ -36,15 +36,31 @@ class Outfit extends React.Component {
     }
     )
   }
+  handleClick(){
+    const buttonRight = document.getElementById('slideRight');
+    const buttonLeft = document.getElementById('slideLeft');
+
+    buttonRight.onclick = function () {
+      document.getElementById('outfit').scrollLeft += 40;
+    };
+    buttonLeft.onclick = function () {
+      document.getElementById('outfit').scrollLeft -= 40;
+    };
+  }
+
   render () {
     return (
     <Container>
       <h3>OUTFIT</h3>
+      <OutfitContainer id = 'outfit'>
       <ListContainer>
       {this.state.relatedList.map(item=>
         <Card item ={item} key = {item.id}/>
       )}
       </ListContainer>
+      </OutfitContainer>
+      <button id="slideLeft" type="button" onClick = {this.handleClick}> &#60;</button>
+      <button id="slideRight" type="button"onClick = {this.handleClick}> &#62; </button>
     </Container>
     )
   }
@@ -57,7 +73,12 @@ var ListContainer = styled.div`
 var Container = styled.div`
   width:80%;
   margin:0 auto;
-  overflow-x:scroll;
+  position:relative;
 `;
+
+var OutfitContainer = styled.div`
+  padding:20px;
+  overflow-x:hidden;
+`
 
 export default Outfit;
