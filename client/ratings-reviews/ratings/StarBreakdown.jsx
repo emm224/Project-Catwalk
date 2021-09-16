@@ -34,22 +34,60 @@ class StarBreakdown extends React.Component {
     return rounded;
   }
 
+  starDisplay() {
+    var filled = this.starAverage();
+    var empty = 5 - this.starAverage();
+    var stars = '';
+    for (var i = 0; i < Math.floor(filled); i++) {
+      stars += '★';
+    }
+    for (var i = 0; i < Math.ceil(empty); i++) {
+      stars += '☆';
+    }
+    return stars;
+  }
+
   render() {
     return (
       <div>
         <StarBreakdownStyle>
           <NumberStyle>{this.starAverage()}</NumberStyle>
-          <div>★★★☆☆</div>
+          <div>{this.starDisplay()}</div>
         </StarBreakdownStyle>
 
         <StarBarGraphStyle>{this.percentRecommended()} of reviews recommend this product</StarBarGraphStyle>
 
-        <StarBarGraphStyle><u>5 star(s) </u> =========================</StarBarGraphStyle>
-        <StarBarGraphStyle><u>4 star(s)</u> =========================</StarBarGraphStyle>
-        <StarBarGraphStyle><u>3 star(s)</u> =========================</StarBarGraphStyle>
-        <StarBarGraphStyle><u>2 star(s)</u> =========================</StarBarGraphStyle>
-        <StarBarGraphStyle><u>1 star(s) </u> =========================</StarBarGraphStyle>
+        <StarBarGraphStyle>
+          <u>5 star(s)</u>
+          <ShadedStyle>x</ShadedStyle>
+          <UnshadedStyle>x</UnshadedStyle>
+        </StarBarGraphStyle>
 
+        <StarBarGraphStyle>
+          <u>4 star(s)</u>
+          <ShadedStyle>x</ShadedStyle>
+          <UnshadedStyle>x</UnshadedStyle>
+        </StarBarGraphStyle>
+
+        <StarBarGraphStyle>
+          <u>3 star(s)</u>
+          <ShadedStyle>x</ShadedStyle>
+          <UnshadedStyle>x</UnshadedStyle>
+        </StarBarGraphStyle>
+
+        <StarBarGraphStyle>
+          <u>2 star(s)</u>
+          <ShadedStyle>x</ShadedStyle>
+          <UnshadedStyle>x</UnshadedStyle>
+        </StarBarGraphStyle>
+
+        <StarBarGraphStyle>
+          <u>1 star(s)</u>
+          <ShadedStyle>x</ShadedStyle>
+          <UnshadedStyle>x</UnshadedStyle>
+        </StarBarGraphStyle>
+
+        <br></br>
       </div>
     );
   }
@@ -63,6 +101,21 @@ var StarBreakdownStyle = styled.div`
 var StarBarGraphStyle = styled.div`
   margin-bottom: 15px;
   font-size: 12px;
+  display: flex;
+`;
+
+var ShadedStyle = styled.div`
+  background: black;
+  width: 80px;
+  margin-left: 10px;
+  color: black;
+`;
+
+var UnshadedStyle = styled.div`
+  background: lightgray;
+  width: 80px;
+  color: lightgray;
+  margin-right: 25px;
 `;
 
 var NumberStyle = styled.div`

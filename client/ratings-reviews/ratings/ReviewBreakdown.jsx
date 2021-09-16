@@ -13,11 +13,13 @@ class ReviewBreakdown extends React.Component {
     return (
       <div>
         <div>Size</div>
+
           <ScaleStyle>
-            <div>============</div>
-            <div>=========▼==</div>
-            <div>============</div>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
           </ScaleStyle>
+
           <ScaleStyle>
             <p>Too small</p>
             <p>Perfect</p>
@@ -25,11 +27,13 @@ class ReviewBreakdown extends React.Component {
           </ScaleStyle>
 
         <div>Comfort</div>
+
         <ScaleStyle>
-            <div>============</div>
-            <div>======▼=====</div>
-            <div>============</div>
-          </ScaleStyle>
+          <ComfortEndStyle>x</ComfortEndStyle>
+          <ComfortMiddleStyle>x</ComfortMiddleStyle>
+          <ComfortEndStyle>x</ComfortEndStyle>
+        </ScaleStyle>
+
           <ScaleStyle>
             <p>Poor</p>
             <p>Perfect</p>
@@ -49,5 +53,22 @@ var ScaleStyle = styled.div`
   font-size: 10px;
 `;
 
+var ShadedStyle = styled.div`
+  color: lightgray;
+  background: lightgray;
+  width: 75px;
+`;
+
+var ComfortEndStyle = styled.div`
+  color: lightgray;
+  background: lightgray;
+  width: 50px;
+`;
+
+var ComfortMiddleStyle = styled.div`
+  color: lightgray;
+  background: lightgray;
+  width: 120px;
+`;
 
 export default ReviewBreakdown;

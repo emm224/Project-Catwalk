@@ -10,50 +10,51 @@ class RateReview extends React.Component {
     super(props);
     this.state = {
       reviews: [],
-      ratings: []
+      ratings: [],
+      product_id: ''
     };
     //bind
   }
 
-  componentDidMount() {
-    // this.getReviews();
-    // this.getRatings();
-  };
+  // componentDidMount() {
+  //   this.getReviews();
+  //   // this.getRatings();
+  // };
 
-  getReviews() {
-    axios.get('/reviews')
-      .then(({data}) => {
-        console.log(data);
-        // this.setState({
-        // reviews:
-        // });
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
+  // getReviews() {
+  //   axios.get('api/products/reviews', {'id': 37311})
+  //     .then(({data}) => {
+  //       console.log(data);
+  //       // this.setState({
+  //       // reviews: data
+  //       // });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  // }
 
-  getRatings() {
-    axios.get('/reviews/meta')
-    .then(({data}) => {
-      console.log(data);
-      // this.setState({
-      // ratings:
-      // });
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
+  // getRatings() {
+  //   axios.get('api/products/reviews/meta', {'id': 37311})
+  //   .then(({data}) => {
+  //     console.log(data);
+  //     // this.setState({
+  //     // ratings: data
+  //     // });
+  //   })
+  //   .catch((err) => {
+  //     console.log('Client error');
+  //   })
+  // }
 
   render() {
     return (
-      <div>RATINGS & REVIEWS
+      <HeaderStyle>RATINGS & REVIEWS
         <RateReviewStyle>
-          <Ratings />
+          <Ratings ratings={this.state.ratings}/>
           <Reviews reviews={this.state.reviews} />
         </RateReviewStyle>
-      </div>
+      </HeaderStyle>
     )
   }
 }
@@ -62,7 +63,9 @@ var RateReviewStyle = styled.div`
   display: flex;
   margin-top: 10px;
   font-family: Arial, Helvetica, sans-serif;
-
 `;
 
+var HeaderStyle = styled.div`
+  font-family: Arial, Helvetica, sans-serif;
+`;
 export default RateReview;
