@@ -1,10 +1,8 @@
 const axios = require('axios');
 const config = require('../../config.js');
 
-const reviewsUrl = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews`;
-
 let options = {
-  url: reviewsUrl,
+  url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews`,
   head: {
     headers: {
       'Authorization': config.TOKEN
@@ -12,25 +10,25 @@ let options = {
   }
 };
 
-// const getReviews = (id, callback) => {
-  //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews?product_id=37311
-//   axios.get(`${options.url}/reviews/${id}`, options.head)
-//     .then((reviews) => {
-//       console.log('Reviews: ', reviews.data);
-//       callback(null, reviews.data);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       callback(err);
-//     })
-// }
+const getReviews = (id, callback) => {
+//https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews?product_id=37311
+
+  axios.get(`${options.url}/reviews/?product_id=${id}`, options.head)
+    .then(({data}) => {
+      console.log('Reviews: ', data);
+      callback(null, data);
+    })
+    .catch((err) => {
+      console.error(err);
+      callback(err);
+    })
+}
 
 const getReviewMetadata = function(id, callback) {
 //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/meta?product_id=37311
 
-  axios.get(`${options.url}/meta?product_id=${id}`, options.head)
+  axios.get(`${options.url}/meta/?product_id=${id}`, options.head)
     .then(({data}) => {
-      console.log('Reviews Metadata: ', data);
       callback(null, data);
     })
     .catch((err) => {
@@ -88,7 +86,7 @@ const getReviewMetadata = function(id, callback) {
 // }
 
 module.exports = {
-  // getReviews,
+  getReviews,
   getReviewMetadata,
   // addReview,
   // markHelpful,

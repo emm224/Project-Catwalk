@@ -18,21 +18,7 @@ class RateReview extends React.Component {
   };
 
   getReviews() {
-    var options = {
-      head: {
-        headers: {
-          'Authorization': config2.TOKEN
-        }
-      }
-    }
 
-    fetch(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews?product_id=37311`, options.head)
-      .then(data => data.json())
-      .then(data => {
-        this.setState({
-          reviews: data.results
-        })
-      })
   }
 
   render() {
