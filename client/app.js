@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import RelatedList from './relatedComparison/RelatedList.jsx';
 import RateReview from './ratings-reviews/index.jsx';
+import ProductOverview from './Overview/index.jsx';
 import QuestionsAndAnswers from './QuestionsAndAnswers/QuestionsAndAnswers.jsx';
 import Outfit from './relatedComparison/Outfit.jsx';
 
@@ -71,11 +72,17 @@ class App extends React.Component {
     return (
 
     <div>
+<<<<<<< HEAD
+      <div id='productOverview'>Product Overview Placeholder
+        <ProductOverview />
+      </div>
+=======
       <TitleHeader>
         <h1 >Team Orcus LOGO</h1>
       </TitleHeader>
 
 
+>>>>>>> master
       <div id ='relatedAndComparison'>
           <RelatedList />
           <Outfit />
