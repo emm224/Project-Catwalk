@@ -12,12 +12,22 @@ class ReviewBreakdown extends React.Component {
 
         <div>Size</div>
           <ScaleStyle>
+            <div>============</div>
+            <div>=========▼==</div>
+            <div>============</div>
+          </ScaleStyle>
+          <ScaleStyle>
             <p>Too small</p>
             <p>Perfect</p>
             <p>Too large</p>
           </ScaleStyle>
 
         <div>Comfort</div>
+        <ScaleStyle>
+            <div>============</div>
+            <div>======▼=====</div>
+            <div>============</div>
+          </ScaleStyle>
           <ScaleStyle>
             <p>Poor</p>
             <p>Perfect</p>

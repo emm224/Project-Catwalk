@@ -12,6 +12,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(morgan('dev'));
 
 app.use('/api/products', router);
+app.use('/api/qa/questions', router);
+app.use('/api/qa/answers', router);
 
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
