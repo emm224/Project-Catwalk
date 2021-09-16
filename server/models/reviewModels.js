@@ -10,16 +10,15 @@ let options = {
   }
 };
 
-const getReviews = (id, callback) => {
+const getReviews = function(id, callback) {
 //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews?product_id=37311
 
-  axios.get(`${options.url}/reviews/?product_id=${id}`, options.head)
+  axios.get(`${options.url}/?product_id=${id}`, options.head)
     .then(({data}) => {
-      console.log('Reviews: ', data);
       callback(null, data);
     })
     .catch((err) => {
-      console.error(err);
+      console.log(err);
       callback(err);
     })
 }
@@ -32,7 +31,7 @@ const getReviewMetadata = function(id, callback) {
       callback(null, data);
     })
     .catch((err) => {
-      console.error(err);
+      console.log(err);
       callback(err);
     })
 }

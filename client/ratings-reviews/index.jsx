@@ -1,24 +1,49 @@
 import React from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
+
 import Reviews from './reviews/app.jsx';
 import Ratings from './ratings/app.jsx';
-import config2 from './config2.js';
 
 class RateReview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviews: []
+      reviews: [],
+      ratings: []
     };
     //bind
   }
 
   componentDidMount() {
-    this.getReviews();
+    // this.getReviews();
+    // this.getRatings();
   };
 
   getReviews() {
+    axios.get('/reviews')
+      .then(({data}) => {
+        console.log(data);
+        // this.setState({
+        // reviews:
+        // });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
+  getRatings() {
+    axios.get('/reviews/meta')
+    .then(({data}) => {
+      console.log(data);
+      // this.setState({
+      // ratings:
+      // });
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   render() {
