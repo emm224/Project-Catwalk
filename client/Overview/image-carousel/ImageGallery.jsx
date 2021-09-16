@@ -51,7 +51,7 @@ class ImageGallery extends React.Component {
       height: '100%',
       width: '100%',
       backgroundColor: '#ddd',
-      position: 'relative'
+      position: 'relative',
     }
     return (
         <Carousel style={carouselStyle} photos={this.state.photos} imageIndex={this.state.imageIndex} onImageClick={this.zoomFunction} nextImage={this.nextImage} prevImage={this.previousImage}>

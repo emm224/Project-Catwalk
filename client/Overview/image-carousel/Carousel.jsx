@@ -10,11 +10,10 @@ const Carousel = (props) => {
   }
 
   return (
-    <div>
       <ImageList className="imageList" photos={props.photos} imageIndex={props.imageIndex} onImageClick={props.onImageClick} imageIndex={props.imageIndex} prevImage={props.prevImage} nextImage={props.nextImage}/>
-    </div>
   );
 };
+
 
 export default Carousel;
 

@@ -78,22 +78,24 @@ class Product extends React.Component {
 
 var Grid = styled.div`
   display: grid;
-  grid-template-columns: 50% 50%
+  grid-template-columns: 600px 600px;
   margin-top: 20px;
   margin-bot: 20px
 `
-
+// set left container to 100% width
 var LeftContainer = styled.div`
   display: grid;
   grid-column-start: 1;
   grid-column-end: 2;
-  min-height: 700px
+  min-height: 500px;
+  max-width: 100%;
 `
 
 var RightContainer = styled.div`
   display: grid;
   grid-column-start: 2;
   grid-column-end: 3;
+  max-width: 700px
 `
 
 export default Product

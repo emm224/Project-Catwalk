@@ -34,7 +34,7 @@ import styled from 'styled-components';
 
 const Image = (props) => {
   return (
-    <ImageDiv imageUrl={props.imageUrl}className="imageDiv"/>
+    <ImageDiv imageUrl={props.imageUrl} className="imageDiv"/>
   )
 }
 
@@ -42,14 +42,14 @@ const Image = (props) => {
 var ImageDiv = styled.div`
     height: 100%;
     width: 100%;
-    display: block;
+    display: flex;
     background-image: url('${props => props.imageUrl}');
     background-size: cover;
-    flex: 0 0 auto;
     cursor: pointer;
     position: absolute;
-    aspectRatio:3/2
     transition: all 150ms linear;
+    min-height: 100%
+    justify-content: center;
   `;
 export default Image;
 

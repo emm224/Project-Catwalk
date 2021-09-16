@@ -34,13 +34,17 @@ const ImageList = (props) => {
   )
 }
 
+// forces image to certain size no bigger no less
+// margin: 0 auto centers
 var ImageFrame = styled.div`
-  height: 100%;s
-  width: 100%;
+  height: 500px;
+  width: 400px;
   display: flex;
   overflow: hidden;
   flex-wrap: no-wrap;
   position: relative;
+  margin: 0 auto
+
 `;
 
 const ArrowLeft = styled.button`
