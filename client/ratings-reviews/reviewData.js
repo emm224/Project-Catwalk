@@ -27,10 +27,10 @@ var data = [
         },
         {
             "review_id": 841034,
-            "rating": 5,
+            "rating": 4,
             "summary": "Wow!!",
             "recommend": true,
-            "response": null,
+            "response": 'Even better wow!',
             "body": "This product was so cool I am surprised!",
             "date": "2021-09-16T00:00:00.000Z",
             "reviewer_name": "chris",

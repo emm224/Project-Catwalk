@@ -5,8 +5,16 @@ class StarBreakdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      five: this.reviewDistribution(5),
+      four: this.reviewDistribution(4),
+      three: this.reviewDistribution(3),
+      two: this.reviewDistribution(2),
+      one: this.reviewDistribution(1)
     }
+  }
+
+  componentDidMount() {
+    console.log(this.state);
   }
 
   percentRecommended() {
@@ -15,7 +23,18 @@ class StarBreakdown extends React.Component {
     var percent = Math.round((x / (x + y)) * 100) + '%';
     return percent;
   }
-
+  reviewDistribution(n) {
+    var count = this.props.ratings[n];
+    var total = 0;
+    for (var key in this.props.ratings) {
+      total += Number(this.props.ratings[key]);
+    }
+    var percent = count / total * 100;
+    if (Number.isNaN(percent)) {
+      percent = 0;
+    }
+    return percent;
+  }
   starAverage() {
     var ratings = this.props.ratings;
     var sumRatings = 0;
@@ -33,7 +52,6 @@ class StarBreakdown extends React.Component {
     var rounded = Math.round(averageRating * 10) /10;
     return rounded;
   }
-
   starDisplay() {
     var filled = this.starAverage();
     var empty = 5 - this.starAverage();
@@ -54,39 +72,44 @@ class StarBreakdown extends React.Component {
           <NumberStyle>{this.starAverage()}</NumberStyle>
           <div>{this.starDisplay()}</div>
         </StarBreakdownStyle>
-
-        <StarBarGraphStyle>{this.percentRecommended()} of reviews recommend this product</StarBarGraphStyle>
-
+        <StarBarGraphStyle>
+          {this.percentRecommended()} of reviews recommend this product
+        </StarBarGraphStyle>
         <StarBarGraphStyle>
           <u>5 star(s)</u>
-          <ShadedStyle>x</ShadedStyle>
-          <UnshadedStyle>x</UnshadedStyle>
+          <BarStyle>
+            <FiveShadedStyle shade={this.state.five}>x</FiveShadedStyle>
+            <FiveUnshadedStyle unshade={this.state.five}>x</FiveUnshadedStyle>
+          </BarStyle>
         </StarBarGraphStyle>
-
         <StarBarGraphStyle>
           <u>4 star(s)</u>
-          <ShadedStyle>x</ShadedStyle>
-          <UnshadedStyle>x</UnshadedStyle>
+          <BarStyle>
+            <FourShadedStyle shade={this.state.four}>x</FourShadedStyle>
+            <FourUnshadedStyle unshade={this.state.four}>x</FourUnshadedStyle>
+          </BarStyle>
         </StarBarGraphStyle>
-
         <StarBarGraphStyle>
           <u>3 star(s)</u>
-          <ShadedStyle>x</ShadedStyle>
-          <UnshadedStyle>x</UnshadedStyle>
+          <BarStyle>
+            <ThreeShadedStyle shade={this.state.three}>x</ThreeShadedStyle>
+            <ThreeUnshadedStyle unshade={this.state.three}>x</ThreeUnshadedStyle>
+          </BarStyle>
         </StarBarGraphStyle>
-
         <StarBarGraphStyle>
           <u>2 star(s)</u>
-          <ShadedStyle>x</ShadedStyle>
-          <UnshadedStyle>x</UnshadedStyle>
+          <BarStyle>
+            <TwoShadedStyle shade={this.state.two}>x</TwoShadedStyle>
+            <TwoUnshadedStyle unshade={this.state.two}>x</TwoUnshadedStyle>
+          </BarStyle>
         </StarBarGraphStyle>
-
         <StarBarGraphStyle>
           <u>1 star(s)</u>
-          <ShadedStyle>x</ShadedStyle>
-          <UnshadedStyle>x</UnshadedStyle>
+          <BarStyle>
+            <OneShadedStyle shade={this.state.one}>x</OneShadedStyle>
+            <OneUnshadedStyle unshade={this.state.one}>x</OneUnshadedStyle>
+          </BarStyle>
         </StarBarGraphStyle>
-
         <br></br>
       </div>
     );
@@ -97,31 +120,90 @@ var StarBreakdownStyle = styled.div`
   display: flex;
   margin-bottom: 20px;
 `;
-
 var StarBarGraphStyle = styled.div`
   margin-bottom: 15px;
   font-size: 12px;
   display: flex;
+  width: 300px;
 `;
-
-var ShadedStyle = styled.div`
-  background: black;
-  width: 80px;
-  margin-left: 10px;
-  color: black;
+var BarStyle = styled.div`
+  width: 200px;
+  display: flex;
+  height: 10px;
 `;
-
-var UnshadedStyle = styled.div`
-  background: lightgray;
-  width: 80px;
-  color: lightgray;
-  margin-right: 25px;
-`;
-
 var NumberStyle = styled.div`
   font-size: 48px;
   margin-right: 10px;
 `;
-
+var OneShadedStyle = styled.div`
+  background: black;
+  width: ${props => props.shade}%;
+  margin-left: 10px;
+  color: black;
+  font-size: 1px;
+`;
+var OneUnshadedStyle = styled.div`
+  background: lightgray;
+  width: ${props => 100 - props.unshade}%;
+  color: lightgray;
+  font-size: 1px;
+  margin-right: 25px;
+`;
+var TwoShadedStyle = styled.div`
+  background: black;
+  width: ${props => props.shade}%;
+  margin-left: 10px;
+  color: black;
+  font-size: 1px;
+`;
+var TwoUnshadedStyle = styled.div`
+  background: lightgray;
+  width: ${props => 100 - props.unshade}%;
+  color: lightgray;
+  font-size: 1px;
+  margin-right: 25px;
+`;
+var ThreeShadedStyle = styled.div`
+  background: black;
+  width: ${props => props.shade}%;
+  margin-left: 10px;
+  color: black;
+  font-size: 1px;
+`;
+var ThreeUnshadedStyle = styled.div`
+  background: lightgray;
+  width: ${props => 100 - props.unshade}%;
+  color: lightgray;
+  font-size: 1px;
+  margin-right: 25px;
+`;
+var FourShadedStyle = styled.div`
+  background: black;
+  width: ${props => props.shade}%;
+  margin-left: 10px;
+  color: black;
+  font-size: 1px;
+`;
+var FourUnshadedStyle = styled.div`
+  background: lightgray;
+  width: ${props => 100 - props.unshade}%;
+  color: lightgray;
+  font-size: 1px;
+  margin-right: 25px;
+`;
+var FiveShadedStyle = styled.div`
+  background: black;
+  width: ${props => props.shade}%;
+  margin-left: 10px;
+  color: black;
+  font-size: 1px;
+`;
+var FiveUnshadedStyle = styled.div`
+  background: lightgray;
+  width: ${props => 100 - props.unshade}%;
+  color: lightgray;
+  font-size: 1px;
+  margin-right: 25px;
+`;
 
 export default StarBreakdown;
