@@ -26,7 +26,6 @@ class Ratings extends React.Component {
 }
 
 var RatingsStyle = styled.div`
-  margin-left: 25px;
 `;
 
 export default Ratings;

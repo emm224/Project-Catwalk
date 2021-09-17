@@ -1,23 +1,20 @@
 var models = require('../models');
 
 const getReviews = function(req, res) {
-  // console.log('TESTSTESTTSETRESTETSET', req.body, req.query);
-  models.reviewModels.getReviews(req.body.id, (err, reviews) => {
+  models.reviewModels.getReviews(req.query.id, (err, reviews) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      console.log(`Product ${req.body.id} reviews: `, reviews);
       res.status(200).json(reviews);
     }
   });
 }
 
 const getReviewMetadata = function(req, res) {
-  models.reviewModels.getReviewMetadata(req.body.id, (err, metadata) => {
+  models.reviewModels.getReviewMetadata(req.query.id, (err, metadata) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      console.log(`Product ${req.body.id} metadata: `, metadata);
       res.status(200).json(metadata);
     }
   });

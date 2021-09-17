@@ -5,25 +5,25 @@ import MoreReviews from './MoreReviews.jsx';
 import ReviewListEntry from './ReviewListEntry.jsx';
 
 const ReviewList = (props) => (
-  <div className='review-list'>
-    {props.reviews.length} reviews, sorted by <u>relevance ∨</u>
+  <ReviewListStyle>
 
-    <ul>
-      {props.reviews.map((review) => <ReviewListEntry review={review} key={review.review_id}/>)}
-    </ul>
+    {props.reviews.length} reviews, sorted by <u>relevance ∨</u>
+    {props.reviews.map((review) => <ReviewListEntry review={review} key={review.review_id}/>)}
 
     <ReviewButtonsStyle>
       <MoreReviews />
       <AddReview />
     </ReviewButtonsStyle>
 
-  </div>
+  </ReviewListStyle>
 );
 
 var ReviewButtonsStyle = styled.div`
   display: flex;
-  margin-left: 10px;
-  padding-left: 10px;
+`;
+
+var ReviewListStyle = styled.div`
+  width: 650px;
 `;
 
 export default ReviewList;

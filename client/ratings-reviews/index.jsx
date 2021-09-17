@@ -10,42 +10,44 @@ class RateReview extends React.Component {
     super(props);
     this.state = {
       reviews: [],
-      ratings: [],
-      product_id: ''
+      ratings: []
     };
     //bind
   }
 
-  // componentDidMount() {
-  //   this.getReviews();
-  //   // this.getRatings();
-  // };
+  componentDidMount() {
+    console.log(this.props.id);
+    this.getReviewsandRatings();
+  };
 
-  // getReviews() {
-  //   axios.get('api/products/reviews', {'id': 37311})
-  //     .then(({data}) => {
-  //       console.log(data);
-  //       // this.setState({
-  //       // reviews: data
-  //       // });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  // }
+  getReviewsandRatings() {
+    var product = {
+      params: {
+        id: this.props.id
+      }
+    }
 
-  // getRatings() {
-  //   axios.get('api/products/reviews/meta', {'id': 37311})
-  //   .then(({data}) => {
-  //     console.log(data);
-  //     // this.setState({
-  //     // ratings: data
-  //     // });
-  //   })
-  //   .catch((err) => {
-  //     console.log('Client error');
-  //   })
-  // }
+    axios.get('/api/products/reviews', product)
+      .then(({data}) => {
+        console.log('get reviews', data);
+        this.setState({
+          reviews: data.results
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+    axios.get('api/products/reviews/meta', product)
+    .then(({data}) => {
+      console.log('get ratings', data);
+      this.setState({
+      })
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
   render() {
     return (
@@ -63,9 +65,12 @@ var RateReviewStyle = styled.div`
   display: flex;
   margin-top: 10px;
   font-family: Arial, Helvetica, sans-serif;
+  justify-content: left;
 `;
 
 var HeaderStyle = styled.div`
   font-family: Arial, Helvetica, sans-serif;
+  margin-left: 200px;
+  margin-top: 50px;
 `;
 export default RateReview;
