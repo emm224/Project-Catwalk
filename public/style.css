@@ -5,10 +5,13 @@
   color: rgb(230, 230, 230);
 }
 .star {
- font-size: large;
+  font-size: large;
+  position: absolute;
+  right:5px;
+  cursor:pointer;
+  font-weight: bold;
 }
-.heart {
-  color:red;
+.delete {
   font-size: 20px;
   position: absolute;
   right:5px;
@@ -18,9 +21,84 @@
   position: absolute;
   top: 50%;
   left:-10px;
+  border:none;
+  outline: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+  cursor:pointer;
 }
 #slideRight {
   position: absolute;
   top: 50%;
   right:0px;
+  border:none;
+  outline: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+  cursor:pointer;
+}
+#slideRight:hover{
+  background-color: black;
+  color:white;
+  transition-duration: 0.5s;
+}
+#slideLeft:hover{
+  background-color: black;
+  color:white;
+  transition-duration: 0.5s;
+}
+#relatedslideLeft {
+  position: absolute;
+  top: 50%;
+  left:-10px;
+  border:none;
+  outline: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+  cursor:pointer;
+}
+#relatedslideLeft:hover{
+  background-color: black;
+  color:white;
+  transition-duration: 0.5s;
+}
+#relatedslideRight:hover{
+  background-color: black;
+  color:white;
+  transition-duration: 0.5s;
+}
+#relatedslideRight {
+  position: absolute;
+  top: 50%;
+  right:0px;
+  border:none;
+  outline: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+  cursor:pointer;
+}
+#pop {
+  position:fixed;
+  width:50vw;
+  height:60vh;
+  top:50%;
+  transform: translateY(-50%);
+  right:25vw;
+  background-color: yellowgreen;
+  overflow: hidden;
+  z-index: 99;
+  display: flex;
+
+}
+
+.seleted{
+  display: inline-block;
+  width:50%;
+  text-align: center;
+}
+
+#popbtn {
+  position: absolute;
+  top:0;
+  right:0;
 }

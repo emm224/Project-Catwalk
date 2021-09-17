@@ -12,8 +12,8 @@ class App extends React.Component {
     <div>
       <div>Overview placeholder</div>
       <div id ='relatedAndComparison'>
-          <RelatedList />
-          <Outfit />
+          <RelatedList list = {'related'}/>
+          <Outfit list = {'outfit'}/>
 
       </div>
 
