@@ -13,11 +13,11 @@ router.get('/cart', controller.cart.getAllInCart);
 router.post('/cart', controller.cart.addProductToCart);
 
 // ========= Questions and Answers ========================
-router.get('/qa/questions', controller.questions.get);
+// router.get('/qa/questions', controller.questions.get);
 
-router.post('/qa/questions', controller.questions.post);
+// router.post('/qa/questions', controller.questions.post);
 
-router.put('/qa/questions', controller.questions.put);
+// router.put('/qa/questions', controller.questions.put);
 
 // ========= Ratings and Reviews ==========================
 router.get('/reviews', controller.reviews.getReviews);
