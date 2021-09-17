@@ -1,7 +1,6 @@
 var models = require('../models');
 
 const getReviews = function(req, res) {
-  // console.log('TESTSTESTTSETRESTETSET', req.body, req.query);
   models.reviewModels.getReviews(req.body.id, (err, reviews) => {
     if (err) {
       res.status(500).send(err);

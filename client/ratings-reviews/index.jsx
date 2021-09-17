@@ -18,7 +18,7 @@ class RateReview extends React.Component {
 
   // componentDidMount() {
   //   this.getReviews();
-  //   // this.getRatings();
+  //   this.getRatings();
   // };
 
   // getReviews() {

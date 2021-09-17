@@ -26,7 +26,7 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchQuestionID();
+    // this.fetchQuestionID();
   }
 
   fetchQuestionID() {

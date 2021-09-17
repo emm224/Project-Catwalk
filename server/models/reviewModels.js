@@ -12,7 +12,6 @@ let options = {
 //
 const getReviews = function(id, callback) {
 //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews?product_id=37311
-
   axios.get(`${options.url}/?product_id=${id}`, options.head)
     .then(({data}) => {
       callback(null, data);
@@ -25,7 +24,6 @@ const getReviews = function(id, callback) {
 
 const getReviewMetadata = function(id, callback) {
 //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/meta?product_id=37311
-
   axios.get(`${options.url}/meta/?product_id=${id}`, options.head)
     .then(({data}) => {
       callback(null, data);
