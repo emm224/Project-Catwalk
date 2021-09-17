@@ -48,9 +48,7 @@ class ReviewListEntry extends React.Component {
   }
 
   conditionalResponse() {
-    if (this.props.review.response === null) {
-      return ;
-    } else {
+    if (this.props.review.response !== null) {
       return (
         <ResponseStyle>
           <ResponseHeaderStyle>Response: </ResponseHeaderStyle> <br></br>
@@ -58,6 +56,10 @@ class ReviewListEntry extends React.Component {
         </ResponseStyle>
       );
     }
+  }
+
+  conditionalRecommend() {
+    if (this.props.review.recommend) {return (<RecommendStyle>✓ I recommend this product</RecommendStyle>);}
   }
 
   markHelpful() {
@@ -83,6 +85,7 @@ class ReviewListEntry extends React.Component {
 
         <SummaryStyle>{this.props.review.body}</SummaryStyle>
 
+        {this.conditionalRecommend()}
         {this.conditionalResponse()}
 
 
@@ -117,6 +120,9 @@ var TopRightStyle = styled.div`
   color: gray;
 `;
 var SummaryStyle = styled.div`
+  margin-bottom: 10px;
+`;
+var RecommendStyle = styled.div`
   margin-bottom: 10px;
 `;
 var BottomRowStyle = styled.div`

@@ -45,30 +45,32 @@ class ReviewBreakdown extends React.Component {
 }
 
 var ReviewBreakdownStyle = styled.div`
+
 `;
 
 var ScaleStyle = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 10px;
+  width: 73%;
 `;
 
 var ShadedStyle = styled.div`
   color: lightgray;
   background: lightgray;
-  width: 75px;
+  width: 32%;
 `;
 
 var ComfortEndStyle = styled.div`
   color: lightgray;
   background: lightgray;
-  width: 50px;
+  width: 26%;
 `;
 
 var ComfortMiddleStyle = styled.div`
   color: lightgray;
   background: lightgray;
-  width: 120px;
+  width: 45%;
 `;
 
 export default ReviewBreakdown;
