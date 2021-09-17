@@ -19,9 +19,7 @@
 // };
 
 const axios = require('axios');
-// const config = require('../../config.js');
-
-var fecTOKEN = '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';
+const config = require('../../config.js');
 
 var baseUrl = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe`
 
@@ -58,11 +56,11 @@ let getProductById = (id, callback) => {
 
   axios.get(options.url, options.head)
     .then((product) => {
-      console.log(product.data)
+      // console.log(product.data)
       callback(null, product.data)
     })
     .catch(err => {
-      console.log(err)
+      // console.log(err)
       callback(err)
     })
 }

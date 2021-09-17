@@ -3,11 +3,11 @@ import Card from './Card.jsx';
 import styled from 'styled-components';
 import config from '../../config.js'
 
-class RelatedList extends React.Component {
+class Outfit extends React.Component {
   constructor(){
     super()
     this.state = {
-      currentViewingId:'37313', // what is the product_Id that user is currnely viewing
+      currentViewingId:'37317', // what is the product_Id that user is currnely viewing
       relateId : [],
       relatedList :[],
     }
@@ -39,7 +39,7 @@ class RelatedList extends React.Component {
   render () {
     return (
     <Container>
-      <h3>RELATED PRODUCTS</h3>
+      <h3>OUTFIT</h3>
       <ListContainer>
       {this.state.relatedList.map(item=>
         <Card item ={item} key = {item.id}/>
@@ -53,10 +53,11 @@ class RelatedList extends React.Component {
 var ListContainer = styled.div`
   display:flex;
 `;
+
 var Container = styled.div`
   width:80%;
   margin:0 auto;
-  overflow:hidden;
+  overflow-x:scroll;
 `;
 
-export default RelatedList;
+export default Outfit;
