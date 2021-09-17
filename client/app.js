@@ -28,6 +28,7 @@ class App extends React.Component {
 
     this.state = {
       productID: '',
+      allProducts: [],
       productIDs: [],
       index: 0
     };
@@ -55,7 +56,7 @@ class App extends React.Component {
         productID: results.data[this.state.index].id,
         productIDs: results.data.map((product) => product.id)
       })
-      console.log('FETCH all IDs: ', this.state.productIDs);
+      // console.log('FETCH all IDs: ', this.state.productIDs);
 
     })
     .catch((error) => {
@@ -65,8 +66,6 @@ class App extends React.Component {
 
 
   render () {
-
-    const { productID } = this.state;
 
     return (
 
@@ -84,7 +83,8 @@ class App extends React.Component {
 
       <div id ='questionsAnswers'>
         {/* {console.log('PRODUCT ID', this.state.productID)} */}
-          <QuestionsAndAnswers productID={this.state.productID} />
+          <QuestionsAndAnswers
+            productID={this.state.productID} />
       </div>
 
       <div id='rateReview'>
