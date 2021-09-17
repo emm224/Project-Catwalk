@@ -19,16 +19,16 @@ router.post('/qa/questions', controller.questions.post);
 
 router.put('/qa/questions', controller.questions.put);
 
-// ========= Ratings and Reviews ========================
+// ========= Ratings and Reviews ==========================
 router.get('/reviews', controller.reviews.getReviews);
 
-router.get('/reviews', controller.reviews.getReviewMetadata);
+router.get('/reviews/meta', controller.reviews.getReviewMetadata);
 
 router.post('/reviews', controller.reviews.addReview);
 
-router.put('/reviews', controller.reviews.markHelpful);
+// router.put('/reviews', controller.reviews.markHelpful);
 
-router.put('/reviews', controller.reviews.reportReview);
+// router.put('/reviews', controller.reviews.reportReview);
 
 
 

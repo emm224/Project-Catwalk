@@ -35,7 +35,39 @@ class ReviewListEntry extends React.Component {
   }
 
   starRating() {
-    console.log(this.state.stars);
+    var filled = this.state.stars;
+    var empty = 5 - filled;
+    var stars = '';
+    for (var i = 0; i < Math.floor(filled); i++) {
+      stars += '★';
+    }
+    for (var i = 0; i < Math.ceil(empty); i++) {
+      stars += '☆';
+    }
+    return stars;
+  }
+
+  conditionalResponse() {
+    if (this.props.review.response !== null) {
+      return (
+        <ResponseStyle>
+          <ResponseHeaderStyle>Response: </ResponseHeaderStyle> <br></br>
+          {this.props.review.response}
+        </ResponseStyle>
+      );
+    }
+  }
+
+  conditionalRecommend() {
+    if (this.props.review.recommend) {return (<RecommendStyle>✓ I recommend this product</RecommendStyle>);}
+  }
+
+  markHelpful() {
+    console.log('Review marked as helpful');
+  }
+
+  reportReview() {
+    console.log('Review reported');
   }
 
   render () {
@@ -43,7 +75,7 @@ class ReviewListEntry extends React.Component {
       <ReviewListEntryStyle>
 
         <TopRowStyle>
-          <div>★★★☆☆</div>
+          <div>{this.starRating()}</div>
           <TopRightStyle>
             {this.props.review.reviewer_name}, {this.state.date}
           </TopRightStyle>
@@ -53,13 +85,17 @@ class ReviewListEntry extends React.Component {
 
         <SummaryStyle>{this.props.review.body}</SummaryStyle>
 
-        <ResponseStyle>
-          <b>Response: </b>
-          <div>{this.props.review.response}</div>
-        </ResponseStyle>
+        {this.conditionalRecommend()}
+        {this.conditionalResponse()}
 
 
-        <BottomRowStyle>Helpful? <u>Yes</u> ({this.props.review.helpfulness}) | <u>Report</u></BottomRowStyle>
+        <BottomRowStyle>
+          <div>Helpful? </div>
+          <ButtonStyle onClick={this.markHelpful}>Yes</ButtonStyle>
+          <div>({this.props.review.helpfulness})</div>
+          <BarStyle>|</BarStyle>
+          <ButtonStyle onClick={this.reportReview}>Report</ButtonStyle>
+        </BottomRowStyle>
 
       </ReviewListEntryStyle>
     );
@@ -74,35 +110,47 @@ var ReviewListEntryStyle = styled.div`
   margin-bottom: 25px;
   border-bottom: 1px solid;
 `;
-
 var TopRowStyle = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
 `;
-
 var TopRightStyle = styled.div`
   font-size: 12px;
   color: gray;
 `;
-
-
 var SummaryStyle = styled.div`
   margin-bottom: 10px;
 `;
-
+var RecommendStyle = styled.div`
+  margin-bottom: 10px;
+`;
 var BottomRowStyle = styled.div`
   margin-bottom: 10px;
   font-size: 12px;
   color: gray;
+  display: flex;
 `;
-
+var ResponseHeaderStyle = styled.div`
+  color: black;
+  font-weight: bold;
+`;
 var ResponseStyle = styled.div`
   margin-bottom: 10px;
   background-color: #E8E8E8;
   padding: 10px;
   margin-bottom: 10px;
   color: gray;
+`;
+var BarStyle = styled.div`
+  margin-left: 15px;
+  margin-right: 10px;
+`;
+var ButtonStyle = styled.div`
+  cursor: default;
+  text-decoration: underline;
+  margin-left: 5px;
+  margin-right: 5px;
 `;
 
 export default ReviewListEntry;
