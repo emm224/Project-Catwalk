@@ -10,7 +10,11 @@ class RelatedList extends React.Component {
       currentViewingId:'37313', // what is the product_Id that user is currnely viewing
       relateId : [],
       relatedList :[],
+      selected:{},
+      photo:'',
+      display:'none'
     }
+    this.hide = this.hide.bind(this)
   }
   componentDidMount(){
     var option={
@@ -23,7 +27,6 @@ class RelatedList extends React.Component {
     .then(data=> data.json())
     .then(data=>{
       this.setState({relateId:data})
-      console.log(this.state.relateId)
     })
     .then(()=>{
       this.state.relateId.map(id =>{
@@ -36,15 +39,53 @@ class RelatedList extends React.Component {
     }
     )
   }
+
+  handleClickRelated(){
+    const buttonRight = document.getElementById('relatedslideRight');
+    const buttonLeft = document.getElementById('relatedslideLeft');
+
+    buttonRight.onclick = function () {
+      document.getElementById('cardContainer').scrollLeft += 40;
+    };
+    buttonLeft.onclick = function () {
+      document.getElementById('cardContainer').scrollLeft -= 40;
+    };
+  }
+
+  comparing(item,photo){
+    this.setState({selected:item,photo,display:'block'});
+  }
+  hide(){
+    this.setState({display:'none'})
+  }
   render () {
     return (
     <Container>
-      <h3>RELATED PRODUCTS</h3>
+      <h3>Related Products</h3>
+      <RelatedContainer id ='cardContainer'>
       <ListContainer>
       {this.state.relatedList.map(item=>
-        <Card item ={item} key = {item.id}/>
+        <Card item ={item} key = {item.id} list = {this.props.list} onClick={this.comparing.bind(this)}/>
       )}
       </ListContainer>
+      </RelatedContainer>
+      <button id="relatedslideLeft" type="button" onClick = {this.handleClickRelated}> &#60;</button>
+      <button id="relatedslideRight" type="button"onClick = {this.handleClickRelated}> &#62; </button>
+      <div id ='pop' style = {{display: this.state.display}}>
+      <button id='popbtn' onClick = {this.hide} >X</button>
+        <div className='seleted'>
+            <img src={this.state.photo} />
+            <p>{this.state.selected.category}</p>
+            <p>{this.state.selected.name}</p>
+            <p>${this.state.selected.default_price}</p>
+        </div>
+        <div className='seleted'>
+            <img src={this.state.photo} />
+            <p>{this.state.selected.category}</p>
+            <p>{this.state.selected.name}</p>
+            <p>${this.state.selected.default_price}</p>
+        </div>
+      </div>
     </Container>
     )
   }
@@ -52,11 +93,27 @@ class RelatedList extends React.Component {
 
 var ListContainer = styled.div`
   display:flex;
+  ::after {
+    transition: all 0.3s linear 0s;
+    content: "";
+    width: 70px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
+    opacity: 1;
+  }
 `;
 var Container = styled.div`
   width:80%;
   margin:0 auto;
-  overflow:hidden;
+  position:relative;
 `;
+
+var RelatedContainer = styled.div`
+  overflow:hidden;
+  margin-left:20px;
+`
 
 export default RelatedList;

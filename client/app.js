@@ -82,8 +82,8 @@ class App extends React.Component {
 
 
       <div id ='relatedAndComparison'>
-          <RelatedList />
-          <Outfit />
+          <RelatedList list = {'related'}/>
+          <Outfit list = {'outfit'}/>
 
       </div>
 
