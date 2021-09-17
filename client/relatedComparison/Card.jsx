@@ -26,10 +26,10 @@ class Card extends React.Component {
   render(){
     return (
       <CardStyle>
-          <div className="container">
-          <span className = 'heart'>&#9829;</span>
-          <img src={this.state.photo} />
-            <p>Category:{this.props.item.category}</p>
+          <div className="container" >
+            {this.props.list === 'related' ? <span className = 'star' onClick={()=>{this.props.onClick(this.props.item, this.state.photo)}}>	&#9734;</span>:<span onClick={()=>{this.props.onClick(this.props.item, this.state.photo)}} className = 'delete'>X</span>}
+          <img src={this.state.photo ? this.state.photo:'https://bashooka.com/wp-content/uploads/2015/10/404-errrrr-page-4.jpg' } alt="Image not found"/>
+            <p>{this.props.item.category}</p>
             <p>{this.props.item.name}</p>
             <p>${this.props.item.default_price}</p>
             <StarRating rating = {this.state.rating}/>
@@ -40,13 +40,14 @@ class Card extends React.Component {
 };
 
 var CardStyle = styled.div`
-  margin-left:10px;
-  border:black 2px solid;
-  width:150px;
+  margin-left:13px;
+  border:gray 2px solid;
+  width:200px;
+  min-width:200px;
   position:relative;
   img{
     width:100%;
-    height:180px;
+    height:240px;
     object-fit: fill;
   }
   p{
