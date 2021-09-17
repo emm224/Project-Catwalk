@@ -1,6 +1,6 @@
 import React from 'react';
 import ImageList from './ImageList.jsx';
-import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
+// import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons';
 import styled from 'styled-components'
 // import { ArrowButtonLeft, ArrowButtonRight } from './ArrowButtons';
 
