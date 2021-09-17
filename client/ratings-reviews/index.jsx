@@ -12,12 +12,11 @@ class RateReview extends React.Component {
       reviews: [],
       ratings: []
     };
-    //bind
   }
 
   componentDidMount() {
-    console.log(this.props.id);
     this.getReviewsandRatings();
+    console.log(this.state);
   };
 
   getReviewsandRatings() {
@@ -29,24 +28,23 @@ class RateReview extends React.Component {
 
     axios.get('/api/products/reviews', product)
       .then(({data}) => {
-        console.log('get reviews', data);
         this.setState({
           reviews: data.results
-        })
+        });
       })
       .catch((err) => {
-        console.log(err);
+        console.log('pepepeppepe');
       })
 
     axios.get('api/products/reviews/meta', product)
-    .then(({data}) => {
-      console.log('get ratings', data);
-      this.setState({
+      .then(({data}) => {
+        this.setState({
+          ratings: data
+        });
       })
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+      .catch((err) => {
+        console.log('oeopeppeo');
+      })
   }
 
   render() {

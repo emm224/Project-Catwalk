@@ -36,30 +36,30 @@ const getReviewMetadata = function(id, callback) {
     })
 }
 
-const addReview = function(id, review, callback) {
+// const addReview = function(id, review, callback) {
 
-  let newReview = {
-    rating: review.rating,
-    summary: review.summary,
-    body: review.body,
-    recommend: review.recommend,
-    name: review.name,
-    date: review.date,
-    email: review.email,
-    photos: review.photos,
-    characteristics: review.characteristics
-  }
+//   let newReview = {
+//     rating: review.rating,
+//     summary: review.summary,
+//     body: review.body,
+//     recommend: review.recommend,
+//     name: review.name,
+//     date: review.date,
+//     email: review.email,
+//     photos: review.photos,
+//     characteristics: review.characteristics
+//   }
 
-  axios.post(`${options.url}/?product_id=${id}`, newReview, options.head)
-    .then(({data}) => {
-      console.log('Your review: ', data);
-      callback(null, data);
-    })
-    .catch((err) => {
-      console.error(err);
-      callback(err);
-    })
-}
+//   axios.post(`${options.url}/?product_id=${id}`, newReview, options.head)
+//     .then(({data}) => {
+//       console.log('Your review: ', data);
+//       callback(null, data);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       callback(err);
+//     })
+// }
 
 // const markHelpful = function(review_id, callback) {
 //   axios.put(`${options.url}/:review_id/helpful`, review_id, options.head)
@@ -88,7 +88,7 @@ const addReview = function(id, review, callback) {
 module.exports = {
   getReviews,
   getReviewMetadata,
-  addReview,
+  // addReview,
   // markHelpful,
   // reportReview
 }
