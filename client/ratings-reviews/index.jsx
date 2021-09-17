@@ -28,22 +28,24 @@ class RateReview extends React.Component {
 
     axios.get('/api/products/reviews', product)
       .then(({data}) => {
-        this.setState({
-          reviews: data.results
-        });
+        console.log(data.results);
+        // this.setState({
+        //   reviews: data.results
+        // });
       })
       .catch((err) => {
-        console.log('pepepeppepe');
+        console.log('al;skjhnga;wujgbn');
       })
 
     axios.get('api/products/reviews/meta', product)
       .then(({data}) => {
-        this.setState({
-          ratings: data
-        });
+        console.log(data);
+        // this.setState({
+        //   ratings: data
+        // });
       })
       .catch((err) => {
-        console.log('oeopeppeo');
+        console.log('eaqrohgbnjqpaaouwrhbg');
       })
   }
 
