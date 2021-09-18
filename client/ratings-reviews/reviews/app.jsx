@@ -10,6 +10,7 @@ const Reviews = (props) => (
 
 var ReviewsStyle = styled.div`
   float: center;
+  margin-bottom: 25px;
 `;
 
 export default Reviews;

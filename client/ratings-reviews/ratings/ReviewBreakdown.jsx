@@ -5,18 +5,24 @@ class ReviewBreakdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      characteristics: this.props.characteristics
+      characteristics: this.props.characteristics,
+      comfort: this.props.characteristics.Comfort.value,
+      fit: this.props.characteristics.Fit.value,
+      length: this.props.characteristics.Length.value,
+      quality: this.props.characteristics.Quality.value
     }
   }
 
+
   render() {
     return (
-      <div>
+      <div>{console.log(this.state)}
         <div>Size</div>
 
           <ScaleStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
+            <PointerStyle>▼</PointerStyle>
             <ShadedStyle>x</ShadedStyle>
           </ScaleStyle>
 
@@ -30,6 +36,7 @@ class ReviewBreakdown extends React.Component {
 
         <ScaleStyle>
           <ComfortEndStyle>x</ComfortEndStyle>
+          <PointerStyle>▼</PointerStyle>
           <ComfortMiddleStyle>x</ComfortMiddleStyle>
           <ComfortEndStyle>x</ComfortEndStyle>
         </ScaleStyle>
@@ -71,6 +78,12 @@ var ComfortMiddleStyle = styled.div`
   color: lightgray;
   background: lightgray;
   width: 45%;
+`;
+
+var PointerStyle = styled.div`
+  color: black;
+  font-size: 15px;
+  position: absolute;
 `;
 
 export default ReviewBreakdown;

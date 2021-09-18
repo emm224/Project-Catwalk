@@ -42,7 +42,7 @@ class ReviewList extends React.Component {
   render() {
     return(
       <ReviewListStyle>
-        {this.state.initialReviews.length} reviews, sorted by <u>relevance ∨</u>
+        {this.props.reviews.length} reviews, sorted by <u>relevance ∨</u>
         {this.state.initialReviews.map((review) => <ReviewListEntry review={review} key={review.review_id}/>)}
 
         <ReviewButtonsStyle>
