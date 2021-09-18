@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import StarBreakdown from './StarBreakdown.jsx';
 import ReviewBreakdown from './ReviewBreakdown.jsx';
-import metaData from '../metaData.js';
 
 const Ratings = (props) => (
   <div>
