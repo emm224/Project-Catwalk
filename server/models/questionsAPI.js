@@ -51,7 +51,7 @@ const getQuestions = (query, callback) => {
     }
   )
   .then((response) => {
-    console.log('Fetch All Qs Response: ', response.data);
+    // console.log('Fetch All Qs Response: ', response.data);
     callback(null, response.data);
   })
   .catch((error) => {

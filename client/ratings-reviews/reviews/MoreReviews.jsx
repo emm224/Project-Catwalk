@@ -8,7 +8,7 @@ class MoreReviews extends React.Component {
   }
 
   handleClick() {
-    console.log('More reviews added');
+    this.props.show();
   }
 
   render() {

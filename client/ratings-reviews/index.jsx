@@ -10,13 +10,15 @@ class RateReview extends React.Component {
     super(props);
     this.state = {
       reviews: [],
-      ratings: []
+      metadata: []
     };
+    this.getReviewsandRatings = this.getReviewsandRatings.bind(this);
   }
 
-  componentDidMount() {
-    this.getReviewsandRatings();
-    console.log(this.state);
+  componentDidUpdate(prevProps, prevState) {
+    if(this.props.id !== prevProps.id) {
+      this.getReviewsandRatings();
+    }
   };
 
   getReviewsandRatings() {
@@ -25,27 +27,23 @@ class RateReview extends React.Component {
         id: this.props.id
       }
     }
-
     axios.get('/api/products/reviews', product)
       .then(({data}) => {
-        console.log(data.results);
-        // this.setState({
-        //   reviews: data.results
-        // });
+        this.setState({
+          reviews: data.results
+        });
       })
       .catch((err) => {
-        console.log('al;skjhnga;wujgbn');
+        console.log(err);
       })
-
     axios.get('api/products/reviews/meta', product)
       .then(({data}) => {
-        console.log(data);
-        // this.setState({
-        //   ratings: data
-        // });
+        this.setState({
+          metadata: data
+        });
       })
       .catch((err) => {
-        console.log('eaqrohgbnjqpaaouwrhbg');
+        console.log(err);
       })
   }
 
@@ -53,7 +51,7 @@ class RateReview extends React.Component {
     return (
       <HeaderStyle>RATINGS & REVIEWS
         <RateReviewStyle>
-          <Ratings ratings={this.state.ratings}/>
+          <Ratings metadata={this.state.metadata}/>
           <Reviews reviews={this.state.reviews} />
         </RateReviewStyle>
       </HeaderStyle>
