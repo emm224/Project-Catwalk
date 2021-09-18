@@ -10,7 +10,7 @@ class RateReview extends React.Component {
     super(props);
     this.state = {
       reviews: [],
-      metadata: []
+      metadata: {}
     };
     this.getReviewsandRatings = this.getReviewsandRatings.bind(this);
   }
