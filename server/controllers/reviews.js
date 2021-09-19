@@ -35,7 +35,7 @@ const getReviewMetadata = function(req, res) {
 // }
 
 const markHelpful = function(req, res) {
-  models.reviewModels.markHelpful(req.query.review_id, (err, data) => {
+  models.reviewModels.markHelpful(req.query.id, req.query.help, (err, data) => {
     if (err) {
       console.error(err);
       res.sendStatus(500);
@@ -47,7 +47,7 @@ const markHelpful = function(req, res) {
 }
 
 const reportReview = function(req, res) {
-  models.reviewModels.reportReview(req.query.review_id, (err, data) => {
+  models.reviewModels.reportReview(req.query.id, (err, data) => {
     if (err) {
       console.error(err);
       res.sendStatus(500);

@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 
 class ReviewListEntry extends React.Component {
@@ -6,7 +7,9 @@ class ReviewListEntry extends React.Component {
     super(props);
     this.state = {
       date: '',
-      stars: this.props.review.rating
+      stars: this.props.review.rating,
+      helpful: this.props.review.helpfulness,
+      id: this.props.review.review_id
     }
     this.markHelpful = this.markHelpful.bind(this);
     this.reportReview = this.reportReview.bind(this);
@@ -65,11 +68,34 @@ class ReviewListEntry extends React.Component {
   }
 
   markHelpful() {
-    console.log(this.props.review.helpfulness);
+    console.log(this.state.helpful);
+    var review = {
+      params: {
+        id: this.state.id,
+        help: this.state.helpful + 1
+      }
+    };
+
+    axios.put('/api/products/reviews/helpful', review)
+      .then(({data}) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   reportReview() {
-    console.log(this.props.review.review_id);
+    console.log(this.state.id);
+     /*
+        axios.put('/api/products/reviews/report', param)
+          .then(({data}) => {
+
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+    */
   }
 
   render () {
@@ -94,7 +120,7 @@ class ReviewListEntry extends React.Component {
         <BottomRowStyle>
           <div>Helpful? </div>
           <ButtonStyle onClick={this.markHelpful}>Yes</ButtonStyle>
-          <div>({this.props.review.helpfulness})</div>
+          <div>({this.state.helpful})</div>
           <BarStyle>|</BarStyle>
           <ButtonStyle onClick={this.reportReview}>Report</ButtonStyle>
         </BottomRowStyle>
@@ -104,8 +130,6 @@ class ReviewListEntry extends React.Component {
   }
 
 };
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var ReviewListEntryStyle = styled.div`
   margin-top: 25px;
