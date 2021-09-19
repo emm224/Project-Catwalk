@@ -114,7 +114,7 @@ class QuestionsAndAnswers extends React.Component {
           filteredData: results.data.results.sort((a,b) => { a.helpfulness - b.helpfulness})
         })
         // console.log('QA QuestionsData: ', this.state.questionsData)
-        console.log('QA FilteredData: ', this.state.filteredData)
+        // console.log('QA FilteredData: ', this.state.filteredData)
       })
       .catch((error) => {
         console.log('QA FETCH Error', error)

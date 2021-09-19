@@ -13,6 +13,12 @@ class StarBreakdown extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.percentRecommended();
+    this.starAverage();
+    this.starDisplay();
+  }
+
   percentRecommended() {
     var x = Number(this.props.recommended.true);
     var y = Number(this.props.recommended.false);

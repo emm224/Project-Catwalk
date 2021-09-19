@@ -23,7 +23,7 @@ class Outfit extends React.Component {
     .then(data=> data.json())
     .then(data=>{
       this.setState({relateId:data})
-      console.log(this.state.relateId)
+      // console.log(this.state.relateId)
     })
     .then(()=>{
       this.state.relateId.map(id =>{

@@ -1,23 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
+import ModalApp from './ModalApp.jsx';
 
 class AddReview extends React.Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      show: false
+    };
   }
 
-  handleClick() {
-    console.log('Add a review');
-  }
 
   render() {
     return (
-      <div onClick={this.handleClick}>
-        <AddReviewStyle>
-        <p>ADD A REVIEW  +</p>
-        </AddReviewStyle>
-      </div>
+      <AddReviewStyle>
+        <ModalApp></ModalApp>
+      </AddReviewStyle>
     );
   }
 }
@@ -26,7 +24,6 @@ var AddReviewStyle = styled.div`
   border: 1px solid;
   padding-right: 10px;
   padding-left: 10px;
-  margin-left: 10px;
   cursor: default;
 `;
 

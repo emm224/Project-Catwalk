@@ -94,7 +94,7 @@ class App extends React.Component {
       </div>
 
       <div id='rateReview'>
-          <RateReview />
+          <RateReview id={this.state.productID}/>
       </div>
 
     </div>)

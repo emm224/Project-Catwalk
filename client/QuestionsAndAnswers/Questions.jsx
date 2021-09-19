@@ -53,11 +53,11 @@ class Questions extends React.Component {
   }
 
   getAnswersData() {
-    console.log('ProductID: ', this.props.productID)
-    console.log('Product Info: ', this.props.item)
-    console.log('Question: ', this.props.item.question_body)
-    console.log('Answers listed by answerID: ', this.props.item.answers)
-    console.log('All answerIDs: ', Object.values(this.props.item.answers))
+    // console.log('ProductID: ', this.props.productID)
+    // console.log('Product Info: ', this.props.item)
+    // console.log('Question: ', this.props.item.question_body)
+    // console.log('Answers listed by answerID: ', this.props.item.answers)
+    // console.log('All answerIDs: ', Object.values(this.props.item.answers))
 
     let answerIDKeys = Object.values(this.props.item.answers);
     let answersArr = [];
@@ -71,7 +71,7 @@ class Questions extends React.Component {
     // console.log('Answers Arr:', answerIDKeys);
     // console.log('Answers Arr:', answerIDKeys.sort((a,b) => {b.helpfulness - a.helpfulness}));
 
-    console.log('Answers Data: ', this.state.answersData)
+    // console.log('Answers Data: ', this.state.answersData)
   }
 
 
