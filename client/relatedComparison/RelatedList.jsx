@@ -7,12 +7,13 @@ class RelatedList extends React.Component {
   constructor(){
     super()
     this.state = {
-      currentViewingId:'37313', // what is the product_Id that user is currnely viewing
+      currentViewingId:'37311', // what is the product_Id that user is currnely viewing
       relateId : [],
       relatedList :[],
       selected:{},
       photo:'',
-      display:'none'
+      display:'none',
+      currentPhoto:''
     }
     this.hide = this.hide.bind(this)
   }
@@ -54,6 +55,17 @@ class RelatedList extends React.Component {
 
   comparing(item,photo){
     this.setState({selected:item,photo,display:'block'});
+    var option={
+      headers:{
+        'Authorization':config.TOKEN,
+        'Content-Type': 'application/json'
+      }
+    }
+    fetch(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${this.state.currentViewingId}/styles`,option)
+    .then(data=> data.json())
+    .then(data=>{
+      this.setState({currentPhoto:data.results[0].photos[0].thumbnail_url})
+    })
   }
   hide(){
     this.setState({display:'none'})
@@ -65,7 +77,12 @@ class RelatedList extends React.Component {
       <RelatedContainer id ='cardContainer'>
       <ListContainer>
       {this.state.relatedList.map(item=>
-        <Card item ={item} key = {item.id} list = {this.props.list} onClick={this.comparing.bind(this)}/>
+        <Card item ={item}
+        key = {item.id}
+        list = {this.props.list}
+        onClick={this.comparing.bind(this)}
+        onClickItem = {this.props.onClick}
+        />
       )}
       </ListContainer>
       </RelatedContainer>
@@ -74,13 +91,13 @@ class RelatedList extends React.Component {
       <div id ='pop' style = {{display: this.state.display}}>
       <button id='popbtn' onClick = {this.hide} >X</button>
         <div className='seleted'>
-            <img src={this.state.photo} />
-            <p>{this.state.selected.category}</p>
-            <p>{this.state.selected.name}</p>
-            <p>${this.state.selected.default_price}</p>
+            <img src={this.state.currentPhoto} />
+            <p>{this.props.currentItem.category}</p>
+            <p>{this.props.currentItem.name}</p>
+            <p>${this.props.currentItem.default_price}</p>
         </div>
         <div className='seleted'>
-            <img src={this.state.photo} />
+            <img src={this.state.photo?this.state.photo: 'https://bashooka.com/wp-content/uploads/2015/10/404-errrrr-page-4.jpg'} />
             <p>{this.state.selected.category}</p>
             <p>{this.state.selected.name}</p>
             <p>${this.state.selected.default_price}</p>

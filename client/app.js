@@ -31,10 +31,12 @@ class App extends React.Component {
       productID: '',
       allProducts: [],
       productIDs: [],
-      index: 0
+      index: 0,
+      currentProduct:{}, // default product object if needed.
     };
 
     this.fetchProductID = this.fetchProductID.bind(this);
+    this.handleClickRelatedList = this.handleClickRelatedList.bind(this);
   }
 
   componentDidMount() {
@@ -65,6 +67,13 @@ class App extends React.Component {
     });
   }
 
+  //update currentProductId and currentProduct
+  handleClickRelatedList(item){
+    this.setState({currentProduct: item})
+  }
+  handleClickOutgitList(item){
+    console.log('clicked')
+  }
 
   render () {
 
@@ -76,14 +85,14 @@ class App extends React.Component {
       </TitleHeader>
 
       <div id='productOverview'>Product Overview Placeholder
-        <ProductOverview />
+        <ProductOverview/>
       </div>
 
 
 
       <div id ='relatedAndComparison'>
-          <RelatedList list = {'related'}/>
-          <Outfit list = {'outfit'}/>
+          <RelatedList list = {'related'} onClick = {this.handleClickRelatedList} currentItem ={this.state.currentProduct} />
+          <Outfit list = {'outfit'} onClick = {this.handleClickOutgitList}/>
 
       </div>
 

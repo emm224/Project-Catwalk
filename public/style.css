@@ -7,9 +7,12 @@
 .star {
   font-size: large;
   position: absolute;
-  right:5px;
+  top:10px;
+  right:10px;
   cursor:pointer;
   font-weight: bold;
+  color:red;
+  z-index: 999;
 }
 .delete {
   font-size: 20px;
@@ -101,4 +104,30 @@
   position: absolute;
   top:0;
   right:0;
+}
+
+
+.left-arrow, .right-arrow {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  background-color: white;
+  border: 1px solid #ddd;
+}
+
+.left-arrow {
+  left: 24px;
+}
+
+.right-arrow {
+  right: 24px;
+}
+
+.photolist {
+  width:100%;
+  object-fit: cover;
 }
