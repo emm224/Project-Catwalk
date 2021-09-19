@@ -1,12 +1,7 @@
 import React, {useState, useEffect}from 'react'
 import styled from 'styled-components';
 
-
-
-
-
-
-const ImageContainer = ({children}) => {
+const ImageContainer = ({children, show}) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [length, setLength] = useState(children.length)
 
@@ -26,13 +21,14 @@ const ImageContainer = ({children}) => {
         setCurrentIndex(prevState => prevState - 1)
     }
   }
+
     return (
         <div>
           <CarouselContainer>
             <CarouselWrapper>
             {
-            currentIndex > 0 &&
-            <button onClick={prev} className="left-arrow">
+            currentIndex > 0 && show &&
+            <button onClick={prev} className="left-arrow twoArrow">
                 &lt;
             </button>
             }
@@ -42,8 +38,8 @@ const ImageContainer = ({children}) => {
                     </CarouselContent>
                 </CarouselContentWrapper>
                 {
-                currentIndex < (length - 1) &&
-                <button onClick={next} className="right-arrow">
+                currentIndex < (length - 1) && show &&
+                <button onClick={next} className="right-arrow twoArrow">
                   &gt;
                 </button>
                 }

@@ -13,7 +13,7 @@ class RelatedList extends React.Component {
       selected:{},
       photo:'',
       display:'none',
-      currentPhoto:''
+      currentPhoto:'',
     }
     this.hide = this.hide.bind(this)
   }
@@ -76,9 +76,10 @@ class RelatedList extends React.Component {
       <h3>Related Products</h3>
       <RelatedContainer id ='cardContainer'>
       <ListContainer>
-      {this.state.relatedList.map(item=>
+      {this.state.relatedList.map((item, index)=>
         <Card item ={item}
         key = {item.id}
+        data = {index}
         list = {this.props.list}
         onClick={this.comparing.bind(this)}
         onClickItem = {this.props.onClick}

@@ -10,6 +10,7 @@ class Card extends React.Component {
       photo:[],
       rating:3,
       styles:[],
+      show:false
     }
 
   }
@@ -26,14 +27,20 @@ class Card extends React.Component {
           this.setState({photo: data.results[0].photos[0].thumbnail_url, styles:data.results})
         })
   }
+  showButton(){
+    this.setState({show:true})
+  }
+  hideButton(){
+    this.setState({show:false})
+  }
   render(){
     return (
-      <CardStyle>
+      <CardStyle onMouseOver = {this.showButton.bind(this)} onMouseLeave = {this.hideButton.bind(this)}>
           <div className="container" >
             {this.props.list === 'related' ? <span className = 'star' onClick={()=>{this.props.onClick(this.props.item, this.state.photo)}}>	&#9734;</span>:<span onClick={()=>{this.props.onClick(this.props.item, this.state.photo)}} className = 'delete'>X</span>}
             <div onClick={()=>{this.props.onClickItem(this.props.item)}}>
           <div id ='cardImage-container'>
-          <ImageContainer>
+          <ImageContainer show = {this.state.show}>
             {this.state.styles.map((item,index)=>
 
                 <img src={item.photos[0].thumbnail_url ? item.photos[0].thumbnail_url:'https://bashooka.com/wp-content/uploads/2015/10/404-errrrr-page-4.jpg' } alt="Image not found" key = {index} className = 'photolist'/>
@@ -63,6 +70,7 @@ var CardStyle = styled.div`
   box-shadow: rgb(0 0 0 / 10%) 0px 2px 8px;
   background:#B3ACAA;
   opacity:0.85;
+  cursor:pointer;
   p{
     margin:0;
     margin-left:10px;

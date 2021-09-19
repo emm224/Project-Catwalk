@@ -74,7 +74,7 @@
 #relatedslideRight {
   position: absolute;
   top: 50%;
-  right:0px;
+  right:10px;
   border:none;
   outline: none;
   background-color: transparent;
@@ -147,6 +147,7 @@
   background-color: rgb(97, 90, 90);
   border: 1px solid #ddd;
   opacity: 0.8;
+  cursor:pointer;
 }
 
 .left-arrow {
@@ -155,6 +156,10 @@
 
 .right-arrow {
   right: 10px;
+}
+
+.show-button{
+  display: block;
 }
 
 .photolist {
