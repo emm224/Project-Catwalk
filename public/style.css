@@ -7,15 +7,19 @@
 .star {
   font-size: large;
   position: absolute;
-  right:5px;
+  top:10px;
+  right:10px;
   cursor:pointer;
   font-weight: bold;
+  color:red;
+  z-index: 999;
 }
 .delete {
   font-size: 20px;
   position: absolute;
   right:5px;
   cursor:pointer;
+  z-index: 60;
 }
 #slideLeft {
   position: absolute;
@@ -70,7 +74,7 @@
 #relatedslideRight {
   position: absolute;
   top: 50%;
-  right:0px;
+  right:10px;
   border:none;
   outline: none;
   background-color: transparent;
@@ -79,26 +83,86 @@
 }
 #pop {
   position:fixed;
-  width:50vw;
-  height:60vh;
+  width:55vw;
+  height:65vh;
   top:50%;
-  transform: translateY(-50%);
+  transform:translateY(-50%);
   right:25vw;
-  background-color: yellowgreen;
-  overflow: hidden;
-  z-index: 99;
+  color:white;
+  z-index: 999;
   display: flex;
+  background-image: url('https://images.unsplash.com/photo-1491897554428-130a60dd4757?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1700&q=80');
+  animation-name: spin;
+  animation-duration: 1s;
+}
 
+@keyframes spin {
+  from {
+    transform: rotate(0deg) translateY(0%);
+    opacity : 0;
+  }
+  to{
+    transform: rotate(360deg) translateY(-50%);
+    opacity : 1;
+  }
+}
+
+
+#shade{
+  width:100%;
+  height:100%;
+  background: linear-gradient(to right, rgba(3, 37, 65, 0.75) 0%, rgba(3, 37, 65, 0.75) 100%);
+  display:flex;
+  justify-content: space-around;
 }
 
 .seleted{
   display: inline-block;
   width:50%;
   text-align: center;
+  margin-top:1.7rem;
+}
+.seleted>img{
+  width:88%;
+  height:70%;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 #popbtn {
   position: absolute;
   top:0;
   right:0;
+}
+
+
+.left-arrow, .right-arrow {
+  position: absolute;
+  z-index: 1;
+  color:white;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  background-color: rgb(97, 90, 90);
+  border: 1px solid #ddd;
+  opacity: 0.8;
+  cursor:pointer;
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+
+.show-button{
+  display: block;
+}
+
+.photolist {
+  width:100%;
+  object-fit: cover;
 }
