@@ -53,11 +53,16 @@ class Card extends React.Component {
 };
 
 var CardStyle = styled.div`
-  margin-left:13px;
-  border:gray 2px solid;
+  margin-left:10px;
+  margin-right:10px;
   width:200px;
   min-width:200px;
   position:relative;
+  border:none;
+  border-radius: 8px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 2px 8px;
+  background:#B3ACAA;
+  opacity:0.85;
   p{
     margin:0;
     margin-left:10px;

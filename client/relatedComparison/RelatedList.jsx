@@ -46,10 +46,10 @@ class RelatedList extends React.Component {
     const buttonLeft = document.getElementById('relatedslideLeft');
 
     buttonRight.onclick = function () {
-      document.getElementById('cardContainer').scrollLeft += 40;
+      document.getElementById('cardContainer').scrollLeft += 50;
     };
     buttonLeft.onclick = function () {
-      document.getElementById('cardContainer').scrollLeft -= 40;
+      document.getElementById('cardContainer').scrollLeft -= 50;
     };
   }
 
@@ -90,6 +90,7 @@ class RelatedList extends React.Component {
       <button id="relatedslideRight" type="button"onClick = {this.handleClickRelated}> &#62; </button>
       <div id ='pop' style = {{display: this.state.display}}>
       <button id='popbtn' onClick = {this.hide} >X</button>
+      <div id ='shade'>
         <div className='seleted'>
             <img src={this.state.currentPhoto} />
             <p>{this.props.currentItem.category}</p>
@@ -101,6 +102,7 @@ class RelatedList extends React.Component {
             <p>{this.state.selected.category}</p>
             <p>{this.state.selected.name}</p>
             <p>${this.state.selected.default_price}</p>
+        </div>
         </div>
       </div>
     </Container>
@@ -126,6 +128,10 @@ var Container = styled.div`
   width:80%;
   margin:0 auto;
   position:relative;
+  background-image: url(https://www.themoviedb.org/assets/2/v4/misc/trending-bg-39afc2a5f77e31d469b25c187814c0a2efef225494c038098d62317d923f8415.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 200px;
+
 `;
 
 var RelatedContainer = styled.div`

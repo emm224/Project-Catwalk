@@ -30,17 +30,23 @@ const ImageContainer = ({children}) => {
         <div>
           <CarouselContainer>
             <CarouselWrapper>
-              <button className="left-arrow" onClick={prev}>
+            {
+            currentIndex > 0 &&
+            <button onClick={prev} className="left-arrow">
                 &lt;
-              </button>
+            </button>
+            }
                 <CarouselContentWrapper>
                     <CarouselContent style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                         {children}
                     </CarouselContent>
                 </CarouselContentWrapper>
-              <button className="right-arrow" onClick={next}>
-                &gt;
-              </button>
+                {
+                currentIndex < (length - 1) &&
+                <button onClick={next} className="right-arrow">
+                  &gt;
+                </button>
+                }
             </CarouselWrapper>
           </CarouselContainer>
         </div>

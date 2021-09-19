@@ -41,10 +41,10 @@ class Outfit extends React.Component {
     const buttonLeft = document.getElementById('slideLeft');
 
     buttonRight.onclick = function () {
-      document.getElementById('outfit').scrollLeft += 40;
+      document.getElementById('outfit').scrollLeft += 50;
     };
     buttonLeft.onclick = function () {
-      document.getElementById('outfit').scrollLeft -= 40;
+      document.getElementById('outfit').scrollLeft -= 50;
     };
   }
   delete(item){
