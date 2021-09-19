@@ -8,20 +8,24 @@ export default function Modal({ open, children, onClose }) {
     <>
       <OverlayStyle>
         <ModalStyle>
-          <header>Write Your Review</header>
+          <HStyle>Write Your Review</HStyle>
 
           <InputStyle>
             <label for="rating">Overall rating:</label>
-            <input id="rating" type="number" max="5" min="1"/>
+            <input id="rating" type="radio"/>1
+            <input id="rating" type="radio"/>2
+            <input id="rating" type="radio"/>3
+            <input id="rating" type="radio"/>4
+            <input id="rating" type="radio"/>5
           </InputStyle>
-
+          <br></br>
           <InputStyle>
             <label for='y/n'>Do you recommend this product?:</label>
             <input id='y/n' type="radio"/>Yes
             <input id='y/n' type="radio"/>No
           </InputStyle>
-
-          <u>Characteristics</u>
+          <br></br>
+          <div>Characteristics</div>
             <RadioStyle>
               <label for='size'>Size: </label>
               <input id='size' type='radio'/>1
@@ -70,27 +74,27 @@ export default function Modal({ open, children, onClose }) {
               <input type='radio'/>4
               <input type='radio'/>5
             </RadioStyle>
-
+          <br></br>
           <InputStyle>
             Review summary: <input type="text" placeholder="Example: Best purchase ever!"/>
           </InputStyle>
-
+          <br></br>
           <InputStyle>
             Review body: <input type="text" placeholder="Why did you like the product or not?"/>
           </InputStyle>
-
+          <br></br>
           <InputStyle>
             upload photos
           </InputStyle>
-
+          <br></br>
           <InputStyle>
             What is your nickanme: <input type="text" placeholder="Example: jackson11!"/>
           </InputStyle>
-
+          <br></br>
           <InputStyle>
             Your email: <input type="text" placeholder="jackson11@email.com"/>
           </InputStyle>
-            For authentication reasons, you will not be emailed.
+          <AuthStyle>For authentication reasons, you will not be emailed.</AuthStyle>
 
 
           <ButtonStyle>
@@ -123,6 +127,16 @@ var ModalStyle = styled.div`
   zIndex: 1000;
   width: 500px;
 `;
+
+var HStyle = styled.div`
+  text-align: center;
+  text-decoration: underline;
+  margin-bottom: 10px;
+`;
+var AuthStyle = styled.div`
+  font-size: 10px;
+`;
+
 var ButtonStyle = styled.div`
   display: flex;
   position: absolute;
