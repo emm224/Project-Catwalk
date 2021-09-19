@@ -34,34 +34,34 @@ const getReviewMetadata = function(req, res) {
 //   });
 // }
 
-// const markHelpful = function(req, res) {
-//   models.reviews.markHelpful(req.body.review_id, (err, data) => {
-//     if (err) {
-//       console.error(err);
-//       res.sendStatus(500);
-//     } else {
-//       console.log('Review marked as helpful', data);
-//       res.sendStatus(204);
-//     }
-//   });
-// }
+const markHelpful = function(req, res) {
+  models.reviewModels.markHelpful(req.query.review_id, (err, data) => {
+    if (err) {
+      console.error(err);
+      res.sendStatus(500);
+    } else {
+      console.log('Review marked as helpful', data);
+      res.sendStatus(204);
+    }
+  });
+}
 
-// const reportReview = function(req, res) {
-//   models.reviews.reportReview(req.body.review_id, (err, data) => {
-//     if (err) {
-//       console.error(err);
-//       res.sendStatus(500);
-//     } else {
-//       console.log('Review reported', data);
-//       res.sendStatus(204);
-//     }
-//   });
-// }
+const reportReview = function(req, res) {
+  models.reviewModels.reportReview(req.query.review_id, (err, data) => {
+    if (err) {
+      console.error(err);
+      res.sendStatus(500);
+    } else {
+      console.log('Review reported', data);
+      res.sendStatus(204);
+    }
+  });
+}
 
 module.exports = {
   getReviews,
   getReviewMetadata,
   // addReview,
-  // markHelpful,
-  // reportReview
+  markHelpful,
+  reportReview
 }

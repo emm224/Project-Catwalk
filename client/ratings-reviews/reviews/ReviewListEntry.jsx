@@ -8,6 +8,8 @@ class ReviewListEntry extends React.Component {
       date: '',
       stars: this.props.review.rating
     }
+    this.markHelpful = this.markHelpful.bind(this);
+    this.reportReview = this.reportReview.bind(this);
   }
 
   componentDidMount() {
@@ -63,11 +65,11 @@ class ReviewListEntry extends React.Component {
   }
 
   markHelpful() {
-    console.log('Review marked as helpful');
+    console.log(this.props.review.helpfulness);
   }
 
   reportReview() {
-    console.log('Review reported');
+    console.log(this.props.review.review_id);
   }
 
   render () {
