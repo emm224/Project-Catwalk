@@ -684,7 +684,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*******************/
 /***/ ((module) => {
 
-eval("module.exports = {\n  TOKEN: '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'\n};\n\n//# sourceURL=webpack://fec/./config.js?");
+eval("module.exports = {\n  TOKEN: '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'\n};\n\n//# sourceURL=webpack://fec/./config.js?");
 
 /***/ }),
 
