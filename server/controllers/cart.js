@@ -2,7 +2,8 @@ var models = require('../models')
 
 module.exports = {
   addProductToCart: function (req, res) {
-    models.productContext.addProductToCart(req.body, (err, product) => {
+    console.log(req.body.params)
+    models.productContext.addProductToCart(req.body.params, (err, product) => {
       if (err) {
         res.send(400 + 'Product was not added');
       } else {

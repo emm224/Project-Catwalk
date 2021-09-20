@@ -18,19 +18,21 @@ const ImageList = (props) => {
 
 
   return (
-    <ImageFrame className="image-frame">
-      <Image imageUrl={props.photos[props.imageIndex].url} />
-      <ArrowLeft
-        show={showLeftArrow}
-        onClick={props.prevImage}>
-        &lt;
-      </ArrowLeft>
-      <ArrowRight
-        show={showRightArrow}
-        onClick={props.nextImage}>
-        &gt;
-      </ArrowRight>
-    </ImageFrame>
+    <div className="testDiv">
+      <ImageFrame className="image-frame">
+        <Image imageUrl={props.photos[props.imageIndex].url} />
+        <ArrowLeft
+          show={showLeftArrow}
+          onClick={props.prevImage}>
+          &lt;
+        </ArrowLeft>
+        <ArrowRight
+          show={showRightArrow}
+          onClick={props.nextImage}>
+          &gt;
+        </ArrowRight>
+      </ImageFrame>
+    </div>
   )
 }
 

@@ -105,10 +105,8 @@ class App extends React.Component {
       </TitleHeader>
 
       <div id='productOverview'>Product Overview Placeholder
-        <ProductOverview/>
+        <ProductOverview />
       </div>
-
-
 
       <div id ='relatedAndComparison'>
           <RelatedList list = {'related'} onClick = {this.handleClickRelatedList} currentItem ={this.state.currentProduct} />
