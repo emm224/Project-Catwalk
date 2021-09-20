@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import './carouselStyle.css';
 
 // var styles = {
 //   zindex: 10,
@@ -15,7 +14,6 @@ import './carouselStyle.css';
 const ThumbnailIcon = (props) => {
   return (
       <img className="thumbnail-icon" src={props.thumbnailUrl} onClick={props.thumbnailClick} />
-
   )
 }
 
