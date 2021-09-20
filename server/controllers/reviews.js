@@ -1,39 +1,38 @@
 var models = require('../models');
 
 const getReviews = function(req, res) {
-  // console.log('TESTSTESTTSETRESTETSET', req.body, req.query);
-  models.reviewModels.getReviews(req.body.id, (err, reviews) => {
+  var id = req.query.id || req.body.id;
+  models.reviewModels.getReviews(req.query.id, (err, reviews) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      console.log(`Product ${req.body.id} reviews: `, reviews);
       res.status(200).json(reviews);
     }
   });
 }
 
 const getReviewMetadata = function(req, res) {
-  models.reviewModels.getReviewMetadata(req.body.id, (err, metadata) => {
+  var id = req.query.id || req.body.id;
+  models.reviewModels.getReviewMetadata(req.query.id, (err, metadata) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      console.log(`Product ${req.body.id} metadata: `, metadata);
       res.status(200).json(metadata);
     }
   });
 }
 
-const addReview = function(req, res) {
-  console.log(req.body);
-  models.reviewModels.addReview(req.body.id, req.body.review, (err, review) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      console.log('Review posted');
-      res.sendStatus(201);
-    }
-  });
-}
+// const addReview = function(req, res) {
+//   console.log(req.body);
+//   models.reviewModels.addReview(req.body.id, req.body.review, (err, review) => {
+//     if (err) {
+//       res.status(500).send(err);
+//     } else {
+//       console.log('Review posted');
+//       res.sendStatus(201);
+//     }
+//   });
+// }
 
 // const markHelpful = function(req, res) {
 //   models.reviews.markHelpful(req.body.review_id, (err, data) => {
@@ -62,7 +61,7 @@ const addReview = function(req, res) {
 module.exports = {
   getReviews,
   getReviewMetadata,
-  addReview,
+  // addReview,
   // markHelpful,
   // reportReview
 }

@@ -10,48 +10,48 @@ class RateReview extends React.Component {
     super(props);
     this.state = {
       reviews: [],
-      ratings: [],
-      product_id: ''
+      metadata: {}
     };
-    //bind
+    this.getReviewsandRatings = this.getReviewsandRatings.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.getReviews();
-  //   // this.getRatings();
-  // };
+  componentDidUpdate(prevProps, prevState) {
+    if(this.props.id !== prevProps.id) {
+      this.getReviewsandRatings();
+    }
+  };
 
-  // getReviews() {
-  //   axios.get('api/products/reviews', {'id': 37311})
-  //     .then(({data}) => {
-  //       console.log(data);
-  //       // this.setState({
-  //       // reviews: data
-  //       // });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  // }
-
-  // getRatings() {
-  //   axios.get('api/products/reviews/meta', {'id': 37311})
-  //   .then(({data}) => {
-  //     console.log(data);
-  //     // this.setState({
-  //     // ratings: data
-  //     // });
-  //   })
-  //   .catch((err) => {
-  //     console.log('Client error');
-  //   })
-  // }
+  getReviewsandRatings() {
+    var product = {
+      params: {
+        id: this.props.id
+      }
+    }
+    axios.get('/api/products/reviews', product)
+      .then(({data}) => {
+        this.setState({
+          reviews: data.results
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    axios.get('api/products/reviews/meta', product)
+      .then(({data}) => {
+        this.setState({
+          metadata: data
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
   render() {
     return (
       <HeaderStyle>RATINGS & REVIEWS
         <RateReviewStyle>
-          <Ratings ratings={this.state.ratings}/>
+          <Ratings metadata={this.state.metadata}/>
           <Reviews reviews={this.state.reviews} />
         </RateReviewStyle>
       </HeaderStyle>
@@ -63,9 +63,12 @@ var RateReviewStyle = styled.div`
   display: flex;
   margin-top: 10px;
   font-family: Arial, Helvetica, sans-serif;
+  justify-content: left;
 `;
 
 var HeaderStyle = styled.div`
   font-family: Arial, Helvetica, sans-serif;
+  margin-left: 200px;
+  margin-top: 50px;
 `;
 export default RateReview;

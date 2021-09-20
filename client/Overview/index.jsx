@@ -23,7 +23,7 @@ class Product extends React.Component {
 
     axios.get('/api/products/product', defaultProduct)
       .then((defaultProductInfo) => {
-        console.log(defaultProduct)
+        // console.log(defaultProduct)
         this.setState({
           currentProduct: defaultProductInfo.data
         })
@@ -38,7 +38,7 @@ class Product extends React.Component {
           styles: defaultProductStyles.data.results,
           selectedStyle: defaultProductStyles.data.results[0]
         })
-        console.log(defaultProductStyles.data.results[0]);
+        // console.log(defaultProductStyles.data.results[0]);
       })
   }
 

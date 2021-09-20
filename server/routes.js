@@ -24,7 +24,7 @@ router.get('/reviews', controller.reviews.getReviews);
 
 router.get('/reviews/meta', controller.reviews.getReviewMetadata);
 
-router.post('/reviews', controller.reviews.addReview);
+// router.post('/reviews', controller.reviews.addReview);
 
 // router.put('/reviews', controller.reviews.markHelpful);
 
