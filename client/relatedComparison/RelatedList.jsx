@@ -7,7 +7,7 @@ class RelatedList extends React.Component {
   constructor(){
     super()
     this.state = {
-      currentViewingId:'37311', // what is the product_Id that user is currnely viewing
+      currentViewingId:37311, // what is the product_Id that user is currnely viewing
       relateId : [],
       relatedList :[],
       selected:{},
