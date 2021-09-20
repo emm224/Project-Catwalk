@@ -3,9 +3,17 @@ import styled from 'styled-components';
 import ReviewList from './ReviewList.jsx';
 
 const Reviews = (props) => (
-  <ReviewsStyle>
-    <ReviewList reviews={props.reviews}/>
-  </ReviewsStyle>
+  <div>
+    {props.reviews.length ?
+      <ReviewsStyle>
+        <ReviewList
+          reviews={props.reviews}
+          sortRelevance={props.sortRelevance}
+          sortHelpful={props.sortHelpful}
+          sortNew={props.sortNew} />
+      </ReviewsStyle>
+    : ''}
+  </div>
 );
 
 var ReviewsStyle = styled.div`

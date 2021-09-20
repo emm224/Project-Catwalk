@@ -61,38 +61,34 @@ const getReviewMetadata = function(id, callback) {
 //     })
 // }
 
-// const markHelpful = function(review_id, callback) {
-//   var review = {
-//     helpfulness: helpfulness + 1
-//     review_id: reviews_id
-//   }
-//   axios.put(`${options.url}/:review_id/helpful`, /*review*/, options.head)
-//     .then(({data}) => {
-//       console.log('Review marked as helpful.', data);
-//       callback(null, data);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       callback(err);
-//     })
-// }
+const markHelpful = function(id, callback) {
+  axios.put(`${options.url}/${id}/helpful`, options.head)
+    .then(({data}) => {
+      console.log('Review marked as helpful.', data);
+      callback(null, data);
+    })
+    .catch((err) => {
+      console.error(err);
+      callback(err);
+    })
+}
 
-// const reportReview = function(review_id, callback) {
-//   axios.put(`${options.url}/:review_id/report`, review_id, options.head)
-//     .then(({data}) => {
-//       console.log('Review reported.', data);
-//       callback(null, data);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       callback(err);
-//     })
-// }
+const reportReview = function(id, callback) {
+  axios.put(`${options.url}/${id}/report`, id, options.head)
+    .then(({data}) => {
+      console.log('Review reported.', data);
+      callback(null, data);
+    })
+    .catch((err) => {
+      console.error(err);
+      callback(err);
+    })
+}
 
 module.exports = {
   getReviews,
   getReviewMetadata,
   // addReview,
-  // markHelpful,
-  // reportReview
+  markHelpful,
+  reportReview
 }

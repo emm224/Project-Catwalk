@@ -7,7 +7,6 @@ export default function ModalApp() {
     <>
       <div>
         <p onClick={() => setIsOpen(true)}> ADD A REVIEW +</p>
-
         <Modal open={isOpen} onClose={() => setIsOpen(false)}></Modal>
       </div>
     </>

@@ -138,10 +138,10 @@ var NumberStyle = styled.div`
   margin-right: 10px;
 `;
 var OneShadedStyle = styled.div`
-  background: black;
+  background: green;
   width: ${props => props.shade}%;
   margin-left: 10px;
-  color: black;
+  color: green;
   font-size: 1px;
 `;
 var OneUnshadedStyle = styled.div`
@@ -152,10 +152,10 @@ var OneUnshadedStyle = styled.div`
   margin-right: 25px;
 `;
 var TwoShadedStyle = styled.div`
-  background: black;
+  background: green;
   width: ${props => props.shade}%;
   margin-left: 10px;
-  color: black;
+  color: green;
   font-size: 1px;
 `;
 var TwoUnshadedStyle = styled.div`
@@ -166,10 +166,10 @@ var TwoUnshadedStyle = styled.div`
   margin-right: 25px;
 `;
 var ThreeShadedStyle = styled.div`
-  background: black;
+  background: green;
   width: ${props => props.shade}%;
   margin-left: 10px;
-  color: black;
+  color: green;
   font-size: 1px;
 `;
 var ThreeUnshadedStyle = styled.div`
@@ -180,10 +180,10 @@ var ThreeUnshadedStyle = styled.div`
   margin-right: 25px;
 `;
 var FourShadedStyle = styled.div`
-  background: black;
+  background: green;
   width: ${props => props.shade}%;
   margin-left: 10px;
-  color: black;
+  color: green;
   font-size: 1px;
 `;
 var FourUnshadedStyle = styled.div`
@@ -194,10 +194,10 @@ var FourUnshadedStyle = styled.div`
   margin-right: 25px;
 `;
 var FiveShadedStyle = styled.div`
-  background: black;
+  background: green;
   width: ${props => props.shade}%;
   margin-left: 10px;
-  color: black;
+  color: green;
   font-size: 1px;
 `;
 var FiveUnshadedStyle = styled.div`
