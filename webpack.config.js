@@ -1,5 +1,5 @@
 var path = require("path");
-
+//simport css from 'file.css';
 
 module.exports = {
   entry: path.join(__dirname, "/client/index.js"),
@@ -16,6 +16,13 @@ module.exports = {
           loader: "babel-loader",
         },
       },
+      {
+        test: /\.css$/,
+        use:[
+          'style-loader',
+          'css-loader'
+        ]
+      }
     ],
   },
 };

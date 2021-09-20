@@ -19,9 +19,9 @@
 // };
 
 const axios = require('axios');
-// const config = require('../../config.js');
+const config = require('../../config.js');
 
-var fecTOKEN = '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';
+// var fecTOKEN = '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';
 
 var baseUrl = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe`
 
@@ -30,7 +30,7 @@ let getProductList = (callback) => {
     url: `${baseUrl}/products`,
     head: {
       headers: {
-        Authorization: fecTOKEN
+        Authorization: config.TOKEN
       }
     }
   };
@@ -88,17 +88,17 @@ let getProductStyles = (id, callback) => {
 
 let addProductToCart = (item, callback) => {
   let options = {
+    method: 'POST',
     url: `${baseUrl}/cart`,
-    head: {
-      headers: {
-        Authorization: config.TOKEN
-      }
+    data: item,
+    headers: {
+      Authorization: config.TOKEN
     }
   };
 
-  axios.post(options.url, item, options.head)
-    .then((product) => {
-      callback(null, product.data)
+  axios(options)
+    .then((data) => {
+      callback(null, data)
     })
     .catch(err => {
       callback(err)

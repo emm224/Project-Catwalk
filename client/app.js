@@ -72,17 +72,14 @@ class App extends React.Component {
     return (
 
     <div>
-<<<<<<< HEAD
-      <div id='productOverview'>Product Overview Placeholder
-        <ProductOverview />
-      </div>
-=======
       <TitleHeader>
         <h1 >Team Orcus LOGO</h1>
       </TitleHeader>
 
+      <div id='productOverview'>Product Overview Placeholder
+        <ProductOverview />
+      </div>
 
->>>>>>> master
       <div id ='relatedAndComparison'>
           <RelatedList />
           <Outfit />

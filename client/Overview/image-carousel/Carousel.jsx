@@ -1,7 +1,8 @@
 import React from 'react';
 import ImageList from './ImageList.jsx';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
-import styled from 'styled-components'
+import styled from 'styled-components';
+import ThumbnailList from './ThumbnailList.jsx'
 // import { ArrowButtonLeft, ArrowButtonRight } from './ArrowButtons';
 
 const Carousel = (props) => {
@@ -10,7 +11,10 @@ const Carousel = (props) => {
   }
 
   return (
+    <div>
       <ImageList className="imageList" photos={props.photos} imageIndex={props.imageIndex} onImageClick={props.onImageClick} imageIndex={props.imageIndex} prevImage={props.prevImage} nextImage={props.nextImage}/>
+      <ThumbnailList photos={props.photos} thumbnailIndex={props.thumbnailIndex} scrollThumbnailUp={props.scrollThumbnailUp} scrollThumbnailDown={props.scrollThumbnailDown} clickThumbnail={props.clickThumbnail}/>
+    </div>
   );
 };
 
@@ -20,7 +24,7 @@ export default Carousel;
 
 
 
-
+{/* <ThumbnailList photos={props.photos} thumbnailIndex={props.thumbnailIndex} scrollThumbnailUp={props.scrollThumbnailUp} scrollThumbnailDown={props.scrollThumbnailDown} /> */}
 
 
 
