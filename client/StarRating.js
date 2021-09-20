@@ -20,7 +20,7 @@ class StarRating extends React.Component {
             className={index <= this.state.rating ? "on" : "off"}
             onClick={() => this.setState({rating:index})}
           >
-            <span className="star">&#9733;</span>
+            <span className="stars">&#9733;</span>
           </Button>
         );
       })}

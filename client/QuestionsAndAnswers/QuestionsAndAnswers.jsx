@@ -1,13 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 
-// import {listQuestionsData, answersListData} from './dummyData.js';
+import dummyDataQA from './QuestionsDummyData.js';
+
 import config from '../../config.js';
 
+import Search from './Search.jsx';
 import Questions from './Questions.jsx';
 import QuestionsList from './QuestionsList.jsx';
+
+// console.log('Sample Data: ', dummyDataQA.questions)
 
 const FlexContainer = styled.div`
   display: flex;
@@ -20,7 +23,6 @@ const Container = styled.div`
   border-radius: 10px;
   padding: 5px;
   margin: 5px;
-
 `;
 
 const QuestionsContainer = styled.div`
@@ -33,32 +35,6 @@ const SearchContainer = styled.div`
   width: 100%;
   position: relative;
   display: flex;
-`;
-
-const SearchBar = styled.input`
-  width: 1000px;
-  box-sizing: border-box;
-  border: 1px lightgrey;
-  border-style: groove;
-  font-size: 16px;
-  background-position: 10px 10px;
-  padding: 10px 25px 10px 25px;
-`;
-
-const SearchButton = styled.button`
-  width: 50px;
-  height: 50px;
-  border: 1px lightgrey;
-  background:lightgrey;
-  text-align: center;
-  color: black;
-  cursor: pointer;
-
-  &:hover {
-    background-color: white;
-    border: 1px solid black;
-    transition: all ease 0.3s;
-  }
 `;
 
 const MoreAnswersButton = styled.button`
@@ -101,54 +77,54 @@ const photoContainers = styled.div`
 class QuestionsAndAnswers extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props)
 
     this.state = {
       questionsData: [],
-      maxQuestionsDisplayed: 4,
-      filteredSearch: false,
       inputSearch: '',
+      filteredData: [],
+      questionsShownLength: 4,
       expandList: false
     };
 
-
-
-      //bind
+    this.showMoreQA = this.showMoreQA.bind(this);
+    this.getData = this.getData.bind(this);
   }
 
-  componentDidMount(){
-    console.log('PRODUCT ID', this.props.productID);
-    var option={
-      headers:{
-        'Authorization':config.TOKEN,
-        'Content-Type': 'application/json'
-      }
+  // invoked upon mounting
+
+
+  // invoked upon updating
+  componentDidUpdate(prevProps, prevState){
+    if (this.props.productID !== prevProps.productID) {
+      // console.log('PRODUCT ID-->', this.props.productID);
+      this.getData();
     }
+  }
 
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/?product_id=${this.props.productID}`,option)
-    .then((results)=>{
-      console.log('Item ID: ', this.props.productID);
-      this.setState({
-        questionsData: results.data
+  // componentDidMount() {
+  //   this.getData();
+  // }
+
+  getData() {
+    axios.get(`qa/questions/?product_id=${this.props.productID}`)
+      .then((results)=>{
+
+        this.setState({
+          questionsData: results.data.results.sort((a,b) => { a.helpfulness - b.helpfulness}),
+          filteredData: results.data.results.sort((a,b) => { a.helpfulness - b.helpfulness})
+        })
+        // console.log('QA QuestionsData: ', this.state.questionsData)
+        // console.log('QA FilteredData: ', this.state.filteredData)
       })
-      console.log('QA FETCH: ', this.state.questionsData)
-    })
-    .catch((error) => {
-      console.log('QA FETCH Error', error)
-    })
+      .catch((error) => {
+        console.log('QA FETCH Error', error)
+      })
   }
 
 
+  showMoreQA() {
 
-
-  handleSearch() {
-
-  }
-
-
-  showMoreList() {
-
-  }
+  };
 
 
   render() {
@@ -160,17 +136,26 @@ class QuestionsAndAnswers extends React.Component {
           <h3>QUESTIONS & ANSWERS</h3>
 
           <SearchContainer>
-            <SearchBar placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." type="text" />
-            <SearchButton />
+
+            <Search
+              questionsData={this.state.questionsData}
+              filteredData={this.state.filteredData}/>
+
           </SearchContainer>
 
           <QuestionsContainer>
-            <Questions />
+            {this.state.filteredData.slice(0, this.state.questionsShownLength).map((item) => (
+              <Questions
+                item={item}
+                key={item.question_id}
+                productID={this.props.productID} />
+            ))}
+
           </QuestionsContainer>
 
-          <MoreAnswersButton onClick={this.showMoreList}><b>MORE ANSWERED QUESTIONS</b></MoreAnswersButton>
+          <MoreAnswersButton onClick={this.showMoreQA}><b>MORE ANSWERED QUESTIONS</b></MoreAnswersButton>
 
-          <AddAQuestionButton onClick={this.showMoreList}><b>ADD A QUESTION +</b></AddAQuestionButton>
+          <AddAQuestionButton onClick={this.showMoreQA}><b>ADD A QUESTION +</b></AddAQuestionButton>
 
 
 

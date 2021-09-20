@@ -3,27 +3,22 @@ import styled from 'styled-components';
 import StarBreakdown from './StarBreakdown.jsx';
 import ReviewBreakdown from './ReviewBreakdown.jsx';
 
-class Ratings extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ratings: []
-    }
-    //bind
-  }
-
-  render() {
-    return (
+const Ratings = (props) => (
+  <div>
+    {props.metadata.product_id ?
       <RatingsStyle>
-        <StarBreakdown />
-        <ReviewBreakdown />
+        <StarBreakdown
+        ratings={props.metadata.ratings}
+        recommended={props.metadata.recommended}/>
+        <ReviewBreakdown
+        characteristics={props.metadata.characteristics}/>
       </RatingsStyle>
-    );
-  }
-}
+    : ''}
+  </div>
+);
+
 
 var RatingsStyle = styled.div`
-  margin-left: 25px;
 `;
 
 export default Ratings;

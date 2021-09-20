@@ -29,11 +29,14 @@ class App extends React.Component {
 
     this.state = {
       productID: '',
+      allProducts: [],
       productIDs: [],
-      index: 0
+      index: 0,
+      currentProduct:{}, // default product object if needed.
     };
 
     this.fetchProductID = this.fetchProductID.bind(this);
+    this.handleClickRelatedList = this.handleClickRelatedList.bind(this);
   }
 
   componentDidMount() {
@@ -56,7 +59,7 @@ class App extends React.Component {
         productID: results.data[this.state.index].id,
         productIDs: results.data.map((product) => product.id)
       })
-      console.log('FETCH all IDs: ', this.state.productIDs);
+      // console.log('FETCH all IDs: ', this.state.productIDs);
 
     })
     .catch((error) => {
@@ -64,10 +67,15 @@ class App extends React.Component {
     });
   }
 
+  //update currentProductId and currentProduct
+  handleClickRelatedList(item){
+    this.setState({currentProduct: item})
+  }
+  handleClickOutgitList(item){
+    console.log('clicked')
+  }
 
   render () {
-
-    const { productID } = this.state;
 
     return (
 
@@ -81,18 +89,19 @@ class App extends React.Component {
       </div>
 
       <div id ='relatedAndComparison'>
-          <RelatedList />
-          <Outfit />
+          <RelatedList list = {'related'} onClick = {this.handleClickRelatedList} currentItem ={this.state.currentProduct} />
+          <Outfit list = {'outfit'} onClick = {this.handleClickOutgitList}/>
 
       </div>
 
       <div id ='questionsAnswers'>
         {/* {console.log('PRODUCT ID', this.state.productID)} */}
-          <QuestionsAndAnswers productID={this.state.productID} />
+          <QuestionsAndAnswers
+            productID={this.state.productID} />
       </div>
 
       <div id='rateReview'>
-          <RateReview />
+          <RateReview id={this.state.productID}/>
       </div>
 
     </div>)

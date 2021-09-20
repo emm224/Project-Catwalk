@@ -1,8 +1,8 @@
 import React from 'react';
 import ImageList from './ImageList.jsx';
-import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import styled from 'styled-components';
 import ThumbnailList from './ThumbnailList.jsx'
+
 // import { ArrowButtonLeft, ArrowButtonRight } from './ArrowButtons';
 
 const Carousel = (props) => {

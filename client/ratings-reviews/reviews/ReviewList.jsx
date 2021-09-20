@@ -4,26 +4,63 @@ import AddReview from './AddReview.jsx';
 import MoreReviews from './MoreReviews.jsx';
 import ReviewListEntry from './ReviewListEntry.jsx';
 
-const ReviewList = (props) => (
-  <div className='review-list'>
-    {props.reviews.length} reviews, sorted by <u>relevance ∨</u>
+class ReviewList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      initialReviews: [],
+      remainingReviews: []
+    }
+    this.showMoreReviews = this.showMoreReviews.bind(this);
+  }
 
-    <ul>
-      {props.reviews.map((review) => <ReviewListEntry review={review} key={review.review_id}/>)}
-    </ul>
+  componentDidUpdate(prevProps, prevState) {
+    if(this.props.reviews !== prevProps.reviews) {
+      this.setState({
+        initialReviews: this.props.reviews.slice(0,2),
+        remainingReviews: this.props.reviews.slice(2)
+      })
+    }
+  };
+  showMoreReviews() {
+    var newInitial = this.state.initialReviews;
+    newInitial.push(this.state.remainingReviews[0]);
+    newInitial.push(this.state.remainingReviews[1]);
+    var newRemaining = this.state.remainingReviews.slice(2);
+    this.setState({
+      initialReviews: newInitial,
+      remainingReviews: newRemaining
+    })
+  }
+  conditionalMoreReviews() {
+    if (this.state.remainingReviews.length > 0) {
+      return <MoreReviews show={this.showMoreReviews}/>
+    }
+  }
 
-    <ReviewButtonsStyle>
-      <MoreReviews />
-      <AddReview />
-    </ReviewButtonsStyle>
 
-  </div>
-);
+  render() {
+    return(
+      <ReviewListStyle>
+        {this.props.reviews.length} reviews, sorted by <u>relevance ∨</u>
+        {this.state.initialReviews.map((review) => <ReviewListEntry review={review} key={review.review_id}/>)}
+
+        <ReviewButtonsStyle>
+          {this.conditionalMoreReviews()}
+          <AddReview />
+        </ReviewButtonsStyle>
+
+      </ReviewListStyle>
+    );
+  }
+}
 
 var ReviewButtonsStyle = styled.div`
   display: flex;
-  margin-left: 10px;
-  padding-left: 10px;
+`;
+
+var ReviewListStyle = styled.div`
+  width: 650px;
 `;
 
 export default ReviewList;
