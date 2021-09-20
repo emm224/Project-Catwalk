@@ -23,23 +23,25 @@
 }
 #slideLeft {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left:-10px;
   border:none;
   outline: none;
   background-color: transparent;
   font-size: 1.5rem;
   cursor:pointer;
+  padding:30px 12px;
 }
 #slideRight {
   position: absolute;
-  top: 50%;
+  top: 40%;
   right:0px;
   border:none;
   outline: none;
   background-color: transparent;
   font-size: 1.5rem;
   cursor:pointer;
+  padding:30px 12px;
 }
 #slideRight:hover{
   background-color: black;
@@ -60,6 +62,7 @@
   background-color: transparent;
   font-size: 1.5rem;
   cursor:pointer;
+  padding:30px 12px;
 }
 #relatedslideLeft:hover{
   background-color: black;
@@ -80,6 +83,7 @@
   background-color: transparent;
   font-size: 1.5rem;
   cursor:pointer;
+  padding:30px 12px;
 }
 #pop {
   position:fixed;
