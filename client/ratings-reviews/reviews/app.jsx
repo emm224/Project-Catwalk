@@ -1,29 +1,24 @@
 import React from 'react';
-import data from '../reviewData.js';
 import styled from 'styled-components';
 import ReviewList from './ReviewList.jsx';
 
-class Reviews extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      reviews: data[0].results
-    }
-    //bind
-  }
-
-  render() {
-    return (
+const Reviews = (props) => (
+  <div>
+    {props.reviews.length ?
       <ReviewsStyle>
-        <ReviewList reviews={this.state.reviews}/>
+        <ReviewList
+          reviews={props.reviews}
+          sortRelevance={props.sortRelevance}
+          sortHelpful={props.sortHelpful}
+          sortNew={props.sortNew} />
       </ReviewsStyle>
-    )
-  }
-
-}
+    : ''}
+  </div>
+);
 
 var ReviewsStyle = styled.div`
   float: center;
+  margin-bottom: 25px;
 `;
 
 export default Reviews;

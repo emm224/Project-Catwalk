@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-// import { search } from '@styled-icons/boxicons-regular/Search';
+import { BsSearch } from 'react-icons';
 
 const SearchBar = styled.input`
   width: 1000px;
@@ -55,6 +55,7 @@ class Search extends React.Component {
       [name]: value
      }, () => {
 
+      this.searchQuestions();
       if (this.state.searchTerm.length >= 3) {
         this.searchQuestions();
       }
@@ -63,8 +64,18 @@ class Search extends React.Component {
 
   searchQuestions(callback) {
 
-
     let questionsContainer = [];
+
+    for (let i = 0; i < this.props.filteredData; i++) {
+
+      let currentQuestion = this.props.filteredData.results[i];
+      console.log('current', currentQuestion)
+
+
+
+    }
+
+
 
     console.log('Props Filtered: ', this.props.filteredData);
 
@@ -77,9 +88,11 @@ class Search extends React.Component {
       <form>
         <SearchBar
           placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
-          type="text"/>
+          type="text"
+          value={this.state.searchTerm}
+          onChange={this.handleInputChange(event)}/>
 
-        <SearchButton />
+        <SearchButton className="BsSearch"/>
 
       </form>
     );

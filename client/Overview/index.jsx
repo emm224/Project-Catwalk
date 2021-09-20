@@ -2,6 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import ImageGallery from './image-carousel/ImageGallery.jsx';
 import styled from 'styled-components';
+import ProductDetail from './overview-components/ProductDetail.jsx';
+import PriceDisplay from './overview-components/PriceDisplay.jsx';
+import StyleSelector from './style-selector/StyleSelector.jsx';
+import ProductDescription from './overview-components/ProductDescription.jsx'
 
 class Product extends React.Component {
   constructor (props) {
@@ -23,7 +27,7 @@ class Product extends React.Component {
 
     axios.get('/api/products/product', defaultProduct)
       .then((defaultProductInfo) => {
-        console.log(defaultProduct)
+        // console.log(defaultProduct)
         this.setState({
           currentProduct: defaultProductInfo.data
         })
@@ -38,12 +42,14 @@ class Product extends React.Component {
           styles: defaultProductStyles.data.results,
           selectedStyle: defaultProductStyles.data.results[0]
         })
-        console.log(defaultProductStyles.data.results[0]);
+        // console.log(defaultProductStyles.data.results[0]);
       })
   }
 
   setPickedStyle(styleId) {
-    var newStyle = this.state.styles.find(style => style.id === styleId);
+    console.log('this is styleId', styleId)
+    var newStyle = this.state.styles.find(style => style.style_id === styleId);
+    console.log('this is new style', newStyle)
     this.setState({
       selectedStyle: newStyle
     })
@@ -58,22 +64,14 @@ class Product extends React.Component {
       {(!this.state.selectedStyle) ? <div></div> :  <ImageGallery selectedStyle={this.state.selectedStyle}/> }
       </LeftContainer>
       <RightContainer className="rightContainer">
-        Hello
+        <ProductDetail currentProduct={this.state.currentProduct}/>
+        <PriceDisplay selectedStyle={this.state.selectedStyle}/>
+        <StyleSelector selectedStyle={this.state.selectedStyle} styles={this.state.styles} setPickedStyle={this.setPickedStyle}/>
       </RightContainer>
+      <ProductDescription currentProduct={this.state.currentProduct}/>
     </Grid>
     )
   }
-        // {/* <StarRating />
-        // <ProductDetail />
-        // <PriceDisplay />
-        // <StyleSelector />
-        // <AddToCart />
-        // <ProductDescription />
-        // <ProductFeatures /> */}
-      // </div>
-  //   )
-  // }
-
 }
 
 var Grid = styled.div`
