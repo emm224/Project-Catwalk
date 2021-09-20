@@ -6,7 +6,7 @@ import axios from 'axios';
 // CSS STYLINGS GO HERE
 
 
-class AnswersList extends React.Component {
+class AnswersModal extends React.Component {
   constructor(props) {
     super(props);
 
@@ -33,4 +33,4 @@ class AnswersList extends React.Component {
 }
 
 
-export default AnswersList;
+export default AnswersModal;

@@ -7,12 +7,13 @@ class RelatedList extends React.Component {
   constructor(){
     super()
     this.state = {
-      currentViewingId:'37313', // what is the product_Id that user is currnely viewing
+      currentViewingId:37311, // what is the product_Id that user is currnely viewing
       relateId : [],
       relatedList :[],
       selected:{},
       photo:'',
-      display:'none'
+      display:'none',
+      currentPhoto:'',
     }
     this.hide = this.hide.bind(this)
   }
@@ -45,15 +46,26 @@ class RelatedList extends React.Component {
     const buttonLeft = document.getElementById('relatedslideLeft');
 
     buttonRight.onclick = function () {
-      document.getElementById('cardContainer').scrollLeft += 40;
+      document.getElementById('cardContainer').scrollLeft += 50;
     };
     buttonLeft.onclick = function () {
-      document.getElementById('cardContainer').scrollLeft -= 40;
+      document.getElementById('cardContainer').scrollLeft -= 50;
     };
   }
 
   comparing(item,photo){
     this.setState({selected:item,photo,display:'block'});
+    var option={
+      headers:{
+        'Authorization':config.TOKEN,
+        'Content-Type': 'application/json'
+      }
+    }
+    fetch(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${this.state.currentViewingId}/styles`,option)
+    .then(data=> data.json())
+    .then(data=>{
+      this.setState({currentPhoto:data.results[0].photos[0].thumbnail_url})
+    })
   }
   hide(){
     this.setState({display:'none'})
@@ -64,8 +76,14 @@ class RelatedList extends React.Component {
       <h3>Related Products</h3>
       <RelatedContainer id ='cardContainer'>
       <ListContainer>
-      {this.state.relatedList.map(item=>
-        <Card item ={item} key = {item.id} list = {this.props.list} onClick={this.comparing.bind(this)}/>
+      {this.state.relatedList.map((item, index)=>
+        <Card item ={item}
+        key = {item.id}
+        data = {index}
+        list = {this.props.list}
+        onClick={this.comparing.bind(this)}
+        onClickItem = {this.props.onClick}
+        />
       )}
       </ListContainer>
       </RelatedContainer>
@@ -73,17 +91,19 @@ class RelatedList extends React.Component {
       <button id="relatedslideRight" type="button"onClick = {this.handleClickRelated}> &#62; </button>
       <div id ='pop' style = {{display: this.state.display}}>
       <button id='popbtn' onClick = {this.hide} >X</button>
+      <div id ='shade'>
         <div className='seleted'>
-            <img src={this.state.photo} />
+            <img src={this.state.currentPhoto} />
+            <p>{this.props.currentItem.category}</p>
+            <p>{this.props.currentItem.name}</p>
+            <p>${this.props.currentItem.default_price}</p>
+        </div>
+        <div className='seleted'>
+            <img src={this.state.photo?this.state.photo: 'https://bashooka.com/wp-content/uploads/2015/10/404-errrrr-page-4.jpg'} />
             <p>{this.state.selected.category}</p>
             <p>{this.state.selected.name}</p>
             <p>${this.state.selected.default_price}</p>
         </div>
-        <div className='seleted'>
-            <img src={this.state.photo} />
-            <p>{this.state.selected.category}</p>
-            <p>{this.state.selected.name}</p>
-            <p>${this.state.selected.default_price}</p>
         </div>
       </div>
     </Container>
@@ -109,6 +129,10 @@ var Container = styled.div`
   width:80%;
   margin:0 auto;
   position:relative;
+  background-image: url(https://www.themoviedb.org/assets/2/v4/misc/trending-bg-39afc2a5f77e31d469b25c187814c0a2efef225494c038098d62317d923f8415.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 200px;
+
 `;
 
 var RelatedContainer = styled.div`

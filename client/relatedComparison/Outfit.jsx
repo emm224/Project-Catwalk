@@ -41,10 +41,10 @@ class Outfit extends React.Component {
     const buttonLeft = document.getElementById('slideLeft');
 
     buttonRight.onclick = function () {
-      document.getElementById('outfit').scrollLeft += 40;
+      document.getElementById('outfit').scrollLeft += 50;
     };
     buttonLeft.onclick = function () {
-      document.getElementById('outfit').scrollLeft -= 40;
+      document.getElementById('outfit').scrollLeft -= 50;
     };
   }
   delete(item){
@@ -58,12 +58,12 @@ class Outfit extends React.Component {
       <OutfitContainer id = 'outfit'>
       <ListContainer>
       {this.state.relatedList.map(item=>
-        <Card item ={item} key = {item.id} onClick = {this.delete.bind(this)}/>
+        <Card item ={item} key = {item.id} onClick = {this.delete.bind(this)} onClickItem = {this.props.onClick}/>
       )}
       </ListContainer>
       </OutfitContainer>
       <button id="slideLeft" type="button" onClick = {this.handleClickOutfit}> &#60;</button>
-      <button id="slideRight" type="button"onClick = {this.handleClickOutfit}> &#62; </button>
+      <button id="slideRight" type="button" onClick = {this.handleClickOutfit}> &#62; </button>
     </Container>
     )
   }

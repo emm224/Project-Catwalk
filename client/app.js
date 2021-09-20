@@ -31,10 +31,32 @@ class App extends React.Component {
       productID: '',
       allProducts: [],
       productIDs: [],
-      index: 0
+      index: 0,
+      currentProduct:{
+        "id": 37311,
+        "campus": "hr-rfe",
+        "name": "Camo Onesie",
+        "slogan": "Blend in to your crowd",
+        "description": "The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.",
+        "category": "Jackets",
+        "default_price": "140.00",
+        "created_at": "2021-08-13T14:37:33.145Z",
+        "updated_at": "2021-08-13T14:37:33.145Z",
+        "features": [
+            {
+                "feature": "Fabric",
+                "value": "Canvas"
+            },
+            {
+                "feature": "Buttons",
+                "value": "Brass"
+            }
+        ]
+    }, // default product object if needed.
     };
 
     this.fetchProductID = this.fetchProductID.bind(this);
+    this.handleClickRelatedList = this.handleClickRelatedList.bind(this);
   }
 
   componentDidMount() {
@@ -65,6 +87,13 @@ class App extends React.Component {
     });
   }
 
+  //update currentProductId and currentProduct
+  handleClickRelatedList(item){
+    this.setState({currentProduct: item})
+  }
+  handleClickOutgitList(item){
+    console.log('clicked')
+  }
 
   render () {
 
@@ -79,11 +108,9 @@ class App extends React.Component {
         <ProductOverview />
       </div>
 
-
-
       <div id ='relatedAndComparison'>
-          <RelatedList list = {'related'}/>
-          <Outfit list = {'outfit'}/>
+          <RelatedList list = {'related'} onClick = {this.handleClickRelatedList} currentItem ={this.state.currentProduct} />
+          <Outfit list = {'outfit'} onClick = {this.handleClickOutgitList}/>
 
       </div>
 
