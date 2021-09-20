@@ -18,10 +18,10 @@ class RateReview extends React.Component {
     this.sortRelevance = this.sortRelevance.bind(this);
   }
 
+
   componentDidUpdate(prevProps, prevState) {
     if(this.props.id !== prevProps.id) {
       this.getReviewsandRatings();
-      this.sortRelevance();
     }
   };
 
@@ -52,7 +52,33 @@ class RateReview extends React.Component {
   }
 
   sortRelevance() {
-    // date and helpfulness
+    var allReviews = this.state.reviews;
+    function helpful(a, b) {
+      if(a.helpfulness < b.helpfulness) {
+        return 1;
+      }
+      if(a.helpfulness > b.helpfulness) {
+        return -1;
+      }
+      return 0;
+    }
+
+    function date(a, b) {
+      if(a.date < b.date) {
+        return 1;
+      }
+      if(a.date > b.date) {
+        return -1;
+      }
+      return 0;
+    }
+    allReviews.sort( helpful );
+    allReviews.sort( date );
+
+    this.setState({
+      reviews: allReviews
+    })
+
   }
 
   sortHelpful() {

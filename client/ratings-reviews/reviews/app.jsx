@@ -6,7 +6,11 @@ const Reviews = (props) => (
   <div>
     {props.reviews.length ?
       <ReviewsStyle>
-        <ReviewList reviews={props.reviews}/>
+        <ReviewList
+          reviews={props.reviews}
+          sortRelevance={props.sortRelevance}
+          sortHelpful={props.sortHelpful}
+          sortNew={props.sortNew} />
       </ReviewsStyle>
     : ''}
   </div>

@@ -9,7 +9,8 @@ class ReviewList extends React.Component {
     super(props);
     this.state = {
       initialReviews: this.props.reviews.slice(0,2),
-      remainingReviews: this.props.reviews.slice(2)
+      remainingReviews: this.props.reviews.slice(2),
+      sort: 'relevance'
     }
     this.showMoreReviews = this.showMoreReviews.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
@@ -23,11 +24,37 @@ class ReviewList extends React.Component {
   //     })
   //   }
   // };
+  componentDidMount() {
+    this.sortRelevance();
+  }
+
+  sortRelevance() {
+    this.props.sortRelevance();
+    this.setState({
+      sort: 'relevance'
+    });
+    console.log('Sorted by relevance');
+  }
+
+  sortHelpful( ) {
+    this.props.sortHelpful();
+    this.setState({
+      sort: 'helpfulness'
+    })
+    console.log('Sorted by helpfulness');
+  }
+
+  sortNew() {
+    this.props.sortNew();
+    this.setState({
+      sort: 'newest'
+    })
+    console.log('Sorted by newest');
+  }
 
   showMoreReviews() {
     var newInitial = this.state.initialReviews;
     var newRemaining = this.state.remainingReviews;
-    console.log(newInitial, newRemaining);
     if (newRemaining.length >= 2) {
       newInitial.push(this.state.remainingReviews[0]);
       newInitial.push(this.state.remainingReviews[1]);
@@ -36,7 +63,6 @@ class ReviewList extends React.Component {
       newInitial.push(this.state.remainingReviews[0]);
       newRemaining.pop();
     }
-    console.log(newInitial, newRemaining);
     this.setState({
       initialReviews: newInitial,
       remainingReviews: newRemaining
@@ -50,7 +76,7 @@ class ReviewList extends React.Component {
     }
   }
 
-  handleSelect() {
+  handleSelect(event) {
     console.log(this.state.sort);
   }
 
@@ -63,7 +89,8 @@ class ReviewList extends React.Component {
 
             <select
             value={this.state.sort}
-            onChange={this.handleSelect}>
+            onChange={this.handleSelect}
+            name='sort'>
               <option>relevance</option>
               <option>helpfulness</option>
               <option>newest</option>
