@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 
 class ReviewListEntry extends React.Component {
@@ -6,8 +7,14 @@ class ReviewListEntry extends React.Component {
     super(props);
     this.state = {
       date: '',
-      stars: this.props.review.rating
+      stars: this.props.review.rating,
+      helpfulness: this.props.review.helpfulness,
+      helpful: false,
+      report: false,
+      id: this.props.review.review_id
     }
+    this.markHelpful = this.markHelpful.bind(this);
+    this.reportReview = this.reportReview.bind(this);
   }
 
   componentDidMount() {
@@ -63,47 +70,74 @@ class ReviewListEntry extends React.Component {
   }
 
   markHelpful() {
-    console.log('Review marked as helpful');
+    var review = {
+      params: {
+        id: this.state.id
+      }
+    }
+
+    if (!this.state.helpful) {
+      axios.put('/api/products/reviews/helpful', review)
+        .then(({data}) => {
+          this.setState({
+            helpful: true
+          })
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
   }
 
   reportReview() {
-    console.log('Review reported');
+    console.log(this.state.id);
+     /*
+        axios.put('/api/products/reviews/report')
+          .then(({data}) => {
+            this.setState({
+              report: true
+            })
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+    */
   }
 
   render () {
     return (
-      <ReviewListEntryStyle>
+      <div>
+        {this.props.review ?
+          <ReviewListEntryStyle>
+            <TopRowStyle>
+              <div>{this.starRating()}</div>
+              <TopRightStyle>
+                {this.props.review.reviewer_name}, {this.state.date}
+              </TopRightStyle>
+            </TopRowStyle>
 
-        <TopRowStyle>
-          <div>{this.starRating()}</div>
-          <TopRightStyle>
-            {this.props.review.reviewer_name}, {this.state.date}
-          </TopRightStyle>
-        </TopRowStyle>
+            <SummaryStyle> <b>{this.props.review.summary}</b> </SummaryStyle>
 
-        <SummaryStyle> <b>{this.props.review.summary}</b> </SummaryStyle>
+            <SummaryStyle>{this.props.review.body}</SummaryStyle>
 
-        <SummaryStyle>{this.props.review.body}</SummaryStyle>
-
-        {this.conditionalRecommend()}
-        {this.conditionalResponse()}
+            {this.conditionalRecommend()}
+            {this.conditionalResponse()}
 
 
-        <BottomRowStyle>
-          <div>Helpful? </div>
-          <ButtonStyle onClick={this.markHelpful}>Yes</ButtonStyle>
-          <div>({this.props.review.helpfulness})</div>
-          <BarStyle>|</BarStyle>
-          <ButtonStyle onClick={this.reportReview}>Report</ButtonStyle>
-        </BottomRowStyle>
-
-      </ReviewListEntryStyle>
+            <BottomRowStyle>
+              <div>Helpful? </div>
+              <ButtonStyle onClick={this.markHelpful}>Yes</ButtonStyle>
+              <div>({this.state.helpfulness})</div>
+              <BarStyle>|</BarStyle>
+              <ButtonStyle onClick={this.reportReview}>Report</ButtonStyle>
+            </BottomRowStyle>
+          </ReviewListEntryStyle>
+        : ''}
+      </div>
     );
   }
 
 };
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var ReviewListEntryStyle = styled.div`
   margin-top: 25px;
