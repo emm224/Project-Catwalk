@@ -9,9 +9,11 @@ class ReviewList extends React.Component {
     super(props);
     this.state = {
       initialReviews: [],
-      remainingReviews: []
+      remainingReviews: [],
+      sort: 'relevance'
     }
     this.showMoreReviews = this.showMoreReviews.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -38,11 +40,23 @@ class ReviewList extends React.Component {
     }
   }
 
+  handleSelect() {
+    console.log(this.state.sort);
+  }
+
 
   render() {
     return(
       <ReviewListStyle>
-        {this.props.reviews.length} reviews, sorted by <u>relevance ∨</u>
+        {this.props.reviews.length} reviews, sorted by {' '}
+
+        <select value={this.state.sort} onChange={this.handleSelect}>
+          <option>relevance</option>
+          <option>helpfulness</option>
+          <option>newest</option>
+
+        </select>
+
         {this.state.initialReviews.map((review) => <ReviewListEntry review={review} key={review.review_id}/>)}
 
         <ReviewButtonsStyle>

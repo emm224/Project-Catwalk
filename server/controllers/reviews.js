@@ -35,13 +35,11 @@ const getReviewMetadata = function(req, res) {
 // }
 
 const markHelpful = function(req, res) {
-  models.reviewModels.markHelpful(req.query.id, req.query.help, (err, data) => {
+  models.reviewModels.markHelpful(req.query.id, (err, data) => {
     if (err) {
-      console.error(err);
-      res.sendStatus(500);
+      res.status(500).send(err);
     } else {
-      console.log('Review marked as helpful', data);
-      res.sendStatus(204);
+      res.status(204).json(data);
     }
   });
 }
@@ -49,11 +47,9 @@ const markHelpful = function(req, res) {
 const reportReview = function(req, res) {
   models.reviewModels.reportReview(req.query.id, (err, data) => {
     if (err) {
-      console.error(err);
-      res.sendStatus(500);
+      res.status(500).send(err);
     } else {
-      console.log('Review reported', data);
-      res.sendStatus(204);
+      res.status(204).json(data);
     }
   });
 }

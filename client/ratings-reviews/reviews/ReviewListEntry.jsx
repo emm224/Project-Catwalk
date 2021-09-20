@@ -8,7 +8,9 @@ class ReviewListEntry extends React.Component {
     this.state = {
       date: '',
       stars: this.props.review.rating,
-      helpful: this.props.review.helpfulness,
+      helpfulness: this.props.review.helpfulness,
+      helpful: false,
+      report: false,
       id: this.props.review.review_id
     }
     this.markHelpful = this.markHelpful.bind(this);
@@ -68,29 +70,33 @@ class ReviewListEntry extends React.Component {
   }
 
   markHelpful() {
-    console.log(this.state.helpful);
     var review = {
       params: {
-        id: this.state.id,
-        help: this.state.helpful + 1
+        id: this.state.id
       }
-    };
+    }
 
-    axios.put('/api/products/reviews/helpful', review)
-      .then(({data}) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    if (!this.state.helpful) {
+      axios.put('/api/products/reviews/helpful', review)
+        .then(({data}) => {
+          this.setState({
+            helpful: true
+          })
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
   }
 
   reportReview() {
     console.log(this.state.id);
      /*
-        axios.put('/api/products/reviews/report', param)
+        axios.put('/api/products/reviews/report')
           .then(({data}) => {
-
+            this.setState({
+              report: true
+            })
           })
           .catch((err) => {
             console.log(err);
@@ -120,7 +126,7 @@ class ReviewListEntry extends React.Component {
         <BottomRowStyle>
           <div>Helpful? </div>
           <ButtonStyle onClick={this.markHelpful}>Yes</ButtonStyle>
-          <div>({this.state.helpful})</div>
+          <div>({this.state.helpfulness})</div>
           <BarStyle>|</BarStyle>
           <ButtonStyle onClick={this.reportReview}>Report</ButtonStyle>
         </BottomRowStyle>
