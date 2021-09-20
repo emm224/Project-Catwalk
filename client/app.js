@@ -31,8 +31,8 @@ class App extends React.Component {
       productID: '',
       allProducts: [],
       productIDs: [],
-      index: 0,
-      currentProduct:{}, // default product object if needed.
+      index: 2,
+      currentProduct:{} // default product object if needed.
     };
 
     this.fetchProductID = this.fetchProductID.bind(this);

@@ -19,18 +19,15 @@ class QuestionsAndAnswers extends React.Component {
       searchTerm: '',
       filteredData: [],
       questionsShownLength: 2,
-      expandList: false
+      expandList: false,
+      showModal: false
     };
 
     this.showMoreQA = this.showMoreQA.bind(this);
     this.getData = this.getData.bind(this);
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
-    this.searchQuestions = this.searchQuestions.bind(this);
+    this.toggleQuestionsModal = this.toggleQuestionsModal.bind(this);
   }
-
-  // componentDidMount() {
-  //   this.getData();
-  // }
 
   //only update the questionsData
   componentDidUpdate(prevProps, prevState){
@@ -40,7 +37,6 @@ class QuestionsAndAnswers extends React.Component {
       this.getData();
     }
   }
-
 
   handleSearchInputChange(event) {
     const target = event.target;
@@ -56,11 +52,6 @@ class QuestionsAndAnswers extends React.Component {
         this.searchQuestions();
       }
     });
-  }
-
-  searchQuestions(callback) {
-
-
   }
 
   getData() {
@@ -80,12 +71,26 @@ class QuestionsAndAnswers extends React.Component {
     });
   }
 
-
-
+  toggleQuestionsModal() {
+    this.setState({
+      showModal: !(this.state.showModal)
+    });
+    console.log('Toggle CLICKED: ', this.state.showModal)
+  }
 
   showMoreQA() {
-
-  };
+    if (this.state.questionsShownLength === 4) {
+      this.setState({
+        questionsShownLength: this.state.filteredData.length,
+        expandList: true
+      });
+    } else {
+      this.setState({
+        questionsShownLength: 4,
+        expandList: true
+      });
+    }
+  }
 
   render() {
 
@@ -111,7 +116,7 @@ class QuestionsAndAnswers extends React.Component {
 
           <QuestionsContainer>
 
-            {this.state.filteredData.map((item) => (
+            {this.state.filteredData.slice(0, this.state.questionsShownLength).map((item) => (
               <Questions
                 item={item}
                 key={item.question_id}
@@ -121,13 +126,26 @@ class QuestionsAndAnswers extends React.Component {
           </QuestionsContainer>
 
           <ButtonContainer>
+            {this.state.filteredData.length > 4 && this.state.expandList === false ? (
 
-          <MoreAnswersButton onClick={this.showMoreQA}><b>MORE ANSWERED QUESTIONS</b></MoreAnswersButton>
+          <MoreAnswersButton
+            onClick={this.showMoreQA}>
+          <b>MORE ANSWERED QUESTIONS</b>
+          </MoreAnswersButton>
 
-          <AddAQuestionButton onClick={this.showMoreQA}><b>ADD A QUESTION +</b></AddAQuestionButton>
+            ) : ( null )}
+
+          <AddAQuestionButton
+            onClick={this.toggleQuestionsModal}>
+          <b>ADD A QUESTION +</b>
+          </AddAQuestionButton>
+
+          <QuestionsModal
+            showModal={this.state.showModal}
+            toggleQuestionsModal={this.toggleQuestionsModal}
+            productID={this.props.productID}/>
 
           </ButtonContainer>
-
         </Container>
       </FlexContainer>
     )

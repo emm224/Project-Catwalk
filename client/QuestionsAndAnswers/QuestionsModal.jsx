@@ -1,21 +1,6 @@
 import React from 'react';
+import styled from 'styled-components';
 import axios from 'axios';
-
-import Questions from './Questions.jsx';
-
-
-// CSS STYLINGS GO HERE
-
-// At the center of the Questions and Answers module will be a list of questions that have been asked about the given product.
-
-// The questions and their corresponding answers within this list will be displayed in an expanding and collapsing accordion. By default, on page load up to four questions should be displayed.
-// Up to two answers should display for each question. The remaining questions or answers should be hidden until the user loads them using the “More Answered Questions” button (section 1.3.4).
-
-// Questions should appear in order of ‘helpfulness’, corresponding to how many users have indicated that the question was helpful.
-
-// The list will contain all questions by default, but will have the potential to be filtered to a subset based on user searches (section 1.3.3).
-
-// If no questions have been submitted for this product, then the list will collapse, and the button to submit a new question (section 1.3.5) will appear near the top of the module.
 
 
 class QuestionsModal extends React.Component {
@@ -23,49 +8,162 @@ class QuestionsModal extends React.Component {
     super(props);
 
     this.state = {
-      body: '',
+      question: '',
       name: '',
       email: '',
-      product_id: ''
+      product_id: '',
+      sent: false
     };
 
-      //bind
+    this.toggleOnOff = this.toggleOnOff.bind(this);
   }
 
-
-  componentDidMount() {
-
+  toggleOnOff(event) {
+    event.stopPropagation();
+    this.props.toggleQuestionsModal();
   }
 
-  postQuestion() {
+  handleInputChange(event) {
+
+    event.stopPropagation();
+
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  addQuestion() {
+    this.setState({
+      sent: true
+    })
 
     axios.post('/qa/questions', {
-      body: newQuestion,
-      name: username,
-      email: emailAddress,
-      product_id: productID
+      body: this.state.question,
+      name: this.state.name,
+      email: this.state.email,
+      product_id: this.props.productID
     })
       .then((response) => {
-        console.log('Post Q Success: ', response);
-
+        console.log('Post Q Success: ', response.data);
+        this.props.toggleQuestionsModal(); // close modal
       })
       .catch((error) => {
-        console.log('Cannot post Questions: ', error)
+        console.log('Cannot post new Question: ', error)
       });
   }
 
-
   render() {
-
+    const divStyle = {
+      display: this.props.showModal ? 'block' : 'none',
+    };
     return (
 
-      <div>
+      <Modal
+        className="modal" onClick={(event) => { this.toggleOnOff(event); }} style={divStyle}>
 
+        <ModalContainer onClick={ this.handleInputChange }>
 
-      </div>
-    )
+          <Close className="close" onClick={(event) => { this.toggleOnOff(event); }}>&times;</Close>
+
+          <NewForm className="AddQuestionForm">
+
+            <InputsStyles
+              placeholder="username"
+              type="text"
+              value={this.state.name}
+              onChange={ this.handleInputChange }  />
+
+            <p>For privacy reasons, do not use your full name or email address</p>
+
+            <InputsStyles
+              placeholder="email"
+              type="email"
+              value={this.state.email}
+              onChange={ this.handleInputChange } />
+            <p>For authentication reasons, you will not be emailed</p>
+
+            <NewQBodyStyle
+              placeholder="Enter Question Here..."
+              type="text"
+              value={this.state.question}
+              onChange={ this.handleInputChange } />
+
+            <Button onClick={ this.addQuestion }> Submit Question </Button>
+            <Button onClick={ this.props.toggleOnOff }> Cancel </Button>
+
+          </NewForm>
+        </ModalContainer>
+      </Modal>
+    );
   }
 }
+
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .7);
+  zIndex: 1000;
+  overflow: auto;
+`;
+
+const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: auto;
+  margin: auto;
+  width: 30%;
+  background-color: gainsboro;
+  padding: 10px;
+  border: 1px solid black;
+  zIndex: 1000;
+`;
+
+const Close = styled.span`
+   color: #aaaaaa;
+   float: right; /* Positioned to the right of the parent container whichever size it is */
+   font-size: 25px;
+   font-weight: bold;
+`;
+
+const NewForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const InputsStyles = styled.input`
+  padding: 5px;
+  width: 150px;
+`;
+
+const NewQBodyStyle = styled.textarea`
+  padding: 5px;
+  height: 100px;
+  width: 300px;
+`;
+
+const Button = styled.button`
+  height: 60px;
+  width: 175px;
+  background-color: white;
+  padding: 10px;
+  margin-top: 10px;
+  &:hover {
+    background-color: lightgrey;
+    border: 1px solid black;
+  border-radius: 5px;
+  transition: all ease 0.3s;
+  }
+`;
+
 
 
 export default QuestionsModal;

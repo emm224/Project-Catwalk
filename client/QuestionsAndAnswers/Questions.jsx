@@ -9,7 +9,7 @@ class Questions extends React.Component {
   constructor(props) {
     super(props);
 
-    // console.log('ITEM: ', this.props.item)
+    console.log('Questions ITEM: ', this.props.item)
     // console.log('Helpfulness counter: ', this.props.item.question_id)
 
     const helpfulCounter = this.props.item.question_helpfulness;
@@ -24,18 +24,16 @@ class Questions extends React.Component {
       clickedHelpful: false,
       clickedReport: false
     }
-
-    this.getAnswersData = this.getAnswersData.bind(this);
     this.handleClick = this.handleClick.bind(this);
-
-
+    this.showMore = this.showMore.bind(this);
+    this.getAnswersData = this.getAnswersData.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState){
-    if (this.props.item.id !== prevProps.item.id) {
-      this.getAnswersData();
-    }
-  }
+  // componentDidUpdate(prevProps, prevState){
+  //   if (this.props.item.id !== prevProps.item.id) {
+  //     this.getAnswersData();
+  //   }
+  // }
 
   componentDidMount() {
     this.getAnswersData();
@@ -49,45 +47,51 @@ class Questions extends React.Component {
     const questionID = item.question_id;
 
     axios.put('/qa/questions', { questionID })
-      .then(() => {})
+      .then((response) => {
+        console.log('Questions CLICKED response', response);
+      })
       .catch((error) => {
         console.log('Helpful Clicked Error!', error)
     });
   }
 
+  showMore() {
+    if (answersShownLength === 2) {
+      console.log('AnswersData: ', this.state.answersData)
+      this.setState({
+        answersShownLength: this.state.answersData.length,
+        expandList: true
+      });
+    } else {
+      this.setState({
+        answersShownLength: 2,
+        expandList: true
+      });
+    }
+  }
 
-
+// console.log('ProductID: ', this.props.productID)
+// console.log('Product Info: ', this.props.item)
+// console.log('Question: ', this.props.item.question_body)
+// console.log('Answers listed by answerID: ', this.props.item.answers)
+// console.log('All answerIDs: ', Object.values(this.props.item.answers))
 
   getAnswersData() {
-    // console.log('ProductID: ', this.props.productID)
-    // console.log('Product Info: ', this.props.item)
-    // console.log('Question: ', this.props.item.question_body)
-    // console.log('Answers listed by answerID: ', this.props.item.answers)
-    // console.log('All answerIDs: ', Object.values(this.props.item.answers))
-
     let answerArr = Object.values(this.props.item.answers);
     console.log('Answers Arr:', answerArr);
 
     this.setState({
       answersData: answerArr
     });
-
-
   }
-
-
-
 
   render() {
 
     return (
       <Container>
         <QContainer>
-
           <h3> Q: {this.props.item.question_body} </h3>
-
           <QuestionLinks>
-
             <HelpfulSpacing> Helpful? </HelpfulSpacing>
 
             <Button name="Helpful" onClick={this.handleClick} >Yes</Button>
@@ -95,21 +99,22 @@ class Questions extends React.Component {
             <DividerSpacing>  |  </DividerSpacing>
 
             <Button name="addAnswer" onClick={this.handleClick} >Add Answer</Button>
-
           </QuestionLinks>
-
         </QContainer>
 
         <div>
           <div>
+            <ScrollList>
+            {this.state.answersData.slice(0, this.state.answersShownLength).map((answer) => (
 
-            {this.state.answersData.map((answer) => (
               <Answers
               item={answer}
               key={answer.id}
               productID={this.props.productID}
-              sellerName={this.props.item} />
+              sellerName={this.props.item}
+              itemReported={this.props.item.reported} />
             ))}
+            </ScrollList>
 
           </div>
 
@@ -174,6 +179,14 @@ const HelpfulSpacing = styled.p`
   display: inline;
 `;
 
+const ScrollList = styled.ul`
+  list-style:none;
+  max-height:400px;
+  margin:0;
+  overflow:auto;
+  padding:0;
+  text-indent:10px;
+`;
 
 export default Questions;
 
@@ -196,3 +209,5 @@ By default only two answers will show.  The rest should be hidden.  If more than
 The view for the full list of answers should be confined to half of the screen, and the list within should be scrollable.   When expanded, the button to “See more answers” should change to read “Collapse answers”.
 
 */
+
+
