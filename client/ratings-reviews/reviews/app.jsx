@@ -3,9 +3,13 @@ import styled from 'styled-components';
 import ReviewList from './ReviewList.jsx';
 
 const Reviews = (props) => (
-  <ReviewsStyle>
-    <ReviewList reviews={props.reviews}/>
-  </ReviewsStyle>
+  <div>
+    {props.reviews.length ?
+      <ReviewsStyle>
+        <ReviewList reviews={props.reviews}/>
+      </ReviewsStyle>
+    : ''}
+  </div>
 );
 
 var ReviewsStyle = styled.div`

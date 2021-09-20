@@ -8,34 +8,44 @@ class ReviewList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialReviews: [],
-      remainingReviews: [],
-      sort: 'relevance'
+      initialReviews: this.props.reviews.slice(0,2),
+      remainingReviews: this.props.reviews.slice(2)
     }
     this.showMoreReviews = this.showMoreReviews.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if(this.props.reviews !== prevProps.reviews) {
-      this.setState({
-        initialReviews: this.props.reviews.slice(0,2),
-        remainingReviews: this.props.reviews.slice(2)
-      })
-    }
-  };
+  // componentDidUpdate(prevProps, prevState) {
+  //   if(this.props.reviews !== prevProps.reviews) {
+  //     this.setState({
+  //       initialReviews: this.props.reviews.slice(0,2),
+  //       remainingReviews: this.props.reviews.slice(2)
+  //     })
+  //   }
+  // };
+
   showMoreReviews() {
     var newInitial = this.state.initialReviews;
-    newInitial.push(this.state.remainingReviews[0]);
-    newInitial.push(this.state.remainingReviews[1]);
-    var newRemaining = this.state.remainingReviews.slice(2);
+    var newRemaining = this.state.remainingReviews;
+    console.log(newInitial, newRemaining);
+    if (newRemaining.length >= 2) {
+      newInitial.push(this.state.remainingReviews[0]);
+      newInitial.push(this.state.remainingReviews[1]);
+      newRemaining = newRemaining.slice(2);
+    } else if (newRemaining.length === 1) {
+      newInitial.push(this.state.remainingReviews[0]);
+      newRemaining.pop();
+    }
+    console.log(newInitial, newRemaining);
     this.setState({
       initialReviews: newInitial,
       remainingReviews: newRemaining
     })
   }
   conditionalMoreReviews() {
-    if (this.state.remainingReviews.length > 0) {
+    if (this.state.remainingReviews === undefined) {
+      return;
+    } else if (this.state.remainingReviews.length > 0) {
       return <MoreReviews show={this.showMoreReviews}/>
     }
   }
@@ -44,27 +54,32 @@ class ReviewList extends React.Component {
     console.log(this.state.sort);
   }
 
-
   render() {
     return(
-      <ReviewListStyle>
-        {this.props.reviews.length} reviews, sorted by {' '}
+      <div>
+        {this.props.reviews ?
+          <ReviewListStyle>
+            {this.props.reviews.length} reviews, sorted by {' '}
 
-        <select value={this.state.sort} onChange={this.handleSelect}>
-          <option>relevance</option>
-          <option>helpfulness</option>
-          <option>newest</option>
+            <select
+            value={this.state.sort}
+            onChange={this.handleSelect}>
+              <option>relevance</option>
+              <option>helpfulness</option>
+              <option>newest</option>
 
-        </select>
+            </select>
 
-        {this.state.initialReviews.map((review) => <ReviewListEntry review={review} key={review.review_id}/>)}
+            {this.state.initialReviews.map((review) => <ReviewListEntry review={review} key={review.review_id}/>)}
 
-        <ReviewButtonsStyle>
-          {this.conditionalMoreReviews()}
-          <AddReview />
-        </ReviewButtonsStyle>
+            <ReviewButtonsStyle>
+              {this.conditionalMoreReviews()}
+              <AddReview />
+            </ReviewButtonsStyle>
 
-      </ReviewListStyle>
+          </ReviewListStyle>
+        : '' }
+      </div>
     );
   }
 }

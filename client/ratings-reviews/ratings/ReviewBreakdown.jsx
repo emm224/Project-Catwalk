@@ -20,9 +20,9 @@ class ReviewBreakdown extends React.Component {
         <div>Size</div>
 
           <ScaleStyle>
-            <ShadedStyle>x</ShadedStyle>
-            <ShadedStyle>x</ShadedStyle>
             <PointerStyle>▼</PointerStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
           </ScaleStyle>
 
@@ -35,8 +35,8 @@ class ReviewBreakdown extends React.Component {
         <div>Comfort</div>
 
         <ScaleStyle>
-          <ComfortEndStyle>x</ComfortEndStyle>
           <PointerStyle>▼</PointerStyle>
+          <ComfortEndStyle>x</ComfortEndStyle>
           <ComfortMiddleStyle>x</ComfortMiddleStyle>
           <ComfortEndStyle>x</ComfortEndStyle>
         </ScaleStyle>
@@ -66,24 +66,28 @@ var ShadedStyle = styled.div`
   color: lightgray;
   background: lightgray;
   width: 32%;
+  margin-top: 3px;
 `;
 
 var ComfortEndStyle = styled.div`
   color: lightgray;
   background: lightgray;
   width: 26%;
+  margin-top: 3px;
 `;
 
 var ComfortMiddleStyle = styled.div`
   color: lightgray;
   background: lightgray;
   width: 45%;
+  margin-top: 3px;
 `;
 
 var PointerStyle = styled.div`
-  color: black;
-  font-size: 15px;
+  color: green;
+  font-size: 14px;
   position: absolute;
 `;
+// left: % of rating  29.25% - 59%
 
 export default ReviewBreakdown;

@@ -106,32 +106,34 @@ class ReviewListEntry extends React.Component {
 
   render () {
     return (
-      <ReviewListEntryStyle>
+      <div>
+        {this.props.review ?
+          <ReviewListEntryStyle>
+            <TopRowStyle>
+              <div>{this.starRating()}</div>
+              <TopRightStyle>
+                {this.props.review.reviewer_name}, {this.state.date}
+              </TopRightStyle>
+            </TopRowStyle>
 
-        <TopRowStyle>
-          <div>{this.starRating()}</div>
-          <TopRightStyle>
-            {this.props.review.reviewer_name}, {this.state.date}
-          </TopRightStyle>
-        </TopRowStyle>
+            <SummaryStyle> <b>{this.props.review.summary}</b> </SummaryStyle>
 
-        <SummaryStyle> <b>{this.props.review.summary}</b> </SummaryStyle>
+            <SummaryStyle>{this.props.review.body}</SummaryStyle>
 
-        <SummaryStyle>{this.props.review.body}</SummaryStyle>
-
-        {this.conditionalRecommend()}
-        {this.conditionalResponse()}
+            {this.conditionalRecommend()}
+            {this.conditionalResponse()}
 
 
-        <BottomRowStyle>
-          <div>Helpful? </div>
-          <ButtonStyle onClick={this.markHelpful}>Yes</ButtonStyle>
-          <div>({this.state.helpfulness})</div>
-          <BarStyle>|</BarStyle>
-          <ButtonStyle onClick={this.reportReview}>Report</ButtonStyle>
-        </BottomRowStyle>
-
-      </ReviewListEntryStyle>
+            <BottomRowStyle>
+              <div>Helpful? </div>
+              <ButtonStyle onClick={this.markHelpful}>Yes</ButtonStyle>
+              <div>({this.state.helpfulness})</div>
+              <BarStyle>|</BarStyle>
+              <ButtonStyle onClick={this.reportReview}>Report</ButtonStyle>
+            </BottomRowStyle>
+          </ReviewListEntryStyle>
+        : ''}
+      </div>
     );
   }
 

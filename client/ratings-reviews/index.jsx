@@ -13,11 +13,15 @@ class RateReview extends React.Component {
       metadata: {}
     };
     this.getReviewsandRatings = this.getReviewsandRatings.bind(this);
+    this.sortHelpful = this.sortHelpful.bind(this);
+    this.sortNew = this.sortNew.bind(this);
+    this.sortRelevance = this.sortRelevance.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if(this.props.id !== prevProps.id) {
       this.getReviewsandRatings();
+      this.sortRelevance();
     }
   };
 
@@ -47,14 +51,62 @@ class RateReview extends React.Component {
       })
   }
 
+  sortRelevance() {
+    // date and helpfulness
+  }
+
+  sortHelpful() {
+    var allReviews = this.state.reviews;
+    function compare(a, b) {
+      if(a.helpfulness < b.helpfulness) {
+        return 1;
+      }
+      if(a.helpfulness > b.helpfulness) {
+        return -1;
+      }
+      return 0;
+    }
+    allReviews.sort( compare );
+
+    this.setState({
+      reviews: allReviews
+    })
+  }
+
+  sortNew() {
+    var allReviews = this.state.reviews;
+    function compare(a, b) {
+      if(a.date < b.date) {
+        return 1;
+      }
+      if(a.date > b.date) {
+        return -1;
+      }
+      return 0;
+    }
+    allReviews.sort( compare );
+
+    this.setState({
+      reviews: allReviews
+    })
+  }
+
   render() {
     return (
-      <HeaderStyle>RATINGS & REVIEWS
-        <RateReviewStyle>
-          <Ratings metadata={this.state.metadata}/>
-          <Reviews reviews={this.state.reviews} />
-        </RateReviewStyle>
-      </HeaderStyle>
+      <div>
+        {this.props.id ?
+          <HeaderStyle>RATINGS & REVIEWS
+            <RateReviewStyle>
+              <Ratings metadata={this.state.metadata}/>
+              <Reviews
+                reviews={this.state.reviews}
+                sortRelevance={this.sortRelevance}
+                sortHelpful={this.sortHelpful}
+                sortNew={this.sortNew} />
+            </RateReviewStyle>
+          </HeaderStyle>
+        : ''}
+      </div>
     )
   }
 }
