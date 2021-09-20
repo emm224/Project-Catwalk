@@ -24,7 +24,7 @@ var AddReviewStyle = styled.div`
   border: 1px solid;
   padding-right: 10px;
   padding-left: 10px;
-  cursor: default;
+  cursor: pointer;
 `;
 
 export default AddReview;

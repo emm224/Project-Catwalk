@@ -181,7 +181,7 @@ var BarStyle = styled.div`
   margin-right: 10px;
 `;
 var ButtonStyle = styled.div`
-  cursor: default;
+  cursor: pointer;
   text-decoration: underline;
   margin-left: 5px;
   margin-right: 5px;

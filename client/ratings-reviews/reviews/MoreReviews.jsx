@@ -27,7 +27,7 @@ var MoreReviewsStyle = styled.div`
   padding-right: 10px;
   padding-left: 10px;
   margin-right: 10px;
-  cursor: default;
+  cursor: pointer;
 `;
 
 export default MoreReviews;

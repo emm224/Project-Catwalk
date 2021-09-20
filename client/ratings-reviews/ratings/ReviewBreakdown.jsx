@@ -16,8 +16,8 @@ class ReviewBreakdown extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>Size</div>
+      <div>{console.log(this.state.characteristics)}
+        <div>Comfort</div>
 
           <ScaleStyle>
             <PointerStyle>▼</PointerStyle>
@@ -27,23 +27,52 @@ class ReviewBreakdown extends React.Component {
           </ScaleStyle>
 
           <ScaleStyle>
-            <p>Too small</p>
+            <p>Poor</p>
             <p>Perfect</p>
-            <p>Too large</p>
           </ScaleStyle>
 
-        <div>Comfort</div>
+        <div>Quality</div>
 
-        <ScaleStyle>
-          <PointerStyle>▼</PointerStyle>
-          <ComfortEndStyle>x</ComfortEndStyle>
-          <ComfortMiddleStyle>x</ComfortMiddleStyle>
-          <ComfortEndStyle>x</ComfortEndStyle>
-        </ScaleStyle>
+          <ScaleStyle>
+            <PointerStyle>▼</PointerStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+          </ScaleStyle>
 
           <ScaleStyle>
             <p>Poor</p>
             <p>Perfect</p>
+          </ScaleStyle>
+
+        <div>Fit</div>
+
+          <ScaleStyle>
+            <PointerStyle>▼</PointerStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+          </ScaleStyle>
+
+          <ScaleStyle>
+            <p>Runs tight</p>
+            <p>Perfect</p>
+            <p>Runs long</p>
+          </ScaleStyle>
+
+        <div>Length</div>
+
+          <ScaleStyle>
+            <PointerStyle>▼</PointerStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+          </ScaleStyle>
+
+          <ScaleStyle>
+            <p>Runs short</p>
+            <p>Perfect</p>
+            <p>Runs long</p>
           </ScaleStyle>
 
       </div>

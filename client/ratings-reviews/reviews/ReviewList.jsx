@@ -14,6 +14,9 @@ class ReviewList extends React.Component {
     }
     this.showMoreReviews = this.showMoreReviews.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.sortHelpful = this.sortHelpful.bind(this);
+    this.sortNew = this.sortNew.bind(this);
+    this.sortRelevance = this.sortRelevance.bind(this);
   }
 
   // componentDidUpdate(prevProps, prevState) {
