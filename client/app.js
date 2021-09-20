@@ -31,7 +31,7 @@ class App extends React.Component {
       productID: '',
       allProducts: [],
       productIDs: [],
-      index: 0
+      index: 3
     };
 
     this.fetchProductID = this.fetchProductID.bind(this);

@@ -3,7 +3,131 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import Answers from './Answers.jsx';
-import AnswersList from './AnswersList.jsx';
+import AnswersModal from './AnswersModal.jsx';
+
+class Questions extends React.Component {
+  constructor(props) {
+    super(props);
+
+    // console.log('ITEM: ', this.props.item)
+    // console.log('Helpfulness counter: ', this.props.item.question_id)
+
+    const helpfulCounter = this.props.item.question_helpfulness;
+    console.log('Helpful Counter: ', helpfulCounter)
+
+    this.state = {
+      answersData: [],
+      answersShownLength: 2,
+      loadedState: false,
+      expandList: false,
+      helpful: this.props.item.question_helpfulness,
+      clickedHelpful: false,
+      clickedReport: false
+    }
+
+    this.getAnswersData = this.getAnswersData.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+
+
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if (this.props.item.id !== prevProps.item.id) {
+      this.getAnswersData();
+    }
+  }
+
+  componentDidMount() {
+    this.getAnswersData();
+  }
+
+  handleClick(event) {
+
+    event.preventDefault();
+
+    const { item } = this.props;
+    const questionID = item.question_id;
+
+    axios.put('/qa/questions', { questionID })
+      .then(() => {})
+      .catch((error) => {
+        console.log('Helpful Clicked Error!', error)
+    });
+  }
+
+
+
+
+  getAnswersData() {
+    // console.log('ProductID: ', this.props.productID)
+    // console.log('Product Info: ', this.props.item)
+    // console.log('Question: ', this.props.item.question_body)
+    // console.log('Answers listed by answerID: ', this.props.item.answers)
+    // console.log('All answerIDs: ', Object.values(this.props.item.answers))
+
+    let answerArr = Object.values(this.props.item.answers);
+    console.log('Answers Arr:', answerArr);
+
+    this.setState({
+      answersData: answerArr
+    });
+
+
+  }
+
+
+
+
+  render() {
+
+    return (
+      <Container>
+        <QContainer>
+
+          <h3> Q: {this.props.item.question_body} </h3>
+
+          <QuestionLinks>
+
+            <HelpfulSpacing> Helpful? </HelpfulSpacing>
+
+            <Button name="Helpful" onClick={this.handleClick} >Yes</Button>
+
+            <DividerSpacing>  |  </DividerSpacing>
+
+            <Button name="addAnswer" onClick={this.handleClick} >Add Answer</Button>
+
+          </QuestionLinks>
+
+        </QContainer>
+
+        <div>
+          <div>
+
+            {this.state.answersData.map((answer) => (
+              <Answers
+              item={answer}
+              key={answer.id}
+              productID={this.props.productID}
+              sellerName={this.props.item} />
+            ))}
+
+          </div>
+
+          <div>
+
+          <AnswersModal />
+
+
+          </div>
+
+
+
+        </div>
+      </Container>
+    )
+  }
+}
+
 
 
 const Container = styled.div`
@@ -21,108 +145,34 @@ const QContainer = styled.div`
 `;
 
 const QuestionLinks = styled.div`
-  display: flex;
+  display: inline;
   margin-left: auto;
-  float: right
 `;
 
+const Button = styled.button`
+  text-decoration: underline;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: inline;
 
-class Questions extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      answersData: [],
-      answersShownLength: 2,
-      loadedState: false
-    }
-
-    this.getAnswersData = this.getAnswersData.bind(this);
-
-
+  &:hover {
+    text-decoration: none;
+    font-weight: bold;
   }
+`;
 
-  componentDidUpdate(prevProps, prevState){
-    if (this.props.item.id !== prevProps.item.id) {
-      this.getAnswersData();
-    }
-  }
+const DividerSpacing = styled.p`
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 125%;
+  display: inline;
+`;
 
-  componentDidMount() {
-    this.getAnswersData();
-  }
-
-  getAnswersData() {
-    console.log('ProductID: ', this.props.productID)
-    console.log('Product Info: ', this.props.item)
-    console.log('Question: ', this.props.item.question_body)
-    console.log('Answers listed by answerID: ', this.props.item.answers)
-    console.log('All answerIDs: ', Object.values(this.props.item.answers))
-
-    let answerIDKeys = Object.values(this.props.item.answers);
-    let answersArr = [];
-
-    for (let i = 0; i < answerIDKeys.length; i++) {
-      let current = answerIDKeys[i];
-
-      answersArr.push(this.props.item.answers[current]);
-    }
-
-    // console.log('Answers Arr:', answerIDKeys);
-    // console.log('Answers Arr:', answerIDKeys.sort((a,b) => {b.helpfulness - a.helpfulness}));
-
-    console.log('Answers Data: ', this.state.answersData)
-  }
-
-
-
-
-  render() {
-
-    return (
-      <Container>
-        <QContainer>
-
-          <h3> Q: {this.props.item.question_body} </h3>
-
-          <QuestionLinks>
-
-            <p> Helpful? </p>
-
-
-          </QuestionLinks>
-
-
-
-        </QContainer>
-
-        <div>
-          <div>
-
-
-            {this.state.answersData.slice(0, this.state.answersShownLength).map((answer) => (
-              <Answers
-              item={answer}
-              key={answer.id}
-              productID={this.props.productID} />
-            ))}
-
-          </div>
-
-          <div>
-
-          <AnswersList />
-
-
-          </div>
-
-
-
-        </div>
-      </Container>
-    )
-  }
-}
+const HelpfulSpacing = styled.p`
+  display: inline;
+`;
 
 
 export default Questions;

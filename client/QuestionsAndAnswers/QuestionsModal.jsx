@@ -1,8 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-// import {listQuestionsData, answersListData} from './dummyData.js';
-
 import Questions from './Questions.jsx';
 
 
@@ -20,7 +18,7 @@ import Questions from './Questions.jsx';
 // If no questions have been submitted for this product, then the list will collapse, and the button to submit a new question (section 1.3.5) will appear near the top of the module.
 
 
-class QuestionsList extends React.Component {
+class QuestionsModal extends React.Component {
   constructor(props) {
     super(props);
 
@@ -70,4 +68,4 @@ class QuestionsList extends React.Component {
 }
 
 
-export default QuestionsList;
+export default QuestionsModal;
