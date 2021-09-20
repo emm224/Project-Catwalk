@@ -10,50 +10,12 @@ class ReviewList extends React.Component {
     this.state = {
       initialReviews: this.props.reviews.slice(0,2),
       remainingReviews: this.props.reviews.slice(2),
-      sort: 'relevance'
+      sort: ''
     }
     this.showMoreReviews = this.showMoreReviews.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
-    this.sortHelpful = this.sortHelpful.bind(this);
-    this.sortNew = this.sortNew.bind(this);
-    this.sortRelevance = this.sortRelevance.bind(this);
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if(this.props.reviews !== prevProps.reviews) {
-  //     this.setState({
-  //       initialReviews: this.props.reviews.slice(0,2),
-  //       remainingReviews: this.props.reviews.slice(2)
-  //     })
-  //   }
-  // };
-  componentDidMount() {
-    this.sortRelevance();
-  }
-
-  sortRelevance() {
-    this.props.sortRelevance();
-    this.setState({
-      sort: 'relevance'
-    });
-    console.log('Sorted by relevance');
-  }
-
-  sortHelpful( ) {
-    this.props.sortHelpful();
-    this.setState({
-      sort: 'helpfulness'
-    })
-    console.log('Sorted by helpfulness');
-  }
-
-  sortNew() {
-    this.props.sortNew();
-    this.setState({
-      sort: 'newest'
-    })
-    console.log('Sorted by newest');
-  }
 
   showMoreReviews() {
     var newInitial = this.state.initialReviews;
@@ -80,7 +42,14 @@ class ReviewList extends React.Component {
   }
 
   handleSelect(event) {
-    console.log(this.state.sort);
+    this.setState({sort: event.target.value});
+    if (event.target.value === 'relevance') {
+      this.sortRelevance();
+    } else if (event.target.value === 'helpfulness') {
+      this.props.sortHelpful();
+    } else if (event.target.value === 'newest') {
+      this.props.sortNew();
+    }
   }
 
   render() {
@@ -94,9 +63,9 @@ class ReviewList extends React.Component {
             value={this.state.sort}
             onChange={this.handleSelect}
             name='sort'>
-              <option>relevance</option>
-              <option>helpfulness</option>
-              <option>newest</option>
+              <option value='relevance'>relevance</option>
+              <option value='helpfulness'>helpfulness</option>
+              <option value='newest' >newest</option>
 
             </select>
 
