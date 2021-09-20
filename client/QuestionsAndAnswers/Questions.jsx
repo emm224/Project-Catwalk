@@ -9,11 +9,11 @@ class Questions extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('Questions ITEM: ', this.props.item)
+    // console.log('Questions ITEM: ', this.props.item)
     // console.log('Helpfulness counter: ', this.props.item.question_id)
 
     const helpfulCounter = this.props.item.question_helpfulness;
-    console.log('Helpful Counter: ', helpfulCounter)
+    // console.log('Helpful Counter: ', helpfulCounter)
 
     this.state = {
       answersData: [],
@@ -48,7 +48,7 @@ class Questions extends React.Component {
 
     axios.put('/qa/questions', { questionID })
       .then((response) => {
-        console.log('Questions CLICKED response', response);
+        // console.log('Questions CLICKED response', response);
       })
       .catch((error) => {
         console.log('Helpful Clicked Error!', error)
@@ -57,7 +57,7 @@ class Questions extends React.Component {
 
   showMore() {
     if (answersShownLength === 2) {
-      console.log('AnswersData: ', this.state.answersData)
+      // console.log('AnswersData: ', this.state.answersData)
       this.setState({
         answersShownLength: this.state.answersData.length,
         expandList: true
@@ -78,7 +78,7 @@ class Questions extends React.Component {
 
   getAnswersData() {
     let answerArr = Object.values(this.props.item.answers);
-    console.log('Answers Arr:', answerArr);
+    // console.log('Answers Arr:', answerArr);
 
     this.setState({
       answersData: answerArr

@@ -48,7 +48,7 @@ class QuestionsModal extends React.Component {
       product_id: this.props.productID
     })
       .then((response) => {
-        console.log('Post Q Success: ', response.data);
+        // console.log('Post Q Success: ', response.data);
         this.props.toggleQuestionsModal(); // close modal
       })
       .catch((error) => {

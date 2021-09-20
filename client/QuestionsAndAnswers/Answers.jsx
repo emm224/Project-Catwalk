@@ -9,7 +9,7 @@ class Answers extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('Answers Item:', this.props.item)
+    // console.log('Answers Item:', this.props.item)
 
     this.state = {
       helpful: this.props.item.helpfulness,

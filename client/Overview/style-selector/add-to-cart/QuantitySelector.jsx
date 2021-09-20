@@ -7,7 +7,7 @@ const QuantitySelector = (props) => {
     return (
       <div>
         <select disabled></select>
-        {console.log('this is props.selectedStyle', props.selectedStyle)}
+        {/* {console.log('this is props.selectedStyle', props.selectedStyle)} */}
       </div>
     )
   }
@@ -26,8 +26,8 @@ const QuantitySelector = (props) => {
   return (
     <select value={props.currentQuantity} onChange={props.chooseQuantity}>
       <option value={null}>SELECT QUANTITY</option>
-      {console.log('this is stock variable', stock)}
-      {console.log(arrOfQuantities)}
+      {/* {console.log('this is stock variable', stock)}
+      {console.log(arrOfQuantities)} */}
       {
         arrOfQuantities.map((quantity, index) => {
           return (

@@ -57,13 +57,13 @@ class QuestionsAndAnswers extends React.Component {
   getData() {
     axios.get(`/qa/questions/?product_id=${this.props.productID}`)
       .then((results)=>{
-        console.log('GET RESULTS', results.data)
+        // console.log('GET RESULTS', results.data)
         this.setState({
           questionsData: results.data.results.sort((a,b) => { a.helpfulness - b.helpfulness}),
           filteredData: results.data.results.sort((a,b) => { a.helpfulness - b.helpfulness})
         })
         // console.log('QuestionsData: ', this.state.questionsData);
-      console.log('FilteredData: ', this.state.filteredData);
+      // console.log('FilteredData: ', this.state.filteredData);
       })
 
       .catch((error) => {
@@ -75,7 +75,7 @@ class QuestionsAndAnswers extends React.Component {
     this.setState({
       showModal: !(this.state.showModal)
     });
-    console.log('Toggle CLICKED: ', this.state.showModal)
+    // console.log('Toggle CLICKED: ', this.state.showModal)
   }
 
   showMoreQA() {

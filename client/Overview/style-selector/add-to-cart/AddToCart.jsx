@@ -46,7 +46,7 @@ class AddToCart extends React.Component {
     for (var i = 0; i < this.props.currentQuantity; i++) {
       axios.post('/api/products/cart', currentSku)
         .then((response) => {
-          console.log(response)
+          // console.log(response)
         })
         .catch((err) => {
           console.log(err)
@@ -92,7 +92,7 @@ class AddToCart extends React.Component {
         styles={this.props.styles}
         updateSku={this.props.updateSku}
         />
-        {console.log(this.props.updateSku)}
+        {/* {console.log(this.props.updateSku)} */}
         <QuantitySelector
         selectedStyle={this.props.selectedStyle}
         chooseQuantity={this.props.chooseQuantity}

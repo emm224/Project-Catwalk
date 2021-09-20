@@ -58,7 +58,7 @@ class ImageGallery extends React.Component {
   // set major image index to index of thumbnail clicked
   clickThumbnail() {
     var newIndex = this.props.selectedStyle.photos.findIndex(element => element.thumbnail_url === event.target.src)
-    console.log('this is newIndex', newIndex)
+    // console.log('this is newIndex', newIndex)
     this.setState({
       imageIndex: newIndex,
     })
