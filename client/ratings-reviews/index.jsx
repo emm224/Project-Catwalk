@@ -11,20 +11,19 @@ class RateReview extends React.Component {
     this.state = {
       reviews: [],
       metadata: {},
-      sort: 'relevance'
     };
     this.getReviewsandRatings = this.getReviewsandRatings.bind(this);
+    this.sortRelevance = this.sortRelevance.bind(this);
     this.sortHelpful = this.sortHelpful.bind(this);
     this.sortNew = this.sortNew.bind(this);
   }
-
-
   componentDidUpdate(prevProps, prevState) {
     if(this.props.id !== prevProps.id) {
       this.getReviewsandRatings();
+      this.sortRelevance();
     }
   };
-
+  
   getReviewsandRatings() {
     var product = {
       params: {
@@ -50,24 +49,35 @@ class RateReview extends React.Component {
         console.log(err);
       })
   }
-
   sortHelpful() {
     var allReviews = this.state.reviews;
-    allReviews.sort(function(a,b) {
+    var sorted = allReviews.sort(function(a,b) {
       return b.helpfulness - a.helpfulness;
     })
     this.setState({
-      reviews: allReviews
+      reviews: sorted
     });
-  }
 
+  }
   sortNew() {
     var allReviews = this.state.reviews;
-    allReviews.sort(function(a,b) {
+    var sorted = allReviews.sort(function(a,b) {
       return new Date(b.date) - new Date(a.date);
     })
     this.setState({
-      reviews: allReviews
+      reviews: sorted
+    });
+  }
+  sortRelevance() {
+    var allReviews = this.state.reviews;
+    var sorted = allReviews.sort(function(a,b) {
+      if(a.helpfulness === b.helpfulness) {
+        return new Date(b.date) - new Date(a.date);
+      }
+      return b.helpfulness - a.helpfulness;
+    })
+    this.setState({
+      reviews: sorted
     });
   }
 
@@ -79,9 +89,11 @@ class RateReview extends React.Component {
             <RateReviewStyle>
               <Ratings metadata={this.state.metadata}/>
               <Reviews
-              reviews={this.state.reviews}
-              sortHelpful={this.sortHelpful}
-              sortNew={this.sortNew}/>
+                reviews={this.state.reviews}
+                sortRelevance={this.sortRelevance}
+                sortHelpful={this.sortHelpful}
+                sortNew={this.sortNew}
+              />
             </RateReviewStyle>
           </HeaderStyle>
         : ''}
@@ -96,10 +108,10 @@ var RateReviewStyle = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   justify-content: left;
 `;
-
 var HeaderStyle = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   margin-left: 200px;
   margin-top: 50px;
 `;
+
 export default RateReview;

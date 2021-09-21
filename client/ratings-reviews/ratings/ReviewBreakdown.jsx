@@ -4,94 +4,142 @@ import styled from 'styled-components';
 class ReviewBreakdown extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      comfort: Math.round((this.props.characteristics.Comfort.value / 5) * 100),
-      fit: Math.round((this.props.characteristics.Fit.value / 5) * 100),
-      length: Math.round((this.props.characteristics.Length.value / 5) * 100),
-      quality: Math.round((this.props.characteristics.Quality.value / 5) * 100)
+  }
+
+  conditionalSize() {
+    if(this.props.characteristics.Size) {
+      var size = Math.round((this.props.characteristics.Size.value / 5) * 100);
+      return (
+        <div>
+          <TextStyle>Size</TextStyle>
+          <ScaleStyle>
+            <SPointerStyle pos={size}>▼</SPointerStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+          </ScaleStyle>
+          <ScaleStyle>
+            <p>Runs small</p>
+            <p>Perfect</p>
+            <p>Runs big</p>
+          </ScaleStyle>
+        </div>
+      );
     }
   }
-
-  // componentDidMount() {
-  //   this.convertRatings();
-  // }
-
-  convertRatings() {
-    var comfort = Math.round((this.props.characteristics.Comfort.value / 5) * 100);
-    var fit = Math.round((this.props.characteristics.Fit.value / 5) * 100);
-    var length = Math.round((this.props.characteristics.Length.value / 5) * 100)
-    var quality = Math.round((this.props.characteristics.Quality.value / 5) * 100);
-
-    this.setState({
-      comfort: comfort,
-      fit: fit,
-      length: length,
-      quality: quality
-    });
+  conditionalWidth() {
+    if(this.props.characteristics.Width) {
+      var width = Math.round((this.props.characteristics.Width.value / 5) * 100);
+      return (
+        <div>
+          <TextStyle>Width</TextStyle>
+          <ScaleStyle>
+            <WPointerStyle pos={width}>▼</WPointerStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+          </ScaleStyle>
+          <ScaleStyle>
+            <p>Runs narrow</p>
+            <p>Perfect</p>
+            <p>Runs wide</p>
+          </ScaleStyle>
+        </div>
+      );
+    }
   }
-
-
-  render() {
-    return (
-      <div>
-        <TextStyle>Comfort</TextStyle>
-
+  conditionalComfort() {
+    if(this.props.characteristics.Comfort) {
+      var comfort = Math.round((this.props.characteristics.Comfort.value / 5) * 100);
+      return (
+        <div>
+          <TextStyle>Comfort</TextStyle>
           <ScaleStyle>
-            <CPointerStyle pos={this.state.comfort}>▼</CPointerStyle>
+            <CPointerStyle pos={comfort}>▼</CPointerStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
           </ScaleStyle>
-
           <ScaleStyle>
             <p>Poor</p>
             <p>Perfect</p>
           </ScaleStyle>
-
-        <TextStyle>Quality</TextStyle>
-
+        </div>
+      );
+    }
+  }
+  conditionalQuality() {
+    if(this.props.characteristics.Quality) {
+      var quality = Math.round((this.props.characteristics.Quality.value / 5) * 100);
+      return (
+        <div>
+          <TextStyle>Quality</TextStyle>
           <ScaleStyle>
-            <QPointerStyle pos={this.state.quality}>▼</QPointerStyle>
+            <QPointerStyle pos={quality}>▼</QPointerStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
           </ScaleStyle>
-
           <ScaleStyle>
             <p>Poor</p>
             <p>Perfect</p>
           </ScaleStyle>
-
-        <TextStyle>Fit</TextStyle>
-
+        </div>
+      );
+    }
+  }
+  conditionalFit() {
+    if(this.props.characteristics.Fit) {
+      var fit = Math.round((this.props.characteristics.Fit.value / 5) * 100);
+      return (
+        <div>
+          <TextStyle>Fit</TextStyle>
           <ScaleStyle>
-            <FPointerStyle pos={this.state.fit}>▼</FPointerStyle>
+            <FPointerStyle pos={fit}>▼</FPointerStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
           </ScaleStyle>
-
           <ScaleStyle>
             <p>Runs tight</p>
             <p>Perfect</p>
             <p>Runs long</p>
           </ScaleStyle>
-
-        <TextStyle>Length</TextStyle>
-
+        </div>
+      );
+    }
+  }
+  conditionalLength() {
+    if(this.props.characteristics.Length) {
+      var length = Math.round((this.props.characteristics.Length.value / 5) * 100);
+      return (
+        <div>
+          <TextStyle>Length</TextStyle>
           <ScaleStyle>
-            <LPointerStyle pos={this.state.length}>▼</LPointerStyle>
+            <LPointerStyle pos={length}>▼</LPointerStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
           </ScaleStyle>
-
           <ScaleStyle>
             <p>Runs short</p>
             <p>Perfect</p>
             <p>Runs long</p>
           </ScaleStyle>
+        </div>
+      );
+    }
+  }
 
+  render() {
+    return (
+      <div>
+        {this.conditionalComfort()}
+        {this.conditionalQuality()}
+        {this.conditionalFit()}
+        {this.conditionalSize()}
+        {this.conditionalLength()}
+        {this.conditionalWidth()}
       </div>
     );
   }
@@ -100,7 +148,6 @@ class ReviewBreakdown extends React.Component {
 var TextStyle = styled.div`
   font-size: 12px;
 `;
-
 var ScaleStyle = styled.div`
   display: flex;
   justify-content: space-between;
@@ -108,28 +155,24 @@ var ScaleStyle = styled.div`
   width: 73%;
   position: relative;
 `;
-
 var ShadedStyle = styled.div`
   color: lightgray;
   background: lightgray;
   width: 32%;
   margin-top: 3px;
 `;
-
 var ComfortEndStyle = styled.div`
   color: lightgray;
   background: lightgray;
   width: 26%;
   margin-top: 3px;
 `;
-
 var ComfortMiddleStyle = styled.div`
   color: lightgray;
   background: lightgray;
   width: 45%;
   margin-top: 3px;
 `;
-
 var CPointerStyle = styled.div`
   color: green;
   font-size: 14px;
@@ -149,6 +192,18 @@ var FPointerStyle = styled.div`
   left: ${props => props.pos}%
 `;
 var LPointerStyle = styled.div`
+  color: green;
+  font-size: 14px;
+  position: absolute;
+  left: ${props => props.pos}%
+`;
+var SPointerStyle = styled.div`
+  color: green;
+  font-size: 14px;
+  position: absolute;
+  left: ${props => props.pos}%
+`;
+var WPointerStyle = styled.div`
   color: green;
   font-size: 14px;
   position: absolute;
