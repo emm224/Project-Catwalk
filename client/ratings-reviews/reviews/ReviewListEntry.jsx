@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+const config = require('./config2.js');
 
 class ReviewListEntry extends React.Component {
   constructor(props) {
@@ -21,7 +22,6 @@ class ReviewListEntry extends React.Component {
     this.formatDate();
     this.starRating();
   }
-
   formatDate() {
     // Get rid of unnecessary time zone and put into an array formatted MM/DD/YYYY
     let date = this.props.review.date.toString().slice(0,9).split('-').reverse();
@@ -40,7 +40,6 @@ class ReviewListEntry extends React.Component {
       date: formatted
     })
   }
-
   starRating() {
     var filled = this.state.stars;
     var empty = 5 - filled;
@@ -53,7 +52,6 @@ class ReviewListEntry extends React.Component {
     }
     return stars;
   }
-
   conditionalResponse() {
     if (this.props.review.response !== null) {
       return (
@@ -64,20 +62,13 @@ class ReviewListEntry extends React.Component {
       );
     }
   }
-
   conditionalRecommend() {
     if (this.props.review.recommend) {return (<RecommendStyle>✓ I recommend this product</RecommendStyle>);}
   }
 
   markHelpful() {
-    var review = {
-      params: {
-        id: this.state.id
-      }
-    }
-
     if (!this.state.helpful) {
-      axios.put('/api/products/reviews/helpful', review)
+      axios.put(`api/products/reviews/${this.props.review.review_id}/helpful`)
         .then(({data}) => {
           this.setState({
             helpful: true
@@ -87,21 +78,30 @@ class ReviewListEntry extends React.Component {
           console.log(err);
         })
     }
+
+    // if (!this.state.helpful) {
+    //   var options = {
+    //     head: {
+    //       headers: {
+    //         'Authorization': config.TOKEN
+    //       }
+    //     }
+    //   }
+    //   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/${this.props.review.review_id}/helpful`, options.head)
+    //     .then((response) => {
+    //       this.setState({
+    //         helpful: true
+    //       })
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     })
+    // }
+
   }
 
   reportReview() {
     console.log(this.state.id);
-     /*
-        axios.put('/api/products/reviews/report')
-          .then(({data}) => {
-            this.setState({
-              report: true
-            })
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-    */
   }
 
   render () {

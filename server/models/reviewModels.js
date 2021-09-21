@@ -62,15 +62,30 @@ const getReviewMetadata = function(id, callback) {
 // }
 
 const markHelpful = function(id, callback) {
-  axios.put(`${options.url}/${id}/helpful`, options.head)
+  axios.put(`${options.url}/${id}/helpful`, null, options.head)
     .then(({data}) => {
-      console.log('Review marked as helpful.', data);
       callback(null, data);
     })
     .catch((err) => {
       console.error(err);
       callback(err);
     })
+
+  // var newOptions = {
+  //   method: 'PUT',
+  //   url: `${options.url}/${id}/helpful`,
+  //   headers: {
+  //     'Authorization': config.TOKEN
+  //   }
+  // };
+
+  // axios(newOptions)
+  //   .then(({data}) => {
+  //     callback(null, data)
+  //   })
+  //   .catch((err) => {
+  //     callback(err);
+  //   })
 }
 
 const reportReview = function(id, callback) {
