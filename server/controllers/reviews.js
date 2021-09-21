@@ -35,7 +35,7 @@ const getReviewMetadata = function(req, res) {
 // }
 
 const markHelpful = function(req, res) {
-  models.reviewModels.markHelpful(req.params.id, (err, data) => {
+  models.reviewModels.markHelpful(req.body.id, (err, data) => {
     if (err) {
       res.status(500).send(err);
     } else {

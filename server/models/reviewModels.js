@@ -70,22 +70,6 @@ const markHelpful = function(id, callback) {
       console.error(err);
       callback(err);
     })
-
-  // var newOptions = {
-  //   method: 'PUT',
-  //   url: `${options.url}/${id}/helpful`,
-  //   headers: {
-  //     'Authorization': config.TOKEN
-  //   }
-  // };
-
-  // axios(newOptions)
-  //   .then(({data}) => {
-  //     callback(null, data)
-  //   })
-  //   .catch((err) => {
-  //     callback(err);
-  //   })
 }
 
 const reportReview = function(id, callback) {

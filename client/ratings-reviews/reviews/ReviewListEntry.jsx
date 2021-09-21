@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-const config = require('./config2.js');
 
 class ReviewListEntry extends React.Component {
   constructor(props) {
@@ -68,35 +67,17 @@ class ReviewListEntry extends React.Component {
 
   markHelpful() {
     if (!this.state.helpful) {
-      axios.put(`api/products/reviews/${this.props.review.review_id}/helpful`)
-        .then(({data}) => {
+      axios.put('/api/products/reviews/helpful', {id: this.props.review.review_id})
+        .then((response) => {
           this.setState({
-            helpful: true
+            helpful: true,
+            helpfulness: this.props.review.helpfulness + 1
           })
         })
         .catch((err) => {
           console.log(err);
         })
     }
-
-    // if (!this.state.helpful) {
-    //   var options = {
-    //     head: {
-    //       headers: {
-    //         'Authorization': config.TOKEN
-    //       }
-    //     }
-    //   }
-    //   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/${this.props.review.review_id}/helpful`, options.head)
-    //     .then((response) => {
-    //       this.setState({
-    //         helpful: true
-    //       })
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     })
-    // }
 
   }
 

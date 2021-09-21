@@ -34,7 +34,7 @@ class ReviewBreakdown extends React.Component {
   render() {
     return (
       <div>
-        <div>Comfort</div>
+        <TextStyle>Comfort</TextStyle>
 
           <ScaleStyle>
             <CPointerStyle pos={this.state.comfort}>▼</CPointerStyle>
@@ -48,7 +48,7 @@ class ReviewBreakdown extends React.Component {
             <p>Perfect</p>
           </ScaleStyle>
 
-        <div>Quality</div>
+        <TextStyle>Quality</TextStyle>
 
           <ScaleStyle>
             <QPointerStyle pos={this.state.quality}>▼</QPointerStyle>
@@ -62,7 +62,7 @@ class ReviewBreakdown extends React.Component {
             <p>Perfect</p>
           </ScaleStyle>
 
-        <div>Fit</div>
+        <TextStyle>Fit</TextStyle>
 
           <ScaleStyle>
             <FPointerStyle pos={this.state.fit}>▼</FPointerStyle>
@@ -77,7 +77,7 @@ class ReviewBreakdown extends React.Component {
             <p>Runs long</p>
           </ScaleStyle>
 
-        <div>Length</div>
+        <TextStyle>Length</TextStyle>
 
           <ScaleStyle>
             <LPointerStyle pos={this.state.length}>▼</LPointerStyle>
@@ -97,8 +97,8 @@ class ReviewBreakdown extends React.Component {
   }
 }
 
-var ReviewBreakdownStyle = styled.div`
-
+var TextStyle = styled.div`
+  font-size: 12px;
 `;
 
 var ScaleStyle = styled.div`
@@ -154,6 +154,5 @@ var LPointerStyle = styled.div`
   position: absolute;
   left: ${props => props.pos}%
 `;
-// left: % of rating  29.25% - 59%
 
 export default ReviewBreakdown;
