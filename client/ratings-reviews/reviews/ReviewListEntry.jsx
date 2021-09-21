@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import PhotoEntry from './PhotoEntry.jsx';
 
 class ReviewListEntry extends React.Component {
   constructor(props) {
@@ -11,12 +12,12 @@ class ReviewListEntry extends React.Component {
       helpfulness: this.props.review.helpfulness,
       helpful: false,
       report: false,
-      id: this.props.review.review_id
+      id: this.props.review.review_id,
+      text: 'Report'
     }
     this.markHelpful = this.markHelpful.bind(this);
     this.reportReview = this.reportReview.bind(this);
   }
-
   componentDidMount() {
     this.formatDate();
     this.starRating();
@@ -64,7 +65,15 @@ class ReviewListEntry extends React.Component {
   conditionalRecommend() {
     if (this.props.review.recommend) {return (<RecommendStyle>✓ I recommend this product</RecommendStyle>);}
   }
-
+  conditionalPhoto() {
+    if (this.props.review.photos.length > 0) {
+      return (
+        <PhotosStyle>
+          {this.props.review.photos.map((photo) => <PhotoEntry photo={photo.url} key={photo.id}/>)}
+        </PhotosStyle>
+      );
+    }
+  }
   markHelpful() {
     if (!this.state.helpful) {
       axios.put('/api/products/reviews/helpful', {id: this.props.review.review_id})
@@ -79,13 +88,13 @@ class ReviewListEntry extends React.Component {
         })
     }
   }
-
   reportReview() {
     if (!this.state.report) {
       axios.put('/api/products/reviews/report', {id: this.props.review.review_id})
         .then((response) => {
           this.setState({
             report: true,
+            text: 'Reported'
           })
         })
         .catch((err) => {
@@ -105,29 +114,24 @@ class ReviewListEntry extends React.Component {
                 {this.props.review.reviewer_name}, {this.state.date}
               </TopRightStyle>
             </TopRowStyle>
-
             <SummaryStyle> <b>{this.props.review.summary}</b> </SummaryStyle>
-
             <SummaryStyle>{this.props.review.body}</SummaryStyle>
-
             {this.conditionalRecommend()}
             {this.conditionalResponse()}
-
-
+            {this.conditionalPhoto()}
             <BottomRowStyle>
               <div>Helpful? </div>
               <ButtonStyle onClick={this.markHelpful}>Yes</ButtonStyle>
               <div>({this.state.helpfulness})</div>
               <BarStyle>|</BarStyle>
-              <ButtonStyle onClick={this.reportReview}>Report</ButtonStyle>
+              <ButtonStyle onClick={this.reportReview}>{this.state.text}</ButtonStyle>
             </BottomRowStyle>
           </ReviewListEntryStyle>
         : ''}
       </div>
     );
   }
-
-};
+}
 
 var ReviewListEntryStyle = styled.div`
   margin-top: 25px;
@@ -176,5 +180,12 @@ var ButtonStyle = styled.div`
   margin-left: 5px;
   margin-right: 5px;
 `;
-
+var PhotosStyle = styled.div`
+  display: flex;
+  height: 100px;
+  width: 100px;
+  align-items: center;
+  margin-left: 20px;
+  margin-bottom: 10px;
+`;
 export default ReviewListEntry;

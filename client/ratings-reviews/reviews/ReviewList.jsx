@@ -13,7 +13,6 @@ class ReviewList extends React.Component {
     this.handleSelect = this.handleSelect.bind(this);
     this.switchNumber = this.switchNumber.bind(this);
   }
-
   switchNumber() {
     if (this.state.number === 2) {
       this.setState({
@@ -25,17 +24,16 @@ class ReviewList extends React.Component {
       });
     }
   }
-
   conditionalMoreReviews() {
     if (this.props.reviews[0] === undefined) {
       return;
     } else {
       return <MoreReviews
         switch={this.switchNumber}
-        number={this.state.number}/>
+        number={this.state.number}
+        length={this.props.reviews.length}/>
     }
   }
-
   handleSelect(event) {
     if (event.target.value === 'relevance') {
       this.props.sortRelevance();
@@ -45,13 +43,13 @@ class ReviewList extends React.Component {
       this.props.sortNew();
     }
   }
+
   render() {
     return(
       <div>
         {this.props.reviews ?
           <ReviewListStyle>
             {this.props.reviews.length} reviews, sorted by {' '}
-
             <select
             value={this.state.sort}
             onChange={this.handleSelect}
@@ -59,7 +57,6 @@ class ReviewList extends React.Component {
               <option value='relevance'>relevance</option>
               <option value='helpfulness'>helpfulness</option>
               <option value='newest' >newest</option>
-
             </select>
 
             <ReviewStyle>
@@ -70,7 +67,6 @@ class ReviewList extends React.Component {
               {this.conditionalMoreReviews()}
               <AddReview />
             </ReviewButtonsStyle>
-
           </ReviewListStyle>
         : '' }
       </div>
@@ -81,14 +77,11 @@ class ReviewList extends React.Component {
 var ReviewButtonsStyle = styled.div`
   display: flex;
 `;
-
 var ReviewListStyle = styled.div`
   width: 650px;
 `;
-
 var ReviewStyle = styled.div`
 
 `;
-
 
 export default ReviewList;

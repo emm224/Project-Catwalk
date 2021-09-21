@@ -17,7 +17,7 @@ class MoreReviews extends React.Component {
           </MoreReviewsStyle>
         </div>
       );
-    } else if (this.props.number === 5){
+    } else if (this.props.number === this.props.length){
       return (
         <div onClick={this.handleClick}>
           <MoreReviewsStyle>
