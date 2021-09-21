@@ -51,7 +51,7 @@ class ReviewList extends React.Component {
       this.props.sortNew();
     }
   }
-
+//
   render() {
     return(
       <div>
@@ -69,7 +69,9 @@ class ReviewList extends React.Component {
 
             </select>
 
+            <ReviewStyle>
             {this.state.initialReviews.map((review) => <ReviewListEntry review={review} key={review.review_id}/>)}
+            </ReviewStyle>
 
             <ReviewButtonsStyle>
               {this.conditionalMoreReviews()}
@@ -90,5 +92,10 @@ var ReviewButtonsStyle = styled.div`
 var ReviewListStyle = styled.div`
   width: 650px;
 `;
+
+var ReviewStyle = styled.div`
+
+`;
+
 
 export default ReviewList;

@@ -5,12 +5,29 @@ class ReviewBreakdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      characteristics: this.props.characteristics,
-      comfort: this.props.characteristics.Comfort.value,
-      fit: this.props.characteristics.Fit.value,
-      length: this.props.characteristics.Length.value,
-      quality: this.props.characteristics.Quality.value
+      comfort: Math.round((this.props.characteristics.Comfort.value / 5) * 100),
+      fit: Math.round((this.props.characteristics.Fit.value / 5) * 100),
+      length: Math.round((this.props.characteristics.Length.value / 5) * 100),
+      quality: Math.round((this.props.characteristics.Quality.value / 5) * 100)
     }
+  }
+
+  // componentDidMount() {
+  //   this.convertRatings();
+  // }
+
+  convertRatings() {
+    var comfort = Math.round((this.props.characteristics.Comfort.value / 5) * 100);
+    var fit = Math.round((this.props.characteristics.Fit.value / 5) * 100);
+    var length = Math.round((this.props.characteristics.Length.value / 5) * 100)
+    var quality = Math.round((this.props.characteristics.Quality.value / 5) * 100);
+
+    this.setState({
+      comfort: comfort,
+      fit: fit,
+      length: length,
+      quality: quality
+    });
   }
 
 
@@ -20,7 +37,7 @@ class ReviewBreakdown extends React.Component {
         <div>Comfort</div>
 
           <ScaleStyle>
-            <PointerStyle>▼</PointerStyle>
+            <CPointerStyle pos={this.state.comfort}>▼</CPointerStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
@@ -34,7 +51,7 @@ class ReviewBreakdown extends React.Component {
         <div>Quality</div>
 
           <ScaleStyle>
-            <PointerStyle>▼</PointerStyle>
+            <QPointerStyle pos={this.state.quality}>▼</QPointerStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
@@ -48,7 +65,7 @@ class ReviewBreakdown extends React.Component {
         <div>Fit</div>
 
           <ScaleStyle>
-            <PointerStyle>▼</PointerStyle>
+            <FPointerStyle pos={this.state.fit}>▼</FPointerStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
@@ -63,7 +80,7 @@ class ReviewBreakdown extends React.Component {
         <div>Length</div>
 
           <ScaleStyle>
-            <PointerStyle>▼</PointerStyle>
+            <LPointerStyle pos={this.state.length}>▼</LPointerStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
@@ -89,6 +106,7 @@ var ScaleStyle = styled.div`
   justify-content: space-between;
   font-size: 10px;
   width: 73%;
+  position: relative;
 `;
 
 var ShadedStyle = styled.div`
@@ -112,10 +130,29 @@ var ComfortMiddleStyle = styled.div`
   margin-top: 3px;
 `;
 
-var PointerStyle = styled.div`
+var CPointerStyle = styled.div`
   color: green;
   font-size: 14px;
   position: absolute;
+  left: ${props => props.pos}%
+`;
+var QPointerStyle = styled.div`
+  color: green;
+  font-size: 14px;
+  position: absolute;
+  left: ${props => props.pos}%
+`;
+var FPointerStyle = styled.div`
+  color: green;
+  font-size: 14px;
+  position: absolute;
+  left: ${props => props.pos}%
+`;
+var LPointerStyle = styled.div`
+  color: green;
+  font-size: 14px;
+  position: absolute;
+  left: ${props => props.pos}%
 `;
 // left: % of rating  29.25% - 59%
 

@@ -5,9 +5,6 @@ import ModalApp from './ModalApp.jsx';
 class AddReview extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      show: false
-    };
   }
 
 
