@@ -5,18 +5,37 @@ class MoreReviews extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick=this.handleClick.bind(this);
+    this.conditionalText = this.conditionalText.bind(this);
+  }
+
+  conditionalText() {
+    if(this.props.number === 2) {
+      return (
+        <div onClick={this.handleClick}>
+          <MoreReviewsStyle>
+            <p>ALL REVIEWS</p>
+          </MoreReviewsStyle>
+        </div>
+      );
+    } else if (this.props.number === 5){
+      return (
+        <div onClick={this.handleClick}>
+          <MoreReviewsStyle>
+            <p>COLLAPSE REVIEWS</p>
+          </MoreReviewsStyle>
+        </div>
+      );
+    }
   }
 
   handleClick() {
-    this.props.show();
+    this.props.switch();
   }
 
   render() {
     return (
-      <div onClick={this.handleClick}>
-        <MoreReviewsStyle>
-          <p>MORE REVIEWS</p>
-        </MoreReviewsStyle>
+      <div>
+        {this.conditionalText()}
       </div>
     );
   }

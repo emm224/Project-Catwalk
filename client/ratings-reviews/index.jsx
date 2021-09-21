@@ -11,7 +11,6 @@ class RateReview extends React.Component {
     this.state = {
       reviews: [],
       metadata: {},
-      sort: 'relevance'
     };
     this.getReviewsandRatings = this.getReviewsandRatings.bind(this);
     this.sortHelpful = this.sortHelpful.bind(this);

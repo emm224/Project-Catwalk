@@ -8,7 +8,6 @@ const Ratings = (props) => (
     {props.metadata.product_id ?
       <RatingsStyle>
         <StarBreakdown
-        reviews={props.reviews}
         ratings={props.metadata.ratings}
         recommended={props.metadata.recommended}/>
         <ReviewBreakdown

@@ -8,50 +8,35 @@ class ReviewList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialReviews: this.props.reviews.slice(0,2),
-      remainingReviews: this.props.reviews.slice(2),
-      sort: ''
+      number: 2
     }
-    this.showMoreReviews = this.showMoreReviews.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.switchNumber = this.switchNumber.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if(this.props.reviews !== prevProps.reviews) {
+  switchNumber() {
+    if (this.state.number === 2) {
       this.setState({
-        initialReviews: this.props.reviews.slice(0,2),
-        remainingReviews: this.props.reviews.slice(2)
-      })
+        number: 5
+      });
+    } else if (this.state.number === 5) {
+      this.setState({
+        number: 2
+      });
     }
-  };
-
-  showMoreReviews() {
-    var newInitial = this.state.initialReviews;
-    var newRemaining = this.state.remainingReviews;
-    if (newRemaining.length >= 2) {
-      newInitial.push(this.state.remainingReviews[0]);
-      newInitial.push(this.state.remainingReviews[1]);
-      newRemaining = newRemaining.slice(2);
-    } else if (newRemaining.length === 1) {
-      newInitial.push(this.state.remainingReviews[0]);
-      newRemaining.pop();
-    }
-    this.setState({
-      initialReviews: newInitial,
-      remainingReviews: newRemaining
-    })
   }
+
   conditionalMoreReviews() {
-    if (this.state.remainingReviews === undefined) {
+    if (this.props.reviews[0] === undefined) {
       return;
-    } else if (this.state.remainingReviews.length > 0) {
-      return <MoreReviews show={this.showMoreReviews}/>
+    } else {
+      return <MoreReviews
+        switch={this.switchNumber}
+        number={this.state.number}/>
     }
   }
 
   handleSelect(event) {
-    this.setState({sort: event.target.value});
-    console.log(event.target.value);
     if (event.target.value === 'relevance') {
       this.props.sortRelevance();
     } else if (event.target.value === 'helpfulness') {
@@ -78,7 +63,7 @@ class ReviewList extends React.Component {
             </select>
 
             <ReviewStyle>
-            {this.state.initialReviews.map((review) => <ReviewListEntry review={review} key={review.review_id}/>)}
+            {this.props.reviews.slice(0, this.state.number).map((review) => <ReviewListEntry review={review} key={review.review_id}/>)}
             </ReviewStyle>
 
             <ReviewButtonsStyle>

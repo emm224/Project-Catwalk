@@ -219,7 +219,6 @@ var FiveUnshadedStyle = styled.div`
   font-size: 1px;
   margin-right: 25px;
 `;
-
 var StarCountStyle= styled.div`
   vertical-align: top;
   margin-left: -16px;
