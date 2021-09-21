@@ -17,9 +17,9 @@ class ReviewList extends React.Component {
   switchNumber() {
     if (this.state.number === 2) {
       this.setState({
-        number: 5
+        number: this.props.reviews.length
       });
-    } else if (this.state.number === 5) {
+    } else if (this.state.number === this.props.reviews.length) {
       this.setState({
         number: 2
       });

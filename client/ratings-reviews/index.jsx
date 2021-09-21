@@ -13,6 +13,7 @@ class RateReview extends React.Component {
       metadata: {},
     };
     this.getReviewsandRatings = this.getReviewsandRatings.bind(this);
+    this.sortRelevance = this.sortRelevance.bind(this);
     this.sortHelpful = this.sortHelpful.bind(this);
     this.sortNew = this.sortNew.bind(this);
   }
@@ -52,11 +53,9 @@ class RateReview extends React.Component {
 
   sortHelpful() {
     var allReviews = this.state.reviews;
-
     var sorted = allReviews.sort(function(a,b) {
       return b.helpfulness - a.helpfulness;
     })
-    console.log('sort helpful', sorted);
     this.setState({
       reviews: sorted
     });
@@ -68,7 +67,19 @@ class RateReview extends React.Component {
     var sorted = allReviews.sort(function(a,b) {
       return new Date(b.date) - new Date(a.date);
     })
-    console.log('sort new', sorted);
+    this.setState({
+      reviews: sorted
+    });
+  }
+
+  sortRelevance() {
+    var allReviews = this.state.reviews;
+    var sorted = allReviews.sort(function(a,b) {
+      if(a.helpfulness === b.helpfulness) {
+        return new Date(b.date) - new Date(a.date);
+      }
+      return b.helpfulness - a.helpfulness;
+    })
     this.setState({
       reviews: sorted
     });
@@ -85,6 +96,7 @@ class RateReview extends React.Component {
               metadata={this.state.metadata}/>
               <Reviews
               reviews={this.state.reviews}
+              sortRelevance={this.sortRelevance}
               sortHelpful={this.sortHelpful}
               sortNew={this.sortNew}/>
             </RateReviewStyle>
