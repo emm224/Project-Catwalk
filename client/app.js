@@ -103,7 +103,7 @@ class App extends React.Component {
       <TitleHeader>
         <h1 >Team Orcus LOGO</h1>
       </TitleHeader>
-
+      <div className = 'contentContainer'>
       <div id='productOverview'>Product Overview Placeholder
         <ProductOverview />
       </div>
@@ -123,7 +123,7 @@ class App extends React.Component {
       <div id='rateReview'>
           <RateReview id={this.state.productID}/>
       </div>
-
+      </div>
     </div>)
   }
 }

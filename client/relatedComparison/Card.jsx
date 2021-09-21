@@ -60,6 +60,7 @@ class Card extends React.Component {
 };
 
 var CardStyle = styled.div`
+  overflow:hidden;
   margin-left:10px;
   margin-right:10px;
   width:200px;
@@ -69,7 +70,7 @@ var CardStyle = styled.div`
   border-radius: 8px;
   box-shadow: rgb(0 0 0 / 10%) 0px 2px 8px;
   background:#B3ACAA;
-  opacity:0.85;
+  opacity:1;
   cursor:pointer;
   p{
     margin:0;
