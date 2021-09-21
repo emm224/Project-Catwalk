@@ -1,6 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
-const router = require('./routes.js')
+const router = require('./routes.js');
 
 const questions = require('./models/questionsAPI.js');
 
@@ -14,7 +14,6 @@ app.use(express.urlencoded({extended: true}));
 app.use(morgan('dev'));
 
 app.use('/api/products', router);
-
 
 
 // ================ Questions & Answers  ===========================
@@ -54,44 +53,12 @@ app.post('/qa/questions', (req, res) => {
 });
 
 app.put('/qa/questions', (req, res) => {
-
-  questions.putQuestionsHelpful(req.body, (error, results) => {
-
+  questions.putQuestions(req.body, (error, data) => {
     if (error) {
-      console.log('Updating Server error. ', error)
+      console.log('PUT ERROR', req)
       res.status(404).send(req.body);
     } else {
-      res.status(204).send(results);
-    }
-  }),
-
-  questions.putQuestionsReport(req.body, (error, results) => {
-
-    if (error) {
-      console.log('Updating Server error. ', error)
-      res.status(404).send(error);
-    } else {
-      res.status(204).send(results);
-    }
-  }),
-
-  questions.putAnswersHelpful(req.body, (error, results) => {
-
-    if (error) {
-      console.log('Updating Server error. ', req.body)
-      res.status(404).send(req.body);
-    } else {
-      res.status(204).send(results);
-    }
-  }),
-
-  questions.putAnswersReport(req.body, (error, results) => {
-
-    if (error) {
-      console.log('Updating Server error. ', error)
-      res.status(404).send(error);
-    } else {
-      res.status(204).send(results);
+      res.status(200).send(data);
     }
   });
 });

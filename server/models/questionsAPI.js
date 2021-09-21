@@ -103,91 +103,40 @@ const postAnswers = (query, callback) => {
 };
 
 
-const putQuestionsHelpful = (query, callback) => {
-
-  axios.put(
-    `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${query.question_id}/helpful`, { questionID : 'query.question_id'  },
-    {
-      headers: {
-        'User-Agent': 'request',
-        Authorization: config.TOKEN
+const putQuestions = (query, callback) => {
+  // if Answers Click
+  if (query.answer_id) {
+    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/answers/${query.answer_id}/${query.name}`, {},
+      {
+        headers: {
+          Authorization: config.TOKEN,
+        },
       },
-    },
-  )
-  .then((response) => {
-    console.log('Updated Helpfulness Link!: ', response.data);
-    callback(null, response.data);
-  })
-  .catch((error) => {
-    console.log('PUT HELPFUL ERROR: ', query)
-    callback(error);
-  });
-};
-
-const putQuestionsReport = (query, callback) => {
-
-  axios.put(
-    `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${query.question_id}/report`, {},
-    {
-      headers: {
-        Authorization: config.TOKEN
+    )
+      .then((results) => {
+        callback(null, results.data);
+      })
+      .catch((err) => {
+        callback(err, null);
+      });
+  } else {
+    // if Questions Click
+    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${query.question_id}/${query.name}`, {},
+      {
+        headers: {
+          Authorization: config.TOKEN,
+        },
       },
-    },
-  )
-  .then((response) => {
-    console.log('Updated Reported Link!: ', response.data);
-    callback(null, response.data);
-  })
-  .catch((error) => {
-    console.log('PUT HELPFUL ERROR: ', query)
-    callback(error);
-  });
+    )
+      .then((results) => {
+        callback(null, results.data);
+      })
+      .catch((err) => {
+        callback(err, null);
+      });
+  }
 };
-
-const putAnswersHelpful = (query, callback) => {
-
-  axios.put(
-    `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/answers/${query.question_id}/helpful`, {},
-    {
-      headers: {
-        Authorization: config.TOKEN
-      },
-    },
-  )
-  .then((response) => {
-    console.log('Updated Answers Helpfulness Link!: ', response.data);
-    callback(null, response.data);
-  })
-  .catch((error) => {
-    console.log('PUT HELPFUL ERROR: ', query)
-    callback(error);
-  });
-};
-
-const putAnswersReport = (query, callback) => {
-
-  axios.put(
-    `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/answers/${query.question_id}/report`, {},
-    {
-      headers: {
-        Authorization: config.TOKEN
-      },
-    },
-  )
-  .then((response) => {
-    console.log('Reported Answers Link!: ', response.data);
-    callback(null, response.data);
-  })
-  .catch((error) => {
-    console.log('PUT HELPFUL ERROR: ', query)
-    callback(error);
-  });
-};
-
 
 module.exports.getQuestions = getQuestions;
 module.exports.postQuestions = postQuestions;
-module.exports.putQuestionsHelpful = putQuestionsHelpful;
-module.exports.putQuestionsReport = putQuestionsReport;
-module.exports.putAnswersHelpful = putAnswersHelpful;
-module.exports.putAnswersReport = putAnswersReport;
+module.exports.putQuestions = putQuestions;
