@@ -69,7 +69,7 @@ class Search extends React.Component {
     for (let i = 0; i < this.props.filteredData; i++) {
 
       let currentQuestion = this.props.filteredData.results[i];
-      console.log('current', currentQuestion)
+      // console.log('current', currentQuestion)
 
 
 
@@ -77,7 +77,7 @@ class Search extends React.Component {
 
 
 
-    console.log('Props Filtered: ', this.props.filteredData);
+    // console.log('Props Filtered: ', this.props.filteredData);
 
 
   }

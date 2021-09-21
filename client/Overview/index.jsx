@@ -47,9 +47,9 @@ class Product extends React.Component {
   }
 
   setPickedStyle(styleId) {
-    console.log('this is styleId', styleId)
+    // console.log('this is styleId', styleId)
     var newStyle = this.state.styles.find(style => style.style_id === styleId);
-    console.log('this is new style', newStyle)
+    // console.log('this is new style', newStyle)
     this.setState({
       selectedStyle: newStyle
     })

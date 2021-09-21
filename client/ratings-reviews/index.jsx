@@ -10,12 +10,12 @@ class RateReview extends React.Component {
     super(props);
     this.state = {
       reviews: [],
-      metadata: {}
+      metadata: {},
+      sort: 'relevance'
     };
     this.getReviewsandRatings = this.getReviewsandRatings.bind(this);
     this.sortHelpful = this.sortHelpful.bind(this);
     this.sortNew = this.sortNew.bind(this);
-    this.sortRelevance = this.sortRelevance.bind(this);
   }
 
 
@@ -51,70 +51,24 @@ class RateReview extends React.Component {
       })
   }
 
-  sortRelevance() {
-    var allReviews = this.state.reviews;
-    function helpful(a, b) {
-      if(a.helpfulness < b.helpfulness) {
-        return 1;
-      }
-      if(a.helpfulness > b.helpfulness) {
-        return -1;
-      }
-      return 0;
-    }
-
-    function date(a, b) {
-      if(a.date < b.date) {
-        return 1;
-      }
-      if(a.date > b.date) {
-        return -1;
-      }
-      return 0;
-    }
-    allReviews.sort( helpful );
-    allReviews.sort( date );
-
-    this.setState({
-      reviews: allReviews
-    })
-
-  }
-
   sortHelpful() {
     var allReviews = this.state.reviews;
-    function compare(a, b) {
-      if(a.helpfulness < b.helpfulness) {
-        return 1;
-      }
-      if(a.helpfulness > b.helpfulness) {
-        return -1;
-      }
-      return 0;
-    }
-    allReviews.sort( compare );
-
+    allReviews.sort(function(a,b) {
+      return b.helpfulness - a.helpfulness;
+    })
     this.setState({
       reviews: allReviews
-    })
+    });
   }
 
   sortNew() {
     var allReviews = this.state.reviews;
-    function compare(a, b) {
-      if(a.date < b.date) {
-        return 1;
-      }
-      if(a.date > b.date) {
-        return -1;
-      }
-      return 0;
-    }
-    allReviews.sort( compare );
-
+    allReviews.sort(function(a,b) {
+      return new Date(b.date) - new Date(a.date);
+    })
     this.setState({
       reviews: allReviews
-    })
+    });
   }
 
   render() {
@@ -125,10 +79,9 @@ class RateReview extends React.Component {
             <RateReviewStyle>
               <Ratings metadata={this.state.metadata}/>
               <Reviews
-                reviews={this.state.reviews}
-                sortRelevance={this.sortRelevance}
-                sortHelpful={this.sortHelpful}
-                sortNew={this.sortNew} />
+              reviews={this.state.reviews}
+              sortHelpful={this.sortHelpful}
+              sortNew={this.sortNew}/>
             </RateReviewStyle>
           </HeaderStyle>
         : ''}

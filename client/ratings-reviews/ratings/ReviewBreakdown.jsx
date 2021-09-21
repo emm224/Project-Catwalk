@@ -5,45 +5,91 @@ class ReviewBreakdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      characteristics: this.props.characteristics,
-      comfort: this.props.characteristics.Comfort.value,
-      fit: this.props.characteristics.Fit.value,
-      length: this.props.characteristics.Length.value,
-      quality: this.props.characteristics.Quality.value
+      comfort: Math.round((this.props.characteristics.Comfort.value / 5) * 100),
+      fit: Math.round((this.props.characteristics.Fit.value / 5) * 100),
+      length: Math.round((this.props.characteristics.Length.value / 5) * 100),
+      quality: Math.round((this.props.characteristics.Quality.value / 5) * 100)
     }
+  }
+
+  // componentDidMount() {
+  //   this.convertRatings();
+  // }
+
+  convertRatings() {
+    var comfort = Math.round((this.props.characteristics.Comfort.value / 5) * 100);
+    var fit = Math.round((this.props.characteristics.Fit.value / 5) * 100);
+    var length = Math.round((this.props.characteristics.Length.value / 5) * 100)
+    var quality = Math.round((this.props.characteristics.Quality.value / 5) * 100);
+
+    this.setState({
+      comfort: comfort,
+      fit: fit,
+      length: length,
+      quality: quality
+    });
   }
 
 
   render() {
     return (
       <div>
-        <div>Size</div>
+        <TextStyle>Comfort</TextStyle>
 
           <ScaleStyle>
-            <PointerStyle>▼</PointerStyle>
+            <CPointerStyle pos={this.state.comfort}>▼</CPointerStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
             <ShadedStyle>x</ShadedStyle>
           </ScaleStyle>
-
-          <ScaleStyle>
-            <p>Too small</p>
-            <p>Perfect</p>
-            <p>Too large</p>
-          </ScaleStyle>
-
-        <div>Comfort</div>
-
-        <ScaleStyle>
-          <PointerStyle>▼</PointerStyle>
-          <ComfortEndStyle>x</ComfortEndStyle>
-          <ComfortMiddleStyle>x</ComfortMiddleStyle>
-          <ComfortEndStyle>x</ComfortEndStyle>
-        </ScaleStyle>
 
           <ScaleStyle>
             <p>Poor</p>
             <p>Perfect</p>
+          </ScaleStyle>
+
+        <TextStyle>Quality</TextStyle>
+
+          <ScaleStyle>
+            <QPointerStyle pos={this.state.quality}>▼</QPointerStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+          </ScaleStyle>
+
+          <ScaleStyle>
+            <p>Poor</p>
+            <p>Perfect</p>
+          </ScaleStyle>
+
+        <TextStyle>Fit</TextStyle>
+
+          <ScaleStyle>
+            <FPointerStyle pos={this.state.fit}>▼</FPointerStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+          </ScaleStyle>
+
+          <ScaleStyle>
+            <p>Runs tight</p>
+            <p>Perfect</p>
+            <p>Runs long</p>
+          </ScaleStyle>
+
+        <TextStyle>Length</TextStyle>
+
+          <ScaleStyle>
+            <LPointerStyle pos={this.state.length}>▼</LPointerStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+            <ShadedStyle>x</ShadedStyle>
+          </ScaleStyle>
+
+          <ScaleStyle>
+            <p>Runs short</p>
+            <p>Perfect</p>
+            <p>Runs long</p>
           </ScaleStyle>
 
       </div>
@@ -51,8 +97,8 @@ class ReviewBreakdown extends React.Component {
   }
 }
 
-var ReviewBreakdownStyle = styled.div`
-
+var TextStyle = styled.div`
+  font-size: 12px;
 `;
 
 var ScaleStyle = styled.div`
@@ -60,6 +106,7 @@ var ScaleStyle = styled.div`
   justify-content: space-between;
   font-size: 10px;
   width: 73%;
+  position: relative;
 `;
 
 var ShadedStyle = styled.div`
@@ -83,11 +130,29 @@ var ComfortMiddleStyle = styled.div`
   margin-top: 3px;
 `;
 
-var PointerStyle = styled.div`
+var CPointerStyle = styled.div`
   color: green;
   font-size: 14px;
   position: absolute;
+  left: ${props => props.pos}%
 `;
-// left: % of rating  29.25% - 59%
+var QPointerStyle = styled.div`
+  color: green;
+  font-size: 14px;
+  position: absolute;
+  left: ${props => props.pos}%
+`;
+var FPointerStyle = styled.div`
+  color: green;
+  font-size: 14px;
+  position: absolute;
+  left: ${props => props.pos}%
+`;
+var LPointerStyle = styled.div`
+  color: green;
+  font-size: 14px;
+  position: absolute;
+  left: ${props => props.pos}%
+`;
 
 export default ReviewBreakdown;

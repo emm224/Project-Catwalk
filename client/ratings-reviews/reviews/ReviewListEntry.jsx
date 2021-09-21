@@ -21,7 +21,6 @@ class ReviewListEntry extends React.Component {
     this.formatDate();
     this.starRating();
   }
-
   formatDate() {
     // Get rid of unnecessary time zone and put into an array formatted MM/DD/YYYY
     let date = this.props.review.date.toString().slice(0,9).split('-').reverse();
@@ -40,7 +39,6 @@ class ReviewListEntry extends React.Component {
       date: formatted
     })
   }
-
   starRating() {
     var filled = this.state.stars;
     var empty = 5 - filled;
@@ -53,7 +51,6 @@ class ReviewListEntry extends React.Component {
     }
     return stars;
   }
-
   conditionalResponse() {
     if (this.props.review.response !== null) {
       return (
@@ -64,44 +61,28 @@ class ReviewListEntry extends React.Component {
       );
     }
   }
-
   conditionalRecommend() {
     if (this.props.review.recommend) {return (<RecommendStyle>✓ I recommend this product</RecommendStyle>);}
   }
 
   markHelpful() {
-    var review = {
-      params: {
-        id: this.state.id
-      }
-    }
-
     if (!this.state.helpful) {
-      axios.put('/api/products/reviews/helpful', review)
-        .then(({data}) => {
+      axios.put('/api/products/reviews/helpful', {id: this.props.review.review_id})
+        .then((response) => {
           this.setState({
-            helpful: true
+            helpful: true,
+            helpfulness: this.props.review.helpfulness + 1
           })
         })
         .catch((err) => {
           console.log(err);
         })
     }
+
   }
 
   reportReview() {
     console.log(this.state.id);
-     /*
-        axios.put('/api/products/reviews/report')
-          .then(({data}) => {
-            this.setState({
-              report: true
-            })
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-    */
   }
 
   render () {
@@ -181,7 +162,7 @@ var BarStyle = styled.div`
   margin-right: 10px;
 `;
 var ButtonStyle = styled.div`
-  cursor: default;
+  cursor: pointer;
   text-decoration: underline;
   margin-left: 5px;
   margin-right: 5px;

@@ -23,10 +23,10 @@ class StyleSelector extends React.Component {
       currentSkuId: null,
       currentQuantity: 0
     }, function() {
-      console.log(this.state)
+      // console.log(this.state)
     })
-    console.log('this is this', this)
-    console.log('this is state', this.state)
+    // console.log('this is this', this)
+    // console.log('this is state', this.state)
     // document.getElementById('size-selector').selectedIndex = 0
   }
 
@@ -36,9 +36,9 @@ class StyleSelector extends React.Component {
     // var selectedSku = event.target.childNodes[optionIndex];
     var skuId = event.target.value
     var selectedSku = this.props.selectedStyle.skus[skuId]
-    console.log('this is selected SKU', selectedSku)
+    // console.log('this is selected SKU', selectedSku)
     var selectedSize = event.target.value;
-    console.log(this)
+    // console.log(this)
     this.setState({
       currentSku: selectedSku,
       currentSize: selectedSize,
@@ -48,7 +48,7 @@ class StyleSelector extends React.Component {
 
   chooseQuantity() {
     var newQuantity = event.target.value
-    console.log('this is quantity selected', newQuantity)
+    // console.log('this is quantity selected', newQuantity)
     this.setState({
       currentQuantity: newQuantity
     })

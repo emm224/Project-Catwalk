@@ -62,9 +62,8 @@ const getReviewMetadata = function(id, callback) {
 // }
 
 const markHelpful = function(id, callback) {
-  axios.put(`${options.url}/${id}/helpful`, options.head)
+  axios.put(`${options.url}/${id}/helpful`, null, options.head)
     .then(({data}) => {
-      console.log('Review marked as helpful.', data);
       callback(null, data);
     })
     .catch((err) => {

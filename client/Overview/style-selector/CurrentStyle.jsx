@@ -11,7 +11,7 @@ const CurrentStyle = (props) => {
     props.resetSizeAndQuantity()
     var styleId = event.target.value;
     // console.log('this is target value', event.target)
-    console.log('hello')
+    // console.log('hello')
     // reset size and quantity
     return props.setPickedStyle(props.style_id)
   }
