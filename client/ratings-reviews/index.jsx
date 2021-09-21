@@ -23,6 +23,7 @@ class RateReview extends React.Component {
       this.sortRelevance();
     }
   };
+  
   getReviewsandRatings() {
     var product = {
       params: {
@@ -86,14 +87,13 @@ class RateReview extends React.Component {
         {this.props.id ?
           <HeaderStyle>RATINGS & REVIEWS
             <RateReviewStyle>
-              <Ratings
-              reviews={this.state.reviews}
-              metadata={this.state.metadata}/>
+              <Ratings metadata={this.state.metadata}/>
               <Reviews
-              reviews={this.state.reviews}
-              sortRelevance={this.sortRelevance}
-              sortHelpful={this.sortHelpful}
-              sortNew={this.sortNew}/>
+                reviews={this.state.reviews}
+                sortRelevance={this.sortRelevance}
+                sortHelpful={this.sortHelpful}
+                sortNew={this.sortNew}
+              />
             </RateReviewStyle>
           </HeaderStyle>
         : ''}
