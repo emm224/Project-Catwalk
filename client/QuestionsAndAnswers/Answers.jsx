@@ -4,113 +4,96 @@ import styled from 'styled-components';
 
 import AnswersPhoto from './AnswersPhoto.jsx';
 
-
 class Answers extends React.Component {
   constructor(props) {
     super(props);
 
-    // console.log('Answers Item:', this.props.item)
+
+    console.log('Answers Item:', this.props.item)
+    console.log('SellerName:', this.props.sellerName)
+
 
     this.state = {
       helpful: this.props.item.helpfulness,
-
-    }
+      clickedYes: false,
+      clickedReport: false
+    };
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(event) {
-
-    event.preventDefault();
-
-    const { item } = this.props;
-    const questionID = item.question_id;
-
-    axios.put('/qa/questions', { questionID })
-      .then(() => {})
-      .catch((error) => {
-        console.log('Helpful Clicked Error!', error)
-    });
+    if (!this.state.clickedYes && event.target.name === 'helpful') {
+      // if Helpful
+        // if not, then Report
+      axios.put('/qa/questions', {
+        answer_id: this.props.item.id,
+        name: event.target.name,
+      })
+        .then((response) => {
+          this.setState({
+            clickedYes: true,
+            helpful: this.state.helpful + 1
+          });
+        });
+    } else {
+      axios.put('/qa/questions', {
+        answer_id: this.props.item.id,
+        name: event.target.name
+      })
+        .then(() => {
+          this.setState({
+            clickedReport: true,
+          })
+        })
+        .then(() => {
+          console.log('ANSWER ID: ' + this.props.item.id + ' HAS BEEN REPORTED FOR REVIEW!')
+      });
+    }
   }
 
-  // console.log('ProductID: ', props.productID)
-  // console.log('Product Info: ', props.item)
-  // console.log('Question: ', props.item.question_body)
-  // console.log('Answers listed by answerID: ', props.item.answers)
-  // console.log('All answerIDs: ', Object.keys(props.item.answers))
-
-  // let answerIDKeys = Object.keys(props.item.answers);
-  // let answersArr = [];
-
-  // for (let i = 0; i < answerIDKeys.length; i++) {
-  //   let current = answerIDKeys[i];
-
-  //   answersArr.push(props.item.answers[current]);
-  // }
-
   render() {
-
     const seller = this.props.sellerName.asker_name;
     const answerer = this.props.item.answerer_name;
-
     return (
-
       <div>
         <AnswersContainer>
           <h3> A: </h3>
-          <AnswerBody>
-            {this.props.item.body}
-          </AnswerBody>
-
-
+            <AnswerBody>
+              {this.props.item.body}
+            </AnswerBody>
         </AnswersContainer>
 
         <PhotosContainer>
-
-
-
-        </PhotosContainer>
-
           {this.props.item.photos.map((photo, index) => (
-
             <AnswersPhoto
               photo={photo}
               key={index} />
-          ))}
+            ))}
+        </PhotosContainer>
 
         <FooterContainer>
-
-
            by {' '} {answerer}
-
-           <b> {seller === answerer ? ( ' - Seller' ):('')} </b>
-
+            <b> {seller === answerer ? ( ' - Seller' ):('')} </b>
            {', '}
-
            {new Date(this.props.item.date).toLocaleDateString('en-US', {
-                  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-                })}
-
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
 
           <DividerSpacing>  |  </DividerSpacing>
-
-           <HelpfulSpacing> {'  Helpful? '} </HelpfulSpacing>
+           <HelpfulSpacing> {' Helpful? '} </HelpfulSpacing>
 
           <Button name="helpful" onClick={this.handleClick}> Yes </Button>
-
-            { '(' }
-            {this.state.helpful}
-            { ')' }
+            {'('}{this.state.helpful}{')'}
 
           <DividerSpacing>  |  </DividerSpacing>
-
+          {!this.state.clickedReport ? (
           <Button name="report" onClick={this.handleClick}> Report </Button>
-
+          ) : (
+          <b> Reported </b>
+            )}
         </FooterContainer>
-
-
       </div>
-      )
-    }
+    );
+  }
 }
 
 const AnswersContainer = styled.div`

@@ -21,38 +21,43 @@ class Questions extends React.Component {
       loadedState: false,
       expandList: false,
       helpful: this.props.item.question_helpfulness,
-      clickedHelpful: false,
-      clickedReport: false
+      clickedYes: false,
+      clickedReport: false,
+      showModal: false
     }
     this.handleClick = this.handleClick.bind(this);
     this.showMore = this.showMore.bind(this);
+    this.toggleAnswersModal = this.toggleAnswersModal.bind(this);
     this.getAnswersData = this.getAnswersData.bind(this);
   }
-
-  // componentDidUpdate(prevProps, prevState){
-  //   if (this.props.item.id !== prevProps.item.id) {
-  //     this.getAnswersData();
-  //   }
-  // }
 
   componentDidMount() {
     this.getAnswersData();
   }
 
   handleClick(event) {
-
-    event.preventDefault();
-
-    const { item } = this.props;
-    const questionID = item.question_id;
-
-    axios.put('/qa/questions', { questionID })
-      .then((response) => {
-        // console.log('Questions CLICKED response', response);
+    if (!this.state.clickedYes && event.target.name === 'helpful') {
+      axios.put('/qa/questions', {
+        question_id: this.props.item.question_id,
+        name: event.target.name,
       })
-      .catch((error) => {
-        console.log('Helpful Clicked Error!', error)
-    });
+        .then((response) => {
+          this.setState({
+            clickedYes: true,
+            helpful: this.state.helpful + 1
+          });
+        });
+    } else {
+      axios.put('/qa/questions', {
+        question_id: this.props.item.question_id,
+        name: event.target.name
+      })
+        .then(() => {
+          this.setState({
+            clickedReport: true,
+          });
+        });
+    }
   }
 
   showMore() {
@@ -70,11 +75,12 @@ class Questions extends React.Component {
     }
   }
 
-// console.log('ProductID: ', this.props.productID)
-// console.log('Product Info: ', this.props.item)
-// console.log('Question: ', this.props.item.question_body)
-// console.log('Answers listed by answerID: ', this.props.item.answers)
-// console.log('All answerIDs: ', Object.values(this.props.item.answers))
+  toggleAnswersModal() {
+    this.setState({
+      showModal: !(this.state.showModal)
+    });
+    console.log('Toggle CLICKED: ', this.state.showModal)
+  }
 
   getAnswersData() {
     let answerArr = Object.values(this.props.item.answers);
@@ -94,10 +100,10 @@ class Questions extends React.Component {
           <QuestionLinks>
             <HelpfulSpacing> Helpful? </HelpfulSpacing>
 
-            <Button name="Helpful" onClick={this.handleClick} >Yes</Button>
+            <Button name="helpful" onClick={this.handleClick} >Yes</Button>
+            {'('}{this.state.helpful}{')'}
 
             <DividerSpacing>  |  </DividerSpacing>
-
             <Button name="addAnswer" onClick={this.handleClick} >Add Answer</Button>
           </QuestionLinks>
         </QContainer>
@@ -120,8 +126,10 @@ class Questions extends React.Component {
 
           <div>
 
-          <AnswersModal />
-
+          <AnswersModal
+            showModal={this.state.showModal}
+            toggleAnswersModal={this.toggleAnswersModal}
+            productID={this.props.productID}/>
 
           </div>
 
@@ -211,3 +219,9 @@ The view for the full list of answers should be confined to half of the screen, 
 */
 
 
+
+// console.log('ProductID: ', this.props.productID)
+// console.log('Product Info: ', this.props.item)
+// console.log('Question: ', this.props.item.question_body)
+// console.log('Answers listed by answerID: ', this.props.item.answers)
+// console.log('All answerIDs: ', Object.values(this.props.item.answers))
