@@ -73,9 +73,8 @@ const markHelpful = function(id, callback) {
 }
 
 const reportReview = function(id, callback) {
-  axios.put(`${options.url}/${id}/report`, id, options.head)
+  axios.put(`${options.url}/${id}/report`, null, options.head)
     .then(({data}) => {
-      console.log('Review reported.', data);
       callback(null, data);
     })
     .catch((err) => {

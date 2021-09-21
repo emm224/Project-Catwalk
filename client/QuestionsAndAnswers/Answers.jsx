@@ -9,8 +9,8 @@ class Answers extends React.Component {
     super(props);
 
 
-    console.log('Answers Item:', this.props.item)
-    console.log('SellerName:', this.props.sellerName)
+    // console.log('Answers Item:', this.props.item)
+    // console.log('SellerName:', this.props.sellerName)
 
 
     this.state = {

@@ -45,7 +45,7 @@ const markHelpful = function(req, res) {
 }
 
 const reportReview = function(req, res) {
-  models.reviewModels.reportReview(req.params.id, (err, data) => {
+  models.reviewModels.reportReview(req.body.id, (err, data) => {
     if (err) {
       res.status(500).send(err);
     } else {
