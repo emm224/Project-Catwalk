@@ -112,7 +112,7 @@ class QuestionsAndAnswers extends React.Component {
 
 
 
-          </SearchContainer>
+          </SearchContainer> 
 
           <QuestionsContainer>
 
