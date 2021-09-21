@@ -16,6 +16,14 @@ class ReviewList extends React.Component {
     this.handleSelect = this.handleSelect.bind(this);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if(this.props.reviews !== prevProps.reviews) {
+      this.setState({
+        initialReviews: this.props.reviews.slice(0,2),
+        remainingReviews: this.props.reviews.slice(2)
+      })
+    }
+  };
 
   showMoreReviews() {
     var newInitial = this.state.initialReviews;
@@ -43,15 +51,15 @@ class ReviewList extends React.Component {
 
   handleSelect(event) {
     this.setState({sort: event.target.value});
+    console.log(event.target.value);
     if (event.target.value === 'relevance') {
-      this.sortRelevance();
+      this.props.sortRelevance();
     } else if (event.target.value === 'helpfulness') {
       this.props.sortHelpful();
     } else if (event.target.value === 'newest') {
       this.props.sortNew();
     }
   }
-//
   render() {
     return(
       <div>

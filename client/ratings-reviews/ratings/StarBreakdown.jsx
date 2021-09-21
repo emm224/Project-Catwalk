@@ -9,7 +9,12 @@ class StarBreakdown extends React.Component {
       four: this.reviewDistribution(4),
       three: this.reviewDistribution(3),
       two: this.reviewDistribution(2),
-      one: this.reviewDistribution(1)
+      one: this.reviewDistribution(1),
+      fiveCount: this.ratingCount(5),
+      fourCount: this.ratingCount(4),
+      threeCount: this.ratingCount(3),
+      twoCount: this.ratingCount(2),
+      oneCount: this.ratingCount(1)
     }
   }
 
@@ -18,7 +23,6 @@ class StarBreakdown extends React.Component {
     this.starAverage();
     this.starDisplay();
   }
-
   percentRecommended() {
     var x = Number(this.props.recommended.true);
     var y = Number(this.props.recommended.false);
@@ -66,6 +70,9 @@ class StarBreakdown extends React.Component {
     }
     return stars;
   }
+  ratingCount(n) {
+    return Number(this.props.ratings[n]);
+  }
 
   render() {
     return (
@@ -83,6 +90,7 @@ class StarBreakdown extends React.Component {
             <FiveShadedStyle shade={this.state.five}>x</FiveShadedStyle>
             <FiveUnshadedStyle unshade={this.state.five}>x</FiveUnshadedStyle>
           </BarStyle>
+          <StarCountStyle>{this.state.fiveCount}</StarCountStyle>
         </StarBarGraphStyle>
         <StarBarGraphStyle>
           <u>4 star(s)</u>
@@ -90,6 +98,7 @@ class StarBreakdown extends React.Component {
             <FourShadedStyle shade={this.state.four}>x</FourShadedStyle>
             <FourUnshadedStyle unshade={this.state.four}>x</FourUnshadedStyle>
           </BarStyle>
+          <StarCountStyle>{this.state.fourCount}</StarCountStyle>
         </StarBarGraphStyle>
         <StarBarGraphStyle>
           <u>3 star(s)</u>
@@ -97,6 +106,7 @@ class StarBreakdown extends React.Component {
             <ThreeShadedStyle shade={this.state.three}>x</ThreeShadedStyle>
             <ThreeUnshadedStyle unshade={this.state.three}>x</ThreeUnshadedStyle>
           </BarStyle>
+          <StarCountStyle>{this.state.threeCount}</StarCountStyle>
         </StarBarGraphStyle>
         <StarBarGraphStyle>
           <u>2 star(s)</u>
@@ -104,6 +114,7 @@ class StarBreakdown extends React.Component {
             <TwoShadedStyle shade={this.state.two}>x</TwoShadedStyle>
             <TwoUnshadedStyle unshade={this.state.two}>x</TwoUnshadedStyle>
           </BarStyle>
+          <StarCountStyle>{this.state.twoCount}</StarCountStyle>
         </StarBarGraphStyle>
         <StarBarGraphStyle>
           <u>1 star(s)</u>
@@ -111,6 +122,7 @@ class StarBreakdown extends React.Component {
             <OneShadedStyle shade={this.state.one}>x</OneShadedStyle>
             <OneUnshadedStyle unshade={this.state.one}>x</OneUnshadedStyle>
           </BarStyle>
+          <StarCountStyle>{this.state.oneCount}</StarCountStyle>
         </StarBarGraphStyle>
         <br></br>
       </div>
@@ -206,6 +218,12 @@ var FiveUnshadedStyle = styled.div`
   color: lightgray;
   font-size: 1px;
   margin-right: 25px;
+`;
+
+var StarCountStyle= styled.div`
+  vertical-align: top;
+  margin-left: -16px;
+  margin-top: -2px;
 `;
 
 export default StarBreakdown;

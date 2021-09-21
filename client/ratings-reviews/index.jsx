@@ -25,10 +25,6 @@ class RateReview extends React.Component {
     }
   };
 
-  // componentDidMount() {
-  //   this.getReviewsandRatings();
-  // }
-
   getReviewsandRatings() {
     var product = {
       params: {
@@ -37,7 +33,6 @@ class RateReview extends React.Component {
     }
     axios.get('/api/products/reviews', product)
       .then(({data}) => {
-        console.log('reviews', data.results);
         this.setState({
           reviews: data.results
         });
@@ -47,7 +42,6 @@ class RateReview extends React.Component {
       })
     axios.get('api/products/reviews/meta', product)
       .then(({data}) => {
-        console.log('metadata', data);
         this.setState({
           metadata: data
         });
@@ -59,21 +53,25 @@ class RateReview extends React.Component {
 
   sortHelpful() {
     var allReviews = this.state.reviews;
-    allReviews.sort(function(a,b) {
+
+    var sorted = allReviews.sort(function(a,b) {
       return b.helpfulness - a.helpfulness;
     })
+    console.log('sort helpful', sorted);
     this.setState({
-      reviews: allReviews
+      reviews: sorted
     });
+
   }
 
   sortNew() {
     var allReviews = this.state.reviews;
-    allReviews.sort(function(a,b) {
+    var sorted = allReviews.sort(function(a,b) {
       return new Date(b.date) - new Date(a.date);
     })
+    console.log('sort new', sorted);
     this.setState({
-      reviews: allReviews
+      reviews: sorted
     });
   }
 
@@ -82,8 +80,10 @@ class RateReview extends React.Component {
       <div>
         {this.props.id ?
           <HeaderStyle>RATINGS & REVIEWS
-            <RateReviewStyle>{console.log(this.props.id)}
-              <Ratings metadata={this.state.metadata}/>
+            <RateReviewStyle>
+              <Ratings
+              reviews={this.state.reviews}
+              metadata={this.state.metadata}/>
               <Reviews
               reviews={this.state.reviews}
               sortHelpful={this.sortHelpful}

@@ -85,7 +85,7 @@ class ReviewListEntry extends React.Component {
       axios.put('/api/products/reviews/report', {id: this.props.review.review_id})
         .then((response) => {
           this.setState({
-            report: true
+            report: true,
           })
         })
         .catch((err) => {
