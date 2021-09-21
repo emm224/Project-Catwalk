@@ -112,6 +112,7 @@ class RelatedList extends React.Component {
 }
 
 var ListContainer = styled.div`
+  overflow:hidden;
   display:flex;
   ::after {
     transition: all 0.3s linear 0s;
@@ -121,18 +122,17 @@ var ListContainer = styled.div`
     position: absolute;
     top: 0px;
     right: 0px;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
     opacity: 1;
   }
 `;
 var Container = styled.div`
+  height: 400px;
   width:80%;
   margin:0 auto;
   position:relative;
   background-image: url(https://www.themoviedb.org/assets/2/v4/misc/trending-bg-39afc2a5f77e31d469b25c187814c0a2efef225494c038098d62317d923f8415.svg);
   background-repeat: no-repeat;
   background-position: 50% 200px;
-
 `;
 
 var RelatedContainer = styled.div`

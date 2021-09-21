@@ -54,6 +54,7 @@ class Outfit extends React.Component {
   render () {
     return (
     <Container>
+      <OutterContainer>
       <h3>Your Outfit</h3>
       <OutfitContainer id = 'outfit'>
       <ListContainer>
@@ -64,6 +65,7 @@ class Outfit extends React.Component {
       </OutfitContainer>
       <button id="slideLeft" type="button" onClick = {this.handleClickOutfit}> &#60;</button>
       <button id="slideRight" type="button" onClick = {this.handleClickOutfit}> &#62; </button>
+      </OutterContainer>
     </Container>
     )
   }
@@ -79,20 +81,32 @@ var ListContainer = styled.div`
     position: absolute;
     top: 0px;
     right: 0px;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
     opacity: 1;
   }
 `;
 
 var Container = styled.div`
   width:80%;
-  margin:0 auto;
+  height:500px;
+  margin:auto;
   position:relative;
 `;
 
 var OutfitContainer = styled.div`
   overflow:hidden;
-  margin-left:20px;
+  margin-left:30px;
+  margin-right:50px;
+  margin-top:70px;
+  opacity:1;
 `
+
+var OutterContainer = styled.div`
+  height:100%;
+  background-image:url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2600&q=80');
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: inset 0 0 0 1000px rgba(255,255,255,.4);
+`
+
 
 export default Outfit;
