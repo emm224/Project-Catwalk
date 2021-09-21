@@ -31,7 +31,7 @@ class App extends React.Component {
       productID: '',
       allProducts: [],
       productIDs: [],
-      index: 2,
+      index: 0,
       currentProduct:{
         "id": 37311,
         "campus": "hr-rfe",

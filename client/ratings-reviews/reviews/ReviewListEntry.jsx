@@ -78,11 +78,20 @@ class ReviewListEntry extends React.Component {
           console.log(err);
         })
     }
-
   }
 
   reportReview() {
-    console.log(this.state.id);
+    if (!this.state.report) {
+      axios.put('/api/products/reviews/report', {id: this.props.review.review_id})
+        .then((response) => {
+          this.setState({
+            report: true
+          })
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
   }
 
   render () {
