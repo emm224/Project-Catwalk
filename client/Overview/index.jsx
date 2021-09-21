@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import ProductDetail from './overview-components/ProductDetail.jsx';
 import PriceDisplay from './overview-components/PriceDisplay.jsx';
 import StyleSelector from './style-selector/StyleSelector.jsx';
-import ProductDescription from './overview-components/ProductDescription.jsx'
+import ProductDescription from './overview-components/ProductDescription.jsx';
+import SocialShare from './overview-components/SocialShare.jsx'
 
 class Product extends React.Component {
   constructor (props) {
@@ -67,6 +68,7 @@ class Product extends React.Component {
         <ProductDetail currentProduct={this.state.currentProduct}/>
         <PriceDisplay selectedStyle={this.state.selectedStyle}/>
         <StyleSelector selectedStyle={this.state.selectedStyle} styles={this.state.styles} setPickedStyle={this.setPickedStyle}/>
+        <SocialShare selectedStyle={this.state.selectedStyle}/>
       </RightContainer>
       <ProductDescription currentProduct={this.state.currentProduct}/>
     </Grid>
