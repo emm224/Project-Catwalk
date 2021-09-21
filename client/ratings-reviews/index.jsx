@@ -25,10 +25,6 @@ class RateReview extends React.Component {
     }
   };
 
-  // componentDidMount() {
-  //   this.getReviewsandRatings();
-  // }
-
   getReviewsandRatings() {
     var product = {
       params: {
@@ -37,7 +33,6 @@ class RateReview extends React.Component {
     }
     axios.get('/api/products/reviews', product)
       .then(({data}) => {
-        console.log('reviews', data.results);
         this.setState({
           reviews: data.results
         });
@@ -47,7 +42,6 @@ class RateReview extends React.Component {
       })
     axios.get('api/products/reviews/meta', product)
       .then(({data}) => {
-        console.log('metadata', data);
         this.setState({
           metadata: data
         });
@@ -82,7 +76,7 @@ class RateReview extends React.Component {
       <div>
         {this.props.id ?
           <HeaderStyle>RATINGS & REVIEWS
-            <RateReviewStyle>{console.log(this.props.id)}
+            <RateReviewStyle>
               <Ratings metadata={this.state.metadata}/>
               <Reviews
               reviews={this.state.reviews}
