@@ -25,6 +25,10 @@ class RateReview extends React.Component {
     }
   };
 
+  // componentDidMount() {
+  //   this.getReviewsandRatings();
+  // }
+
   getReviewsandRatings() {
     var product = {
       params: {
@@ -78,7 +82,7 @@ class RateReview extends React.Component {
       <div>
         {this.props.id ?
           <HeaderStyle>RATINGS & REVIEWS
-            <RateReviewStyle>
+            <RateReviewStyle>{console.log(this.props.id)}
               <Ratings metadata={this.state.metadata}/>
               <Reviews
               reviews={this.state.reviews}
