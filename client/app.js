@@ -28,42 +28,11 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      productID: '',
-      allProducts: [],
-      productIDs: [],
-      index: 0,
+      productID: '37311',//default to 37311 when page load
+      productName:'',
     };
 
-    this.fetchProductID = this.fetchProductID.bind(this);
     this.handleClickRelatedList = this.handleClickRelatedList.bind(this);
-  }
-
-  componentDidMount() {
-    this.fetchProductID();
-  }
-
-  fetchProductID() {
-
-    var option={
-      headers:{
-        'Authorization':config.TOKEN,
-        'Content-Type': 'application/json'
-      }
-    }
-
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products`,option)
-    .then((results) => {
-
-      this.setState({
-        productID: results.data[this.state.index].id,
-        productIDs: results.data.map((product) => product.id)
-      })
-      // console.log('FETCH all IDs: ', this.state.productIDs);
-
-    })
-    .catch((error) => {
-      console.log('Error retrieving IDs', error)
-    });
   }
 
   //update currentProductId and currentProduct
@@ -75,9 +44,7 @@ class App extends React.Component {
   }
 
   render () {
-
     return (
-
     <div>
       <TitleHeader>
         <h1 >Team Orcus LOGO</h1>

@@ -35,11 +35,11 @@ class Card extends React.Component {
   }
   render(){
     return (
-      <CardStyle onMouseOver = {this.showButton.bind(this)} onMouseLeave = {this.hideButton.bind(this)}>
+      <CardStyle>
           <div className="container" >
             {this.props.list === 'related' ? <span className = 'star' onClick={()=>{this.props.onClick(this.props.item, this.state.photo)}}>	&#9734;</span>:<span onClick={()=>{this.props.onClick(this.props.item, this.state.photo)}} className = 'delete'>X</span>}
             <div onClick={()=>{this.props.onClickItem(this.props.item)}}>
-          <div id ='cardImage-container'>
+          <div id ='cardImage-container' onMouseOver = {this.showButton.bind(this)} onMouseLeave = {this.hideButton.bind(this)}>
           <ImageContainer show = {this.state.show}>
             {this.state.styles.map((item,index)=>
 
