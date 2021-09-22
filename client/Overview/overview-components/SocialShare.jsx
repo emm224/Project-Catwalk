@@ -1,6 +1,4 @@
 import React from 'react';
-import { FacebookShareButton, PinterestShareButton, TwitterShareButton } from 'react-share';
-import { FacebookIcon, PinterestIcon, TwitterIcon } from 'react-share';
 
 const SocialShare = (props) => {
   if (!props.selectedStyle) {
