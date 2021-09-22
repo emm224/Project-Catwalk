@@ -9,16 +9,15 @@ class Questions extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('Questions ITEM: ', this.props.item)
+    // console.log('Questions ITEM: ', this.props.item)
     // console.log('Helpfulness counter: ', this.props.item.question_id)
 
     const helpfulCounter = this.props.item.question_helpfulness;
-    console.log('Helpful Counter: ', helpfulCounter)
+    // console.log('Helpful Counter: ', helpfulCounter)
 
     this.state = {
       answersData: [],
-      answersShownLength: 2,
-      loadedState: false,
+      answersDisplayed: 2,
       expandList: false,
       helpful: this.props.item.question_helpfulness,
       clickedYes: false,
@@ -61,16 +60,16 @@ class Questions extends React.Component {
   }
 
   showMore() {
-    if (answersShownLength === 2) {
-      console.log('AnswersData: ', this.state.answersData)
+    if (this.state.answersDisplayed === 2) {
+      // console.log('AnswersData: ', this.state.answersData)
       this.setState({
-        answersShownLength: this.state.answersData.length,
+        answersDisplayed: this.state.answersData.length,
         expandList: true
       });
     } else {
       this.setState({
-        answersShownLength: 2,
-        expandList: true
+        answersDisplayed: 2,
+        expandList: false
       });
     }
   }
@@ -84,7 +83,8 @@ class Questions extends React.Component {
 
   getAnswersData() {
     let answerArr = Object.values(this.props.item.answers);
-    console.log('Answers Arr:', answerArr);
+    console.log('Answers RAW:', answerArr);
+    console.log('Answers SORTED:', answerArr.sort((a,b)=> b.helpfulness - a.helpfulness));
 
     this.setState({
       answersData: answerArr
@@ -93,55 +93,74 @@ class Questions extends React.Component {
 
   render() {
 
+    const { answersData, helpful, answersDisplayed, showModal, expandList } = this.state;
+
     return (
       <Container>
         <QContainer>
           <h3> Q: {this.props.item.question_body} </h3>
+
           <QuestionLinks>
             <HelpfulSpacing> Helpful? </HelpfulSpacing>
-
             <Button name="helpful" onClick={this.handleClick} >Yes</Button>
-            {'('}{this.state.helpful}{')'}
-
+            {'('}{helpful}{')'}
             <DividerSpacing>  |  </DividerSpacing>
-            <Button name="addAnswer" onClick={this.handleClick} >Add Answer</Button>
+            <Button name="addAnswer" onClick={this.toggleAnswersModal} >Add Answer</Button>
+
           </QuestionLinks>
         </QContainer>
 
         <div>
+          {answersDisplayed <= 2 ? (
           <div>
-            <ScrollList>
-            {this.state.answersData.slice(0, this.state.answersShownLength).map((answer) => (
-
+            {answersData.slice(0, answersDisplayed).map((answer, index) => (
+            <AnsContainer key={index}>
               <Answers
               item={answer}
               key={answer.id}
               productID={this.props.productID}
               sellerName={this.props.item}
               itemReported={this.props.item.reported} />
+            </AnsContainer>
             ))}
+          </div>
+          ) : (
+            <ScrollList>
+              {answersData.slice(0, answersDisplayed).map((answer, index) => (
+              <AnsContainer key={index}>
+                <Answers
+                item={answer}
+                key={answer.id}
+                productID={this.props.productID}
+                sellerName={this.props.item}
+                itemReported={this.props.item.reported} />
+              </AnsContainer>
+              ))}
             </ScrollList>
+          )}
 
-          </div>
+          {answersData.length > 2 ? (
+              <div>
+                {(!expandList) ? (
+                  <MoreAnswersButton onClick={ this.showMore}> <b> See More Answers </b> </MoreAnswersButton>
+                ) : (
+                  <MoreAnswersButton onClick={ this.showMore}> <b> Collapse Answers </b> </MoreAnswersButton>
+                )}
+              </div>
+            ) : (null)}
 
-          <div>
-
-          <AnswersModal
-            showModal={this.state.showModal}
-            toggleAnswersModal={this.toggleAnswersModal}
-            productID={this.props.productID}/>
-
-          </div>
-
-
-
+          {answersData.map((answer) => (
+            <AnswersModal
+              item={answer}
+              showModal={showModal}
+              toggleAnswersModal={this.toggleAnswersModal}
+              productID={this.props.productID}/>
+          ))}
         </div>
       </Container>
-    )
+    );
   }
-}
-
-
+};
 
 const Container = styled.div`
   width: 100%;
@@ -155,6 +174,11 @@ const Container = styled.div`
 const QContainer = styled.div`
   flex-direction:row;
   display: flex;
+`;
+
+const AnsContainer = styled.div`
+  padding:0px;
+  margin:0px;
 `;
 
 const QuestionLinks = styled.div`
@@ -173,6 +197,22 @@ const Button = styled.button`
   &:hover {
     text-decoration: none;
     font-weight: bold;
+  }`;
+
+  const MoreAnswersButton = styled.button`
+    display:inline;
+    text-align:center;
+    background:white;
+    padding: 20px;
+    margin-left: 25px;
+    white-space: nowrap;
+    cursor: pointer;
+
+  &:hover {
+    background-color: lightgrey;
+    border: 1px solid black;
+    border-radius: 5px;
+    transition: all ease 0.3s;
   }
 `;
 
@@ -197,27 +237,6 @@ const ScrollList = styled.ul`
 `;
 
 export default Questions;
-
-/*
-
- A list of answers will appear below the question.  The entire answer list will be titled “A:”.
-
-Each answer will start on a new line, where the text body of the answer will display.
-
-Below the answer, the username of the answerer and the date the answer was written will show in the format “by [username], Month DD, YYYY”.   If the answer is from the seller, then the username should display “Seller” in bold.
-
-A link should appear next to the text “Helpful?” reading “Yes (#)” with the count of selections for that answer.  Clicking on this link should increase the count for that response.  A customer should not be able to vote more than once for this selection.
-
-Next to the link for “Helpful?”, a second link reading “Report” will appear.  Clicking on this link will mark the answer for internal review.  A user should not be able to report an answer more than once.   After clicking on this link, the “Report” link should change to static text that reads “Reported”.   Answers that have been reported should be marked as such in the system for further action to be taken.
-
-Answers should appear in the order of ‘helpfulness’.  However, any answers from the seller should appear at the top of the list.  There should be no other sort order for answers.
-
-By default only two answers will show.  The rest should be hidden.  If more than two answers exist for the question, a link to “See more answers” should display below the list.  Clicking on this link should expand the area below the question and display the remainder of the list.
-
-The view for the full list of answers should be confined to half of the screen, and the list within should be scrollable.   When expanded, the button to “See more answers” should change to read “Collapse answers”.
-
-*/
-
 
 
 // console.log('ProductID: ', this.props.productID)

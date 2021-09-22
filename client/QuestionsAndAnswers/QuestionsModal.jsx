@@ -15,6 +15,8 @@ class QuestionsModal extends React.Component {
     };
 
     this.toggleOnOff = this.toggleOnOff.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.addQuestion = this.addQuestion.bind(this);
   }
 
   toggleOnOff(event) {
@@ -23,13 +25,11 @@ class QuestionsModal extends React.Component {
   }
 
   handleInputChange(event) {
-
     event.stopPropagation();
 
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.value;
     const name = target.name;
-
     this.setState({
       [name]: value
     });
@@ -39,7 +39,6 @@ class QuestionsModal extends React.Component {
     this.setState({
       sent: true
     })
-
     axios.post('/qa/questions', {
       body: this.state.question,
       name: this.state.name,
@@ -56,32 +55,36 @@ class QuestionsModal extends React.Component {
   }
 
   render() {
-    const divStyle = {
+    const modalStyle = {
       display: this.props.showModal ? 'block' : 'none',
     };
     return (
 
       <Modal
-        className="modal" onClick={(event) => { this.toggleOnOff(event); }} style={divStyle}>
+        className="modal" onClick={this.toggleOnOff} style={modalStyle}>
 
         <ModalContainer onClick={ this.handleInputChange }>
 
-          <Close className="close" onClick={(event) => { this.toggleOnOff(event); }}>&times;</Close>
+        <CloseX className="close" onClick={this.toggleOnOff}>&times;</CloseX>
 
           <NewForm className="AddQuestionForm">
+            <h1>Ask Your Question</h1>
+            <h2>About the {this.props.productName}</h2>
 
             <InputsStyles
-              placeholder="username"
+              placeholder="Example: jack543!"
               type="text"
               value={this.state.name}
-              onChange={ this.handleInputChange }  />
+              maxLength="60"
+              onChange={ this.handleInputChange }/>
 
             <p>For privacy reasons, do not use your full name or email address</p>
 
             <InputsStyles
-              placeholder="email"
+              placeholder="Why did you like the product or not?"
               type="email"
               value={this.state.email}
+              maxLength="60"
               onChange={ this.handleInputChange } />
             <p>For authentication reasons, you will not be emailed</p>
 
@@ -89,6 +92,7 @@ class QuestionsModal extends React.Component {
               placeholder="Enter Question Here..."
               type="text"
               value={this.state.question}
+              maxLength="1000"
               onChange={ this.handleInputChange } />
 
             <Button onClick={ this.addQuestion }> Submit Question </Button>
@@ -125,7 +129,7 @@ const ModalContainer = styled.div`
   zIndex: 1000;
 `;
 
-const Close = styled.span`
+const CloseX = styled.span`
    color: #aaaaaa;
    float: right; /* Positioned to the right of the parent container whichever size it is */
    font-size: 25px;
@@ -158,8 +162,8 @@ const Button = styled.button`
   &:hover {
     background-color: lightgrey;
     border: 1px solid black;
-  border-radius: 5px;
-  transition: all ease 0.3s;
+    border-radius: 5px;
+    transition: all ease 0.3s;
   }
 `;
 
