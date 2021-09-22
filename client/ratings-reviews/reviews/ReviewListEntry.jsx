@@ -53,9 +53,9 @@ class ReviewListEntry extends React.Component {
     return stars;
   }
   conditionalResponse() {
-    if (this.props.review.response !== null) {
+    if (this.props.review.response !== null && this.props.review.response.length > 0) {
       return (
-        <ResponseStyle>
+        <ResponseStyle>{console.log(this.props.review.response)}
           <ResponseHeaderStyle>Response: </ResponseHeaderStyle> <br></br>
           {this.props.review.response}
         </ResponseStyle>

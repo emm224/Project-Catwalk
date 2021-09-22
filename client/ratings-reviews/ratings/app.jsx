@@ -7,11 +7,14 @@ const Ratings = (props) => (
   <div>
     {props.metadata.product_id ?
       <RatingsStyle>
+
         <StarBreakdown
         ratings={props.metadata.ratings}
         recommended={props.metadata.recommended}/>
+
         <ReviewBreakdown
         characteristics={props.metadata.characteristics}/>
+
       </RatingsStyle>
     : ''}
   </div>

@@ -5,7 +5,7 @@ import ReviewList from './ReviewList.jsx';
 const Reviews = (props) => (
   <div>
     {props.reviews.length ?
-      <ReviewsStyle>
+      <ReviewsStyle>{console.log(props.reviews)}
         <ReviewList
           reviews={props.reviews}
           sortNew={props.sortNew}

@@ -5,16 +5,16 @@ class StarBreakdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      five: this.reviewDistribution(5),
-      four: this.reviewDistribution(4),
-      three: this.reviewDistribution(3),
-      two: this.reviewDistribution(2),
-      one: this.reviewDistribution(1),
-      fiveCount: this.ratingCount(5),
-      fourCount: this.ratingCount(4),
-      threeCount: this.ratingCount(3),
-      twoCount: this.ratingCount(2),
-      oneCount: this.ratingCount(1)
+      '5': 0,
+      '4': 0,
+      '3': 0,
+      '2': 0,
+      '1': 0,
+      c5: 0,
+      c4: 0,
+      c3: 0,
+      c2: 0,
+      c1: 0
     }
   }
 
@@ -22,23 +22,19 @@ class StarBreakdown extends React.Component {
     this.percentRecommended();
     this.starAverage();
     this.starDisplay();
+    this.reviewDistribution();
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(this.props.ratings !== prevProps.ratings) {
+      this.reviewDistribution();
+    }
+  };
+
   percentRecommended() {
     var x = Number(this.props.recommended.true);
     var y = Number(this.props.recommended.false);
     var percent = Math.round((x / (x + y)) * 100) + '%';
-    return percent;
-  }
-  reviewDistribution(n) {
-    var count = this.props.ratings[n];
-    var total = 0;
-    for (var key in this.props.ratings) {
-      total += Number(this.props.ratings[key]);
-    }
-    var percent = count / total * 100;
-    if (Number.isNaN(percent)) {
-      percent = 0;
-    }
     return percent;
   }
   starAverage() {
@@ -70,8 +66,50 @@ class StarBreakdown extends React.Component {
     }
     return stars;
   }
-  ratingCount(n) {
-    return Number(this.props.ratings[n]);
+  reviewDistribution() {
+    var one = this.props.ratings[1];
+    var two = this.props.ratings[2];
+    var three = this.props.ratings[3];
+    var four = this.props.ratings[4];
+    var five = this.props.ratings[5];
+    var total = 0;
+    for (var key in this.props.ratings) {
+      total += Number(this.props.ratings[key]);
+    }
+
+    var oneP = one / total * 100;
+    var twoP = two / total * 100;
+    var threeP = three / total * 100;
+    var fourP = four / total * 100;
+    var fiveP = five / total * 100;
+
+    if (Number.isNaN(oneP)) {
+      oneP = 0;
+    }
+    if (Number.isNaN(twoP)) {
+      twoP = 0;
+    }
+    if (Number.isNaN(threeP)) {
+      threeP = 0;
+    }
+    if (Number.isNaN(fourP)) {
+      fourP = 0;
+    }
+    if (Number.isNaN(fiveP)) {
+      fiveP = 0;
+    }
+    this.setState({
+      '5': fiveP,
+      '4': fourP,
+      '3': threeP,
+      '2': twoP,
+      '1': oneP ,
+      c5: five,
+      c4: four,
+      c3: three,
+      c2: two,
+      c1: one
+    });
   }
 
   render() {
@@ -87,42 +125,42 @@ class StarBreakdown extends React.Component {
         <StarBarGraphStyle>
           <u>5 star(s)</u>
           <BarStyle>
-            <FiveShadedStyle shade={this.state.five}>x</FiveShadedStyle>
-            <FiveUnshadedStyle unshade={this.state.five}>x</FiveUnshadedStyle>
+            <FiveShadedStyle shade={this.state[5]}>x</FiveShadedStyle>
+            <FiveUnshadedStyle unshade={this.state[5]}>x</FiveUnshadedStyle>
           </BarStyle>
-          <StarCountStyle>{this.state.fiveCount}</StarCountStyle>
+          <StarCountStyle>{this.state.c5}</StarCountStyle>
         </StarBarGraphStyle>
         <StarBarGraphStyle>
           <u>4 star(s)</u>
           <BarStyle>
-            <FourShadedStyle shade={this.state.four}>x</FourShadedStyle>
-            <FourUnshadedStyle unshade={this.state.four}>x</FourUnshadedStyle>
+            <FourShadedStyle shade={this.state[4]}>x</FourShadedStyle>
+            <FourUnshadedStyle unshade={this.state[4]}>x</FourUnshadedStyle>
           </BarStyle>
-          <StarCountStyle>{this.state.fourCount}</StarCountStyle>
+          <StarCountStyle>{this.state.c4}</StarCountStyle>
         </StarBarGraphStyle>
         <StarBarGraphStyle>
           <u>3 star(s)</u>
           <BarStyle>
-            <ThreeShadedStyle shade={this.state.three}>x</ThreeShadedStyle>
-            <ThreeUnshadedStyle unshade={this.state.three}>x</ThreeUnshadedStyle>
+            <ThreeShadedStyle shade={this.state[3]}>x</ThreeShadedStyle>
+            <ThreeUnshadedStyle unshade={this.state[3]}>x</ThreeUnshadedStyle>
           </BarStyle>
-          <StarCountStyle>{this.state.threeCount}</StarCountStyle>
+          <StarCountStyle>{this.state.c3}</StarCountStyle>
         </StarBarGraphStyle>
         <StarBarGraphStyle>
           <u>2 star(s)</u>
           <BarStyle>
-            <TwoShadedStyle shade={this.state.two}>x</TwoShadedStyle>
-            <TwoUnshadedStyle unshade={this.state.two}>x</TwoUnshadedStyle>
+            <TwoShadedStyle shade={this.state[2]}>x</TwoShadedStyle>
+            <TwoUnshadedStyle unshade={this.state[2]}>x</TwoUnshadedStyle>
           </BarStyle>
-          <StarCountStyle>{this.state.twoCount}</StarCountStyle>
+          <StarCountStyle>{this.state.c2}</StarCountStyle>
         </StarBarGraphStyle>
         <StarBarGraphStyle>
           <u>1 star(s)</u>
           <BarStyle>
-            <OneShadedStyle shade={this.state.one}>x</OneShadedStyle>
-            <OneUnshadedStyle unshade={this.state.one}>x</OneUnshadedStyle>
+            <OneShadedStyle shade={this.state[1]}>x</OneShadedStyle>
+            <OneUnshadedStyle unshade={this.state[1]}>x</OneUnshadedStyle>
           </BarStyle>
-          <StarCountStyle>{this.state.oneCount}</StarCountStyle>
+          <StarCountStyle>{this.state.c1}</StarCountStyle>
         </StarBarGraphStyle>
         <br></br>
       </div>
