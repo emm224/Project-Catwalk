@@ -16,6 +16,7 @@
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
     "react-modal": "^3.14.3",
+    "react-share": "^4.4.0",
     "styled-components": "^5.3.1"
   },
   "devDependencies": {
@@ -24,13 +25,14 @@
     "@babel/preset-react": "^7.14.5",
     "babel-loader": "^8.2.2",
     "css-loader": "^6.3.0",
+    "jest": "^27.2.1",
     "style-loader": "^3.2.1",
     "webpack": "^5.52.0",
     "webpack-cli": "^4.8.0"
   },
   "scripts": {
-    "start": "npx nodemon server/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/index.js",
+    "test": "jest",
     "react-dev": "webpack --mode development --watch"
   },
   "repository": {

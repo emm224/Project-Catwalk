@@ -37,6 +37,10 @@ class QuestionsAndAnswers extends React.Component {
       this.getData();
     }
   }
+  ///needed here
+  componentDidMount(){
+    this.getData();
+  }
 
   handleSearchInputChange(event) {
     const target = event.target;
@@ -112,7 +116,7 @@ class QuestionsAndAnswers extends React.Component {
 
 
 
-          </SearchContainer> 
+          </SearchContainer>
 
           <QuestionsContainer>
 
