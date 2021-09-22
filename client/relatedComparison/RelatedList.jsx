@@ -7,7 +7,7 @@ class RelatedList extends React.Component {
   constructor(){
     super()
     this.state = {
-      currentViewingId:37311, // what is the product_Id that user is currnely viewing
+      currentViewingId:'37311', // what is the product_Id that user is currnely viewing
       currentItem:[],
       relateId : [],
       relatedList :[],
@@ -18,11 +18,44 @@ class RelatedList extends React.Component {
     }
     this.hide = this.hide.bind(this)
   }
+
   componentDidUpdate() {
     if (this.state.currentViewingId !== this.props.currentItemId) {
       this.setState({currentViewingId:this.props.currentItemId})
+      var option={
+        headers:{
+          'Authorization':config.TOKEN,
+          'Content-Type': 'application/json'
+        }
+      }
+
+      this.setState({relatedList:[]})
+
+      fetch(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${this.state.currentViewingId}/related`,option)
+    .then(data=> data.json())
+    .then(data=>{
+      this.setState({relateId:data})
+    })
+    .then(()=>{
+      this.state.relateId.map(id =>{
+        fetch(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${id}`,option)
+        .then(data=> data.json())
+        .then(data=>{
+          this.setState({relatedList:[...this.state.relatedList, data]})
+        })
+      })
+    }
+    )
+
+    fetch(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${this.state.currentViewingId}`,option)
+    .then(data=> data.json())
+    .then(data=>{
+      this.setState({currentItem:data})
+    })
+
   }
   }
+
   componentDidMount(){
     var option={
       headers:{
@@ -91,7 +124,9 @@ class RelatedList extends React.Component {
   render () {
     return (
     <Container>
-      <h3>Related Products</h3>
+      <div className = 'myTitle'>
+      <h3>RELATED PRODUCTS</h3>
+      </div>
       <RelatedContainer id ='cardContainer'>
       <ListContainer>
       {this.state.relatedList.map((item, index)=>
@@ -101,6 +136,7 @@ class RelatedList extends React.Component {
         list = {this.props.list}
         onClick={this.comparing.bind(this)}
         onClickItem = {this.props.onClick}
+        addtoOutfit = {this.props.addtoOutfit}
         />
       )}
       </ListContainer>
@@ -130,7 +166,6 @@ class RelatedList extends React.Component {
 }
 
 var ListContainer = styled.div`
-  overflow:hidden;
   display:flex;
   ::after {
     transition: all 0.3s linear 0s;
@@ -141,10 +176,11 @@ var ListContainer = styled.div`
     top: 0px;
     right: 0px;
     opacity: 1;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
   }
 `;
 var Container = styled.div`
-  height: 400px;
+  height: 450px;
   width:80%;
   margin:0 auto;
   position:relative;
@@ -154,8 +190,10 @@ var Container = styled.div`
 `;
 
 var RelatedContainer = styled.div`
-  overflow:hidden;
-  margin-left:20px;
+overflow:hidden;
+margin-left:30px;
+margin-right:50px;
+margin-top:35px;
 `
 
 export default RelatedList;

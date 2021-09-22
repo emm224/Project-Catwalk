@@ -37,7 +37,7 @@ class Card extends React.Component {
     return (
       <CardStyle>
           <div className="container" >
-            {this.props.list === 'related' ? <span className = 'star' onClick={()=>{this.props.onClick(this.props.item, this.state.photo)}}>	&#9734;</span>:<span onClick={()=>{this.props.onClick(this.props.item, this.state.photo)}} className = 'delete'>X</span>}
+            {this.props.list === 'related' ? <span className = 'star' onClick={()=>{this.props.onClick(this.props.item, this.state.photo)}}><i className="fas fa-adjust fa-lg"></i></span>:<span onClick={()=>{this.props.onClick(this.props.item, this.state.photo)}} className = 'delete'><i className="far fa-trash-alt"></i></span>}
             <div onClick={()=>{this.props.onClickItem(this.props.item)}}>
           <div id ='cardImage-container' onMouseOver = {this.showButton.bind(this)} onMouseLeave = {this.hideButton.bind(this)}>
           <ImageContainer show = {this.state.show}>
@@ -47,12 +47,16 @@ class Card extends React.Component {
 
             )}
             </ImageContainer>
+            </div>
           </div>
             <p>{this.props.item.category}</p>
             <p>{this.props.item.name}</p>
             <p>${this.props.item.default_price}</p>
+            <div className = 'buttonConatainer'>
             <StarRating rating = {this.state.rating}/>
-          </div>
+            {this.props.list === 'related' ? <button className='addtoOutfit' onClick={()=>{this.props.addtoOutfit(this.props.item)}}><i className="fas fa-heartbeat fa-lg" ></i></button>: '' }
+            </div>
+
           </div>
       </CardStyle>
         )
@@ -61,15 +65,15 @@ class Card extends React.Component {
 
 var CardStyle = styled.div`
   overflow:hidden;
-  margin-left:10px;
-  margin-right:10px;
-  width:200px;
-  min-width:200px;
+  margin-left:15px;
+  margin-right:15px;
+  width:240px;
+  min-width:240px;
   position:relative;
   border:none;
   border-radius: 8px;
   box-shadow: rgb(0 0 0 / 10%) 0px 2px 8px;
-  background:#B3ACAA;
+  background-image: linear-gradient(to right, #ebf1f1, #d5dbd9, #c0c5c2, #acafac, #999a96);
   opacity:1;
   cursor:pointer;
   p{

@@ -57,7 +57,7 @@ const CarouselContainer = styled.div`
 const CarouselContentWrapper = styled.div`
   overflow: hidden;
   width: 100%;
-  height:240px;
+  height:260px;
 `
 const CarouselWrapper = styled.div`
   display: flex;
