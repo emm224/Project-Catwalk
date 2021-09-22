@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const SocialShare = (props) => {
   if (!props.selectedStyle) {
     return ''

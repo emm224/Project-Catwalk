@@ -17,18 +17,17 @@ class RateReview extends React.Component {
     this.sortHelpful = this.sortHelpful.bind(this);
     this.sortNew = this.sortNew.bind(this);
   }
+
   componentDidUpdate(prevProps, prevState) {
     if(this.props.id !== prevProps.id) {
       this.getReviewsandRatings();
       this.sortRelevance();
     }
   };
-/// needed here
   componentDidMount() {
     this.getReviewsandRatings();
     this.sortRelevance();
   }
-
   getReviewsandRatings() {
     var product = {
       params: {
@@ -62,7 +61,6 @@ class RateReview extends React.Component {
     this.setState({
       reviews: sorted
     });
-
   }
   sortNew() {
     var allReviews = this.state.reviews;
