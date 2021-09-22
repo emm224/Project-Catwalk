@@ -22,7 +22,6 @@ Project Catwalk comprises a complete redesign of the retail portal designed to a
 ### Front-End Development
 JavaScript <img align="left" alt="JavaScript" width="30px" src="https://raw.githubusercontent.com/jmnote/z-icons/master/svg/javascript.svg" />
 <br />
-<br />
 
 React <img align="left" alt="React" width="30px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png" />
 <br />
@@ -31,7 +30,6 @@ React <img align="left" alt="React" width="30px" src="https://raw.githubusercont
 Node.js <img align="left" alt="Node JS" width="30px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/nodejs/nodejs.png" />
 <br />
 
-<br />
 Express <img align="left" alt="Express" width="30px" src="https://github.com/devicons/devicon/blob/master/icons/express/express-original.svg" />
 <br />
 
@@ -49,7 +47,6 @@ Jest <img align="left" alt="Jest" width="30px" src="https://raw.githubuserconten
 
 ### Project Management
 Trello <img align="left" alt="Trello" width="30px" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/trello/trello-plain.svg" />
-<br />
 <br />
 
 Slack <img align="left" alt="Slack" width="30px" src="https://github.com/devicons/devicon/blob/master/icons/slack/slack-original.svg" />
