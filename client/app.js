@@ -37,7 +37,11 @@ class App extends React.Component {
 
   //update currentProductId and currentProduct
   handleClickRelatedList(item){
-    this.setState({productID: item.id})
+    console.log('ITEMMMM', item)
+    this.setState({
+      productID: item.id,
+      productName: item.name
+    })
   }
   handleClickOutgitList(item){
     console.log('clicked')
@@ -63,7 +67,8 @@ class App extends React.Component {
       <div id ='questionsAnswers'>
         {/* {console.log('PRODUCT ID', this.state.productID)} */}
           <QuestionsAndAnswers
-            productID={this.state.productID} />
+            productID={this.state.productID}
+            productName={this.state.productName} />
       </div>
 
       <div id='rateReview'>
