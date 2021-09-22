@@ -8,6 +8,7 @@ class RelatedList extends React.Component {
     super()
     this.state = {
       currentViewingId:37311, // what is the product_Id that user is currnely viewing
+      currentItem:[],
       relateId : [],
       relatedList :[],
       selected:{},
@@ -16,6 +17,11 @@ class RelatedList extends React.Component {
       currentPhoto:'',
     }
     this.hide = this.hide.bind(this)
+  }
+  componentDidUpdate() {
+    if (this.state.currentViewingId !== this.props.currentItemId) {
+      this.setState({currentViewingId:this.props.currentItemId})
+  }
   }
   componentDidMount(){
     var option={
@@ -39,6 +45,12 @@ class RelatedList extends React.Component {
       })
     }
     )
+
+    fetch(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${this.state.currentViewingId}`,option)
+    .then(data=> data.json())
+    .then(data=>{
+      this.setState({currentItem:data})
+    })
   }
 
   handleClickRelated(){
@@ -46,10 +58,10 @@ class RelatedList extends React.Component {
     const buttonLeft = document.getElementById('relatedslideLeft');
 
     buttonRight.onclick = function () {
-      document.getElementById('cardContainer').scrollLeft += 50;
+      document.getElementById('cardContainer').scrollLeft += 80;
     };
     buttonLeft.onclick = function () {
-      document.getElementById('cardContainer').scrollLeft -= 50;
+      document.getElementById('cardContainer').scrollLeft -= 80;
     };
   }
 
@@ -65,6 +77,12 @@ class RelatedList extends React.Component {
     .then(data=> data.json())
     .then(data=>{
       this.setState({currentPhoto:data.results[0].photos[0].thumbnail_url})
+    })
+
+    fetch(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${this.state.currentViewingId}`,option)
+    .then(data=> data.json())
+    .then(data=>{
+      this.setState({currentItem:data})
     })
   }
   hide(){
@@ -94,9 +112,9 @@ class RelatedList extends React.Component {
       <div id ='shade'>
         <div className='seleted'>
             <img src={this.state.currentPhoto} />
-            <p>{this.props.currentItem.category}</p>
-            <p>{this.props.currentItem.name}</p>
-            <p>${this.props.currentItem.default_price}</p>
+            <p>{this.state.currentItem.category}</p>
+            <p>{this.state.currentItem.name}</p>
+            <p>${this.state.currentItem.default_price}</p>
         </div>
         <div className='seleted'>
             <img src={this.state.photo?this.state.photo: 'https://bashooka.com/wp-content/uploads/2015/10/404-errrrr-page-4.jpg'} />
