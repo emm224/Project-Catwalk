@@ -142,6 +142,7 @@ var TopRowStyle = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  margin-right: 10px;
 `;
 var TopRightStyle = styled.div`
   font-size: 12px;

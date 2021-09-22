@@ -56,15 +56,25 @@ class StarBreakdown extends React.Component {
   }
   starDisplay() {
     var filled = this.starAverage();
+    var percent = Math.floor((filled - Math.floor(filled)) * 100);
     var empty = 5 - this.starAverage();
-    var stars = '';
+    var filledStars = '';
+    var emptyStars = '';
     for (var i = 0; i < Math.floor(filled); i++) {
-      stars += '★';
+      filledStars += '★';
     }
-    for (var i = 0; i < Math.ceil(empty); i++) {
-      stars += '☆';
+    for (var i = 0; i < Math.floor(empty); i++) {
+      emptyStars += '☆';
     }
-    return stars;
+    return (
+      <StarStyles>{console.log(percent)}
+        {filledStars}
+        <HalfStarStyles width={percent}>
+          <UShStyles>☆</UShStyles>
+        </HalfStarStyles>
+        {emptyStars}
+      </StarStyles>
+    );
   }
   reviewDistribution() {
     var one = this.props.ratings[1];
@@ -263,4 +273,18 @@ var StarCountStyle= styled.div`
   margin-top: -2px;
 `;
 
+var StarStyles = styled.div`
+  display: flex;
+`;
+
+var HalfStarStyles = styled.div`
+  background: linear-gradient(90deg, black  ${props => props.width}%, white ${props => 100 - props.width}%);
+`;
+
+var ShStyles = styled.div`
+`;
+var UShStyles = styled.div`
+`;
+//  background: linear-gradient(90deg, black  ${props => props.width}%, white ${props => 100 - props.width}%);
+// ${props => 100 - props.width}%;
 export default StarBreakdown;
