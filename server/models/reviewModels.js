@@ -11,8 +11,6 @@ let options = {
 };
 
 const getReviews = function(id, callback) {
-//https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews?product_id=37311
-
   axios.get(`${options.url}/?product_id=${id}`, options.head)
     .then(({data}) => {
       callback(null, data);
@@ -24,8 +22,6 @@ const getReviews = function(id, callback) {
 }
 
 const getReviewMetadata = function(id, callback) {
-//https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/meta?product_id=37311
-
   axios.get(`${options.url}/meta/?product_id=${id}`, options.head)
     .then(({data}) => {
       callback(null, data);
@@ -62,9 +58,8 @@ const getReviewMetadata = function(id, callback) {
 // }
 
 const markHelpful = function(id, callback) {
-  axios.put(`${options.url}/${id}/helpful`, options.head)
+  axios.put(`${options.url}/${id}/helpful`, null, options.head)
     .then(({data}) => {
-      console.log('Review marked as helpful.', data);
       callback(null, data);
     })
     .catch((err) => {
@@ -74,9 +69,8 @@ const markHelpful = function(id, callback) {
 }
 
 const reportReview = function(id, callback) {
-  axios.put(`${options.url}/${id}/report`, id, options.head)
+  axios.put(`${options.url}/${id}/report`, null, options.head)
     .then(({data}) => {
-      console.log('Review reported.', data);
       callback(null, data);
     })
     .catch((err) => {

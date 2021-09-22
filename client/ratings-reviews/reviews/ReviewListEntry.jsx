@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import PhotoEntry from './PhotoEntry.jsx';
 
 class ReviewListEntry extends React.Component {
   constructor(props) {
@@ -11,17 +12,16 @@ class ReviewListEntry extends React.Component {
       helpfulness: this.props.review.helpfulness,
       helpful: false,
       report: false,
-      id: this.props.review.review_id
+      id: this.props.review.review_id,
+      text: 'Report'
     }
     this.markHelpful = this.markHelpful.bind(this);
     this.reportReview = this.reportReview.bind(this);
   }
-
   componentDidMount() {
     this.formatDate();
     this.starRating();
   }
-
   formatDate() {
     // Get rid of unnecessary time zone and put into an array formatted MM/DD/YYYY
     let date = this.props.review.date.toString().slice(0,9).split('-').reverse();
@@ -40,7 +40,6 @@ class ReviewListEntry extends React.Component {
       date: formatted
     })
   }
-
   starRating() {
     var filled = this.state.stars;
     var empty = 5 - filled;
@@ -53,7 +52,6 @@ class ReviewListEntry extends React.Component {
     }
     return stars;
   }
-
   conditionalResponse() {
     if (this.props.review.response !== null) {
       return (
@@ -64,23 +62,25 @@ class ReviewListEntry extends React.Component {
       );
     }
   }
-
   conditionalRecommend() {
     if (this.props.review.recommend) {return (<RecommendStyle>✓ I recommend this product</RecommendStyle>);}
   }
-
-  markHelpful() {
-    var review = {
-      params: {
-        id: this.state.id
-      }
+  conditionalPhoto() {
+    if (this.props.review.photos.length > 0) {
+      return (
+        <PhotosStyle>
+          {this.props.review.photos.map((photo) => <PhotoEntry photo={photo.url} key={photo.id}/>)}
+        </PhotosStyle>
+      );
     }
-
+  }
+  markHelpful() {
     if (!this.state.helpful) {
-      axios.put('/api/products/reviews/helpful', review)
-        .then(({data}) => {
+      axios.put('/api/products/reviews/helpful', {id: this.props.review.review_id})
+        .then((response) => {
           this.setState({
-            helpful: true
+            helpful: true,
+            helpfulness: this.props.review.helpfulness + 1
           })
         })
         .catch((err) => {
@@ -88,20 +88,19 @@ class ReviewListEntry extends React.Component {
         })
     }
   }
-
   reportReview() {
-    console.log(this.state.id);
-     /*
-        axios.put('/api/products/reviews/report')
-          .then(({data}) => {
-            this.setState({
-              report: true
-            })
+    if (!this.state.report) {
+      axios.put('/api/products/reviews/report', {id: this.props.review.review_id})
+        .then((response) => {
+          this.setState({
+            report: true,
+            text: 'Reported'
           })
-          .catch((err) => {
-            console.log(err);
-          })
-    */
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
   }
 
   render () {
@@ -115,29 +114,24 @@ class ReviewListEntry extends React.Component {
                 {this.props.review.reviewer_name}, {this.state.date}
               </TopRightStyle>
             </TopRowStyle>
-
             <SummaryStyle> <b>{this.props.review.summary}</b> </SummaryStyle>
-
             <SummaryStyle>{this.props.review.body}</SummaryStyle>
-
             {this.conditionalRecommend()}
             {this.conditionalResponse()}
-
-
+            {this.conditionalPhoto()}
             <BottomRowStyle>
               <div>Helpful? </div>
               <ButtonStyle onClick={this.markHelpful}>Yes</ButtonStyle>
               <div>({this.state.helpfulness})</div>
               <BarStyle>|</BarStyle>
-              <ButtonStyle onClick={this.reportReview}>Report</ButtonStyle>
+              <ButtonStyle onClick={this.reportReview}>{this.state.text}</ButtonStyle>
             </BottomRowStyle>
           </ReviewListEntryStyle>
         : ''}
       </div>
     );
   }
-
-};
+}
 
 var ReviewListEntryStyle = styled.div`
   margin-top: 25px;
@@ -181,10 +175,17 @@ var BarStyle = styled.div`
   margin-right: 10px;
 `;
 var ButtonStyle = styled.div`
-  cursor: default;
+  cursor: pointer;
   text-decoration: underline;
   margin-left: 5px;
   margin-right: 5px;
 `;
-
+var PhotosStyle = styled.div`
+  display: flex;
+  height: 100px;
+  width: 100px;
+  align-items: center;
+  margin-left: 20px;
+  margin-bottom: 10px;
+`;
 export default ReviewListEntry;

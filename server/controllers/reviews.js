@@ -1,7 +1,6 @@
 var models = require('../models');
 
 const getReviews = function(req, res) {
-  var id = req.query.id || req.body.id;
   models.reviewModels.getReviews(req.query.id, (err, reviews) => {
     if (err) {
       res.status(500).send(err);
@@ -12,7 +11,6 @@ const getReviews = function(req, res) {
 }
 
 const getReviewMetadata = function(req, res) {
-  var id = req.query.id || req.body.id;
   models.reviewModels.getReviewMetadata(req.query.id, (err, metadata) => {
     if (err) {
       res.status(500).send(err);
@@ -35,7 +33,7 @@ const getReviewMetadata = function(req, res) {
 // }
 
 const markHelpful = function(req, res) {
-  models.reviewModels.markHelpful(req.query.id, (err, data) => {
+  models.reviewModels.markHelpful(req.body.id, (err, data) => {
     if (err) {
       res.status(500).send(err);
     } else {
@@ -45,7 +43,7 @@ const markHelpful = function(req, res) {
 }
 
 const reportReview = function(req, res) {
-  models.reviewModels.reportReview(req.query.id, (err, data) => {
+  models.reviewModels.reportReview(req.body.id, (err, data) => {
     if (err) {
       res.status(500).send(err);
     } else {

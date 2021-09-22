@@ -10,20 +10,24 @@ class RateReview extends React.Component {
     super(props);
     this.state = {
       reviews: [],
-      metadata: {}
+      metadata: {},
     };
     this.getReviewsandRatings = this.getReviewsandRatings.bind(this);
+    this.sortRelevance = this.sortRelevance.bind(this);
     this.sortHelpful = this.sortHelpful.bind(this);
     this.sortNew = this.sortNew.bind(this);
-    this.sortRelevance = this.sortRelevance.bind(this);
   }
-
-
   componentDidUpdate(prevProps, prevState) {
     if(this.props.id !== prevProps.id) {
       this.getReviewsandRatings();
+      this.sortRelevance();
     }
   };
+/// needed here
+  componentDidMount() {
+    this.getReviewsandRatings();
+    this.sortRelevance();
+  }
 
   getReviewsandRatings() {
     var product = {
@@ -50,71 +54,36 @@ class RateReview extends React.Component {
         console.log(err);
       })
   }
-
-  sortRelevance() {
-    var allReviews = this.state.reviews;
-    function helpful(a, b) {
-      if(a.helpfulness < b.helpfulness) {
-        return 1;
-      }
-      if(a.helpfulness > b.helpfulness) {
-        return -1;
-      }
-      return 0;
-    }
-
-    function date(a, b) {
-      if(a.date < b.date) {
-        return 1;
-      }
-      if(a.date > b.date) {
-        return -1;
-      }
-      return 0;
-    }
-    allReviews.sort( helpful );
-    allReviews.sort( date );
-
-    this.setState({
-      reviews: allReviews
-    })
-
-  }
-
   sortHelpful() {
     var allReviews = this.state.reviews;
-    function compare(a, b) {
-      if(a.helpfulness < b.helpfulness) {
-        return 1;
-      }
-      if(a.helpfulness > b.helpfulness) {
-        return -1;
-      }
-      return 0;
-    }
-    allReviews.sort( compare );
-
-    this.setState({
-      reviews: allReviews
+    var sorted = allReviews.sort(function(a,b) {
+      return b.helpfulness - a.helpfulness;
     })
-  }
+    this.setState({
+      reviews: sorted
+    });
 
+  }
   sortNew() {
     var allReviews = this.state.reviews;
-    function compare(a, b) {
-      if(a.date < b.date) {
-        return 1;
-      }
-      if(a.date > b.date) {
-        return -1;
-      }
-      return 0;
-    }
-    allReviews.sort( compare );
-
-    this.setState({
-      reviews: allReviews
+    var sorted = allReviews.sort(function(a,b) {
+      return new Date(b.date) - new Date(a.date);
     })
+    this.setState({
+      reviews: sorted
+    });
+  }
+  sortRelevance() {
+    var allReviews = this.state.reviews;
+    var sorted = allReviews.sort(function(a,b) {
+      if(a.helpfulness === b.helpfulness) {
+        return new Date(b.date) - new Date(a.date);
+      }
+      return b.helpfulness - a.helpfulness;
+    })
+    this.setState({
+      reviews: sorted
+    });
   }
 
   render() {
@@ -128,7 +97,8 @@ class RateReview extends React.Component {
                 reviews={this.state.reviews}
                 sortRelevance={this.sortRelevance}
                 sortHelpful={this.sortHelpful}
-                sortNew={this.sortNew} />
+                sortNew={this.sortNew}
+              />
             </RateReviewStyle>
           </HeaderStyle>
         : ''}
@@ -143,10 +113,10 @@ var RateReviewStyle = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   justify-content: left;
 `;
-
 var HeaderStyle = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   margin-left: 200px;
   margin-top: 50px;
 `;
+
 export default RateReview;

@@ -28,77 +28,23 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      productID: '',
-      allProducts: [],
-      productIDs: [],
-      index: 2,
-      currentProduct:{
-        "id": 37311,
-        "campus": "hr-rfe",
-        "name": "Camo Onesie",
-        "slogan": "Blend in to your crowd",
-        "description": "The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.",
-        "category": "Jackets",
-        "default_price": "140.00",
-        "created_at": "2021-08-13T14:37:33.145Z",
-        "updated_at": "2021-08-13T14:37:33.145Z",
-        "features": [
-            {
-                "feature": "Fabric",
-                "value": "Canvas"
-            },
-            {
-                "feature": "Buttons",
-                "value": "Brass"
-            }
-        ]
-    }, // default product object if needed.
+      productID: '37311',//default to 37311 when page load
+      productName:'',
     };
 
-    this.fetchProductID = this.fetchProductID.bind(this);
     this.handleClickRelatedList = this.handleClickRelatedList.bind(this);
-  }
-
-  componentDidMount() {
-    this.fetchProductID();
-  }
-
-  fetchProductID() {
-
-    var option={
-      headers:{
-        'Authorization':config.TOKEN,
-        'Content-Type': 'application/json'
-      }
-    }
-
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products`,option)
-    .then((results) => {
-
-      this.setState({
-        productID: results.data[this.state.index].id,
-        productIDs: results.data.map((product) => product.id)
-      })
-      // console.log('FETCH all IDs: ', this.state.productIDs);
-
-    })
-    .catch((error) => {
-      console.log('Error retrieving IDs', error)
-    });
   }
 
   //update currentProductId and currentProduct
   handleClickRelatedList(item){
-    this.setState({currentProduct: item})
+    this.setState({productID: item.id})
   }
   handleClickOutgitList(item){
     console.log('clicked')
   }
 
   render () {
-
     return (
-
     <div>
       <TitleHeader>
         <h1 >Team Orcus LOGO</h1>
@@ -109,7 +55,7 @@ class App extends React.Component {
       </div>
 
       <div id ='relatedAndComparison'>
-          <RelatedList list = {'related'} onClick = {this.handleClickRelatedList} currentItem ={this.state.currentProduct} />
+          <RelatedList list = {'related'} onClick = {this.handleClickRelatedList} currentItemId ={this.state.productID} />
           <Outfit list = {'outfit'} onClick = {this.handleClickOutgitList}/>
 
       </div>

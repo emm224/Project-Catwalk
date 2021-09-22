@@ -8,76 +8,40 @@ class ReviewList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialReviews: this.props.reviews.slice(0,2),
-      remainingReviews: this.props.reviews.slice(2),
-      sort: 'relevance'
+      number: 2
     }
-    this.showMoreReviews = this.showMoreReviews.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.switchNumber = this.switchNumber.bind(this);
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if(this.props.reviews !== prevProps.reviews) {
-  //     this.setState({
-  //       initialReviews: this.props.reviews.slice(0,2),
-  //       remainingReviews: this.props.reviews.slice(2)
-  //     })
-  //   }
-  // };
-  componentDidMount() {
-    this.sortRelevance();
-  }
-
-  sortRelevance() {
-    this.props.sortRelevance();
-    this.setState({
-      sort: 'relevance'
-    });
-    console.log('Sorted by relevance');
-  }
-
-  sortHelpful( ) {
-    this.props.sortHelpful();
-    this.setState({
-      sort: 'helpfulness'
-    })
-    console.log('Sorted by helpfulness');
-  }
-
-  sortNew() {
-    this.props.sortNew();
-    this.setState({
-      sort: 'newest'
-    })
-    console.log('Sorted by newest');
-  }
-
-  showMoreReviews() {
-    var newInitial = this.state.initialReviews;
-    var newRemaining = this.state.remainingReviews;
-    if (newRemaining.length >= 2) {
-      newInitial.push(this.state.remainingReviews[0]);
-      newInitial.push(this.state.remainingReviews[1]);
-      newRemaining = newRemaining.slice(2);
-    } else if (newRemaining.length === 1) {
-      newInitial.push(this.state.remainingReviews[0]);
-      newRemaining.pop();
+  switchNumber() {
+    if (this.state.number === 2) {
+      this.setState({
+        number: this.props.reviews.length
+      });
+    } else if (this.state.number === this.props.reviews.length) {
+      this.setState({
+        number: 2
+      });
     }
-    this.setState({
-      initialReviews: newInitial,
-      remainingReviews: newRemaining
-    })
   }
   conditionalMoreReviews() {
-    if (this.state.remainingReviews === undefined) {
+    if (this.props.reviews[0] === undefined) {
       return;
-    } else if (this.state.remainingReviews.length > 0) {
-      return <MoreReviews show={this.showMoreReviews}/>
+    } else {
+      return <MoreReviews
+        switch={this.switchNumber}
+        number={this.state.number}
+        length={this.props.reviews.length}/>
     }
   }
-
   handleSelect(event) {
-    console.log(this.state.sort);
+    if (event.target.value === 'relevance') {
+      this.props.sortRelevance();
+    } else if (event.target.value === 'helpfulness') {
+      this.props.sortHelpful();
+    } else if (event.target.value === 'newest') {
+      this.props.sortNew();
+    }
   }
 
   render() {
@@ -86,24 +50,23 @@ class ReviewList extends React.Component {
         {this.props.reviews ?
           <ReviewListStyle>
             {this.props.reviews.length} reviews, sorted by {' '}
-
             <select
             value={this.state.sort}
             onChange={this.handleSelect}
             name='sort'>
-              <option>relevance</option>
-              <option>helpfulness</option>
-              <option>newest</option>
-
+              <option value='relevance'>relevance</option>
+              <option value='helpfulness'>helpfulness</option>
+              <option value='newest' >newest</option>
             </select>
 
-            {this.state.initialReviews.map((review) => <ReviewListEntry review={review} key={review.review_id}/>)}
+            <ReviewStyle>
+            {this.props.reviews.slice(0, this.state.number).map((review) => <ReviewListEntry review={review} key={review.review_id}/>)}
+            </ReviewStyle>
 
             <ReviewButtonsStyle>
               {this.conditionalMoreReviews()}
               <AddReview />
             </ReviewButtonsStyle>
-
           </ReviewListStyle>
         : '' }
       </div>
@@ -114,9 +77,11 @@ class ReviewList extends React.Component {
 var ReviewButtonsStyle = styled.div`
   display: flex;
 `;
-
 var ReviewListStyle = styled.div`
   width: 650px;
+`;
+var ReviewStyle = styled.div`
+
 `;
 
 export default ReviewList;

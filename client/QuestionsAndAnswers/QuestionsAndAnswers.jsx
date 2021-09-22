@@ -36,6 +36,10 @@ class QuestionsAndAnswers extends React.Component {
       this.getData();
     }
   }
+  ///needed here
+  componentDidMount(){
+    this.getData();
+  }
 
   handleSearchInput() {
 
@@ -87,7 +91,7 @@ class QuestionsAndAnswers extends React.Component {
     this.setState({
       showModal: !(this.state.showModal)
     });
-    console.log('Toggle CLICKED: ', this.state.showModal)
+    // console.log('Toggle CLICKED: ', this.state.showModal)
   }
 
   showMoreQA() {

@@ -8,9 +8,10 @@ const Reviews = (props) => (
       <ReviewsStyle>
         <ReviewList
           reviews={props.reviews}
-          sortRelevance={props.sortRelevance}
+          sortNew={props.sortNew}
           sortHelpful={props.sortHelpful}
-          sortNew={props.sortNew} />
+          sortRelevance={props.sortRelevance}
+        />
       </ReviewsStyle>
     : ''}
   </div>
