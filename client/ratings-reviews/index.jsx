@@ -23,7 +23,12 @@ class RateReview extends React.Component {
       this.sortRelevance();
     }
   };
-  
+/// needed here
+  componentDidMount() {
+    this.getReviewsandRatings();
+    this.sortRelevance();
+  }
+
   getReviewsandRatings() {
     var product = {
       params: {
