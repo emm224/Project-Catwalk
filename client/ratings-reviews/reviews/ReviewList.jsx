@@ -81,8 +81,9 @@ var ReviewListStyle = styled.div`
   width: 650px;
 `;
 var ReviewStyle = styled.div`
-  max-height: 500px;
+  max-height: 600px;
   overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 export default ReviewList;

@@ -1,11 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 class PhotoEntry extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
   }
-  render() { return (<PhotoStyle src={this.props.photo}/>); }
+  handleClick() {
+    console.log(this.props.photo);
+  }
+
+  // photo() {
+  //   const [isOpen, setIsOpen] = useState(false);
+  //   return (
+  //     <>
+  //       <PhotoStyle src={this.props.photo} onClick={() => setIsOpen(true)}/>
+  //       <Modal open={isOpen} onClose={() => setIsOpen(false)}></Modal>
+  //     </>
+  //   );
+  // }
+
+  render() {
+    return (
+      <PhotoStyle src={this.props.photo} onClick={this.handleClick}/>
+    );
+  }
 }
 
 var PhotoStyle = styled.img`

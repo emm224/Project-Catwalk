@@ -9,11 +9,19 @@ const Ratings = (props) => (
       <RatingsStyle>
 
         <StarBreakdown
-        ratings={props.metadata.ratings}
-        recommended={props.metadata.recommended}/>
+          ratings={props.metadata.ratings}
+          recommended={props.metadata.recommended}
+          resetFilter={props.resetFilter}
+          f5={props.f5}
+          f4={props.f4}
+          f3={props.f3}
+          f2={props.f2}
+          f1={props.f1}
+        />
 
         <ReviewBreakdown
-        characteristics={props.metadata.characteristics}/>
+          characteristics={props.metadata.characteristics}
+        />
 
       </RatingsStyle>
     : ''}
