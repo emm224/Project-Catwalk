@@ -6,8 +6,8 @@ class AnswersModal extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('AnswersModal ITEM: ', this.props.item)
-    console.log('AnswersModal ID: ', this.props.questionID)
+    // console.log('AnswersModal ITEM: ', this.props.item)
+    // console.log('AnswersModal ID: ', this.props.questionID)
     this.state = {
       answer: '',
       name: '',

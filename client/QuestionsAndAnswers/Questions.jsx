@@ -9,7 +9,7 @@ class Questions extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('Questions ITEM: ', this.props.item.question_id)
+    // console.log('Questions ITEM: ', this.props.item.question_id)
     // console.log('Helpfulness counter: ', this.props.item.question_id)
 
     const helpfulCounter = this.props.item.question_helpfulness;

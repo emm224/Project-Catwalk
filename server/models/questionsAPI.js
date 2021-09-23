@@ -87,7 +87,7 @@ const postQuestions = (query, callback) => {
     let queryString = query.product_id + query.page + query.count;
 
     axios.post(
-      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions${queryString}`, query,
+      'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions', query,
       {
         headers: {
           "Authorization": config.TOKEN,
