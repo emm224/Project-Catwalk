@@ -58,7 +58,7 @@ class Card extends React.Component {
             {this.state.styles[this.state.styleIndex].sale_price?
             <>
             <p style={{textDecoration:'line-through'}}>${this.state.styles[this.state.styleIndex].original_price}</p>
-            <p style={{color:'red'}}>${this.state.styles[this.state.styleIndex].sale_price}</p> </>:<p>${this.state.styles[this.state.styleIndex].original_price}</p>}
+            <p style={{color:'red'}}>${this.state.styles[this.state.styleIndex].sale_price}</p><p>Style: {this.state.styles[this.state.styleIndex].name}</p></>:<><p>${this.state.styles[this.state.styleIndex].original_price}</p><p>Style: {this.state.styles[this.state.styleIndex].name}</p></>}
             </div>
             <div className = 'buttonConatainer'>
             <StarRating rating = {this.state.rating}/>
@@ -75,7 +75,7 @@ var CardStyle = styled.div`
   overflow:hidden;
   margin-left:15px;
   margin-right:15px;
-  width:240px;
+  width:249px;
   min-width:240px;
   position:relative;
   border:none;
