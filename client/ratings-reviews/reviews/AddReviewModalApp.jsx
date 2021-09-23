@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Modal from './Modal.jsx';
+import Modal from './AddReviewModal.jsx';
 
 export default function ModalApp() {
   const [isOpen, setIsOpen] = useState(false);

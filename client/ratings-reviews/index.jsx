@@ -5,30 +5,44 @@ import styled from 'styled-components';
 import Reviews from './reviews/app.jsx';
 import Ratings from './ratings/app.jsx';
 
+
 class RateReview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       reviews: [],
       metadata: {},
+      filters: new Set()
     };
-    this.getReviewsandRatings = this.getReviewsandRatings.bind(this);
+    this.getReviews = this.getReviews.bind(this);
+    this.getRatings = this.getRatings.bind(this);
+
     this.sortRelevance = this.sortRelevance.bind(this);
     this.sortHelpful = this.sortHelpful.bind(this);
     this.sortNew = this.sortNew.bind(this);
-  }
 
+    this.resetFilter = this.resetFilter.bind(this);
+    this.filterFive = this.filterFive.bind(this);
+    this.filterFour = this.filterFour.bind(this);
+    this.filterThree = this.filterThree.bind(this);
+    this.filterTwo = this.filterTwo.bind(this);
+    this.filterOne = this.filterOne.bind(this);
+  }
+  //Page mount and update
   componentDidUpdate(prevProps, prevState) {
     if(this.props.id !== prevProps.id) {
-      this.getReviewsandRatings();
+      this.getReviews();
+      this.getRatings();
       this.sortRelevance();
     }
-  };
+  }
   componentDidMount() {
-    this.getReviewsandRatings();
+    this.getReviews();
+    this.getRatings();
     this.sortRelevance();
   }
-  getReviewsandRatings() {
+  //Get requests
+  getReviews() {
     var product = {
       params: {
         id: this.props.id
@@ -43,6 +57,14 @@ class RateReview extends React.Component {
       .catch((err) => {
         console.log(err);
       })
+    console.log(this.state.reviews);
+  }
+  getRatings() {
+    var product = {
+      params: {
+        id: this.props.id
+      }
+    }
     axios.get('api/products/reviews/meta', product)
       .then(({data}) => {
         this.setState({
@@ -53,6 +75,7 @@ class RateReview extends React.Component {
         console.log(err);
       })
   }
+  //Sort functions
   sortHelpful() {
     var allReviews = this.state.reviews;
     var sorted = allReviews.sort(function(a,b) {
@@ -83,6 +106,124 @@ class RateReview extends React.Component {
       reviews: sorted
     });
   }
+  //Filter functions
+  filterFive() {
+    this.state.filters.add(5);
+    var helperArr = [];
+    var allReviews = this.state.reviews;
+    function log(val, set) {
+      helperArr.push(val);
+    }
+    this.state.filters.forEach(log);
+
+    var newReviews = [];
+    for (var i = 0; i < helperArr.length; i++) {
+      for (var j = 0; j < allReviews.length; j++) {
+        if (allReviews[j].rating === helperArr[i]) {
+          newReviews.push(allReviews[j]);
+        }
+      }
+    }
+    console.log('filtered', newReviews);
+    this.setState({
+      reviews: newReviews
+    })
+  }
+  filterFour() {
+    this.state.filters.add(4);
+    var helperArr = [];
+    var allReviews = this.state.reviews;
+    function log(val, set) {
+      helperArr.push(val);
+    }
+    this.state.filters.forEach(log);
+
+    var newReviews = [];
+    for (var i = 0; i < helperArr.length; i++) {
+      for (var j = 0; j < allReviews.length; j++) {
+        if (allReviews[j].rating === helperArr[i]) {
+          newReviews.push(allReviews[j]);
+        }
+      }
+    }
+    console.log('filtered', newReviews);
+    this.setState({
+      reviews: newReviews
+    })
+  }
+  filterThree() {
+    this.state.filters.add(3);
+    var helperArr = [];
+    var allReviews = this.state.reviews;
+    function log(val, set) {
+      helperArr.push(val);
+    }
+    this.state.filters.forEach(log);
+
+    var newReviews = [];
+    for (var i = 0; i < helperArr.length; i++) {
+      for (var j = 0; j < allReviews.length; j++) {
+        if (allReviews[j].rating === helperArr[i]) {
+          newReviews.push(allReviews[j]);
+        }
+      }
+    }
+    console.log('filtered', newReviews);
+    this.setState({
+      reviews: newReviews
+    })
+  }
+  filterTwo() {
+    this.state.filters.add(2);
+    var helperArr = [];
+    var allReviews = this.state.reviews;
+    function log(val, set) {
+      helperArr.push(val);
+    }
+    this.state.filters.forEach(log);
+
+    var newReviews = [];
+    for (var i = 0; i < helperArr.length; i++) {
+      for (var j = 0; j < allReviews.length; j++) {
+        if (allReviews[j].rating === helperArr[i]) {
+          newReviews.push(allReviews[j]);
+        }
+      }
+    }
+    console.log('filtered', newReviews);
+    this.setState({
+      reviews: newReviews
+    })
+  }
+  filterOne() {
+    this.state.filters.add(1);
+    var helperArr = [];
+    var allReviews = this.state.reviews;
+    function log(val, set) {
+      helperArr.push(val);
+    }
+    this.state.filters.forEach(log);
+
+    var newReviews = [];
+    for (var i = 0; i < helperArr.length; i++) {
+      for (var j = 0; j < allReviews.length; j++) {
+        if (allReviews[j].rating === helperArr[i]) {
+          newReviews.push(allReviews[j]);
+        }
+      }
+    }
+    console.log('filtered', newReviews);
+    this.setState({
+      reviews: newReviews
+
+    })
+  }
+  resetFilter() {
+    this.state.filters = new Set();
+    console.log(this.state.filters);
+    this.getReviews();
+    this.sortRelevance();
+  }
 
   render() {
     return (
@@ -90,7 +231,15 @@ class RateReview extends React.Component {
         {this.props.id ?
           <HeaderStyle>RATINGS & REVIEWS
             <RateReviewStyle>
-              <Ratings metadata={this.state.metadata}/>
+              <Ratings
+                metadata={this.state.metadata}
+                resetFilter={this.resetFilter}
+                f5={this.filterFive}
+                f4={this.filterFour}
+                f3={this.filterThree}
+                f2={this.filterTwo}
+                f1={this.filterOne}
+              />
               <Reviews
                 reviews={this.state.reviews}
                 sortRelevance={this.sortRelevance}
@@ -105,6 +254,7 @@ class RateReview extends React.Component {
   }
 }
 
+//Styled Components
 var RateReviewStyle = styled.div`
   display: flex;
   margin-top: 10px;

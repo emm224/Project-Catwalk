@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import ModalApp from './ModalApp.jsx';
+import ModalApp from './AddReviewModalApp.jsx';
 
 class AddReview extends React.Component {
   constructor(props) {

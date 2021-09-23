@@ -53,9 +53,9 @@ class ReviewListEntry extends React.Component {
     return stars;
   }
   conditionalResponse() {
-    if (this.props.review.response !== null) {
+    if (this.props.review.response !== null && this.props.review.response.length > 0) {
       return (
-        <ResponseStyle>
+        <ResponseStyle>{console.log(this.props.review.response)}
           <ResponseHeaderStyle>Response: </ResponseHeaderStyle> <br></br>
           {this.props.review.response}
         </ResponseStyle>
@@ -142,6 +142,7 @@ var TopRowStyle = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  margin-right: 10px;
 `;
 var TopRightStyle = styled.div`
   font-size: 12px;
