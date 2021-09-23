@@ -30,6 +30,7 @@ class App extends React.Component {
     this.state = {
       productID: '37311',//default to 37311 when page load
       productName:'',
+      addItem:{},
     };
 
     this.handleClickRelatedList = this.handleClickRelatedList.bind(this);
@@ -38,6 +39,9 @@ class App extends React.Component {
   //update currentProductId and currentProduct
   handleClickRelatedList(item){
     this.setState({productID: item.id})
+  }
+  addtoOutfit(item){
+    this.setState({addItem:item})
   }
   handleClickOutgitList(item){
     console.log('clicked')
@@ -55,8 +59,8 @@ class App extends React.Component {
       </div>
 
       <div id ='relatedAndComparison'>
-          <RelatedList list = {'related'} onClick = {this.handleClickRelatedList} currentItemId ={this.state.productID} />
-          <Outfit list = {'outfit'} onClick = {this.handleClickOutgitList}/>
+          <RelatedList list = {'related'} onClick = {this.handleClickRelatedList} currentItemId ={this.state.productID} addtoOutfit = {this.addtoOutfit.bind(this)}/>
+          <Outfit list = {'outfit'} onClick = {this.handleClickOutgitList} item = {this.state.addItem}/>
 
       </div>
 

@@ -9,8 +9,9 @@ class Card extends React.Component {
     this.state = {
       photo:[],
       rating:3,
-      styles:[],
-      show:false
+      styles:[{'original_price':0, 'sale_price':0, photos:[{thumbnail_url:''}]}],
+      show:false,
+      styleIndex:0,
     }
 
   }
@@ -33,26 +34,37 @@ class Card extends React.Component {
   hideButton(){
     this.setState({show:false})
   }
+  handleClick(index){
+    this.setState({styleIndex:index})
+  }
   render(){
     return (
       <CardStyle>
           <div className="container" >
-            {this.props.list === 'related' ? <span className = 'star' onClick={()=>{this.props.onClick(this.props.item, this.state.photo)}}>	&#9734;</span>:<span onClick={()=>{this.props.onClick(this.props.item, this.state.photo)}} className = 'delete'>X</span>}
-            <div onClick={()=>{this.props.onClickItem(this.props.item)}}>
+            {this.props.list === 'related' ? <span className = 'star' onClick={()=>{this.props.onClick(this.props.item, this.state.photo)}}><i className="fas fa-adjust fa-lg"></i></span>:<span onClick={()=>{this.props.onClick(this.props.item, this.state.photo)}} className = 'delete'><i className="far fa-trash-alt"></i></span>}
+            <div >
           <div id ='cardImage-container' onMouseOver = {this.showButton.bind(this)} onMouseLeave = {this.hideButton.bind(this)}>
-          <ImageContainer show = {this.state.show}>
+
+          <ImageContainer show = {this.state.show} onClick={this.handleClick.bind(this)}>
             {this.state.styles.map((item,index)=>
-
                 <img src={item.photos[0].thumbnail_url ? item.photos[0].thumbnail_url:'https://bashooka.com/wp-content/uploads/2015/10/404-errrrr-page-4.jpg' } alt="Image not found" key = {index} className = 'photolist'/>
-
             )}
             </ImageContainer>
+            </div>
           </div>
+            <div onClick={()=>{this.props.onClickItem(this.props.item)}} className = 'itemInfo'>
             <p>{this.props.item.category}</p>
             <p>{this.props.item.name}</p>
-            <p>${this.props.item.default_price}</p>
+            {this.state.styles[this.state.styleIndex].sale_price?
+            <>
+            <p style={{textDecoration:'line-through'}}>${this.state.styles[this.state.styleIndex].original_price}</p>
+            <p style={{color:'red'}}>${this.state.styles[this.state.styleIndex].sale_price}</p> </>:<p>${this.state.styles[this.state.styleIndex].original_price}</p>}
+            </div>
+            <div className = 'buttonConatainer'>
             <StarRating rating = {this.state.rating}/>
-          </div>
+            {this.props.list === 'related' ? <button className='addtoOutfit' onClick={()=>{this.props.addtoOutfit(this.props.item)}}><i className="fas fa-heartbeat fa-lg" ></i></button>: '' }
+            </div>
+
           </div>
       </CardStyle>
         )
@@ -61,15 +73,15 @@ class Card extends React.Component {
 
 var CardStyle = styled.div`
   overflow:hidden;
-  margin-left:10px;
-  margin-right:10px;
-  width:200px;
-  min-width:200px;
+  margin-left:15px;
+  margin-right:15px;
+  width:240px;
+  min-width:240px;
   position:relative;
   border:none;
   border-radius: 8px;
   box-shadow: rgb(0 0 0 / 10%) 0px 2px 8px;
-  background:#B3ACAA;
+  background-image: linear-gradient(to right, #ebf1f1, #d5dbd9, #c0c5c2, #acafac, #999a96);
   opacity:1;
   cursor:pointer;
   p{
