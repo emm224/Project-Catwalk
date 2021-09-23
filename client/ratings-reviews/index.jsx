@@ -229,7 +229,7 @@ class RateReview extends React.Component {
     return (
       <div>
         {this.props.id ?
-          <HeaderStyle>RATINGS & REVIEWS
+          <HeaderStyle><b>RATINGS & REVIEWS</b>
             <RateReviewStyle>
               <Ratings
                 metadata={this.state.metadata}

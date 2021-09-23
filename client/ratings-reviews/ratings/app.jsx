@@ -4,7 +4,7 @@ import StarBreakdown from './StarBreakdown.jsx';
 import ReviewBreakdown from './ReviewBreakdown.jsx';
 
 const Ratings = (props) => (
-  <div>
+  <div>{console.log(props.metadata)}
     {props.metadata.product_id ?
       <RatingsStyle>
 
@@ -19,9 +19,8 @@ const Ratings = (props) => (
           f1={props.f1}
         />
 
-        <ReviewBreakdown
-          characteristics={props.metadata.characteristics}
-        />
+        <ReviewBreakdown characteristics={props.metadata.characteristics} />
+
 
       </RatingsStyle>
     : ''}
@@ -30,6 +29,9 @@ const Ratings = (props) => (
 
 
 var RatingsStyle = styled.div`
+`;
+var Text = styled.div`
+  margin-right: 10px;
 `;
 
 export default Ratings;
