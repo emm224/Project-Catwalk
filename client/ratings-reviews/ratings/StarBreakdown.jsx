@@ -55,9 +55,8 @@ class StarBreakdown extends React.Component {
     return rounded;
   }
   starDisplay() {
-    var filled = this.starAverage();
-    var percent = Math.floor((filled - Math.floor(filled)) * 100);
-    var empty = 5 - this.starAverage();
+    var filled = Math.round(this.starAverage());
+    var empty = 5 - filled;
     var filledStars = '';
     var emptyStars = '';
     for (var i = 0; i < Math.floor(filled); i++) {

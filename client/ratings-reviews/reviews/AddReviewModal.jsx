@@ -82,6 +82,9 @@ export default function Modal({ open, children, onClose }) {
                 <LabelStyle></LabelStyle>
               </RadioStyle>
             </F>
+
+              <div>Chart Placeholder</div>
+
             </G>
             <InputStyle></InputStyle>
 
@@ -135,7 +138,7 @@ var ModalStyle = styled.div`
   background: linear-gradient(120deg, hsla(175,55%,55%,0.7), hsla(235,55%,55%,0.7));
   padding: 50px;
   zIndex: 1000;
-  width: 500px;
+  width: 600px;
 `;
 
 var HStyle = styled.div`
