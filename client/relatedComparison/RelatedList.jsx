@@ -200,7 +200,7 @@ var ListContainer = styled.div`
   }
 `;
 var Container = styled.div`
-  height: 465px;
+  height: 480px;
   width:80%;
   margin:0 auto;
   position:relative;

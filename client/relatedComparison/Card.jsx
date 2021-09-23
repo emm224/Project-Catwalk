@@ -8,7 +8,7 @@ class Card extends React.Component {
     super(props)
     this.state = {
       photo:[],
-      rating:3,
+      rating:0,
       styles:[{'original_price':0, 'sale_price':0, photos:[{thumbnail_url:''}]}],
       show:false,
       styleIndex:0,
@@ -26,6 +26,20 @@ class Card extends React.Component {
         .then(data=> data.json())
         .then(data=>{
           this.setState({photo: data.results[0].photos[0].thumbnail_url, styles:data.results})
+        })
+
+    fetch(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/meta?product_id=${this.props.item.id}`,option)
+        .then(data=> data.json())
+        .then(data=>{
+          var rating = data.ratings;
+          var totalPeople = 0;
+          var totalStar = 0;
+          for (var key in rating){
+            totalPeople += Number(rating[key])
+            totalStar += (Number(rating[key])*Number(key))
+          }
+          var averageRating = totalStar/totalPeople
+          this.setState({rating: averageRating})
         })
   }
   showButton(){
@@ -58,10 +72,10 @@ class Card extends React.Component {
             {this.state.styles[this.state.styleIndex].sale_price?
             <>
             <p style={{textDecoration:'line-through'}}>${this.state.styles[this.state.styleIndex].original_price}</p>
-            <p style={{color:'red'}}>${this.state.styles[this.state.styleIndex].sale_price}</p> </>:<p>${this.state.styles[this.state.styleIndex].original_price}</p>}
+            <p style={{color:'red'}}>${this.state.styles[this.state.styleIndex].sale_price}</p><p>Style: {this.state.styles[this.state.styleIndex].name}</p></>:<><p>${this.state.styles[this.state.styleIndex].original_price}</p><p>Style: {this.state.styles[this.state.styleIndex].name}</p></>}
             </div>
             <div className = 'buttonConatainer'>
-            <StarRating rating = {this.state.rating}/>
+              {this.state.rating? <StarRating rating = {this.state.rating}/>:<StarRating rating = {0}/>}
             {this.props.list === 'related' ? <button className='addtoOutfit' onClick={()=>{this.props.addtoOutfit(this.props.item)}}><i className="fas fa-heartbeat fa-lg" ></i></button>: '' }
             </div>
 
@@ -75,7 +89,7 @@ var CardStyle = styled.div`
   overflow:hidden;
   margin-left:15px;
   margin-right:15px;
-  width:240px;
+  width:249px;
   min-width:240px;
   position:relative;
   border:none;

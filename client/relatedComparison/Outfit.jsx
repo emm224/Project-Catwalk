@@ -101,7 +101,7 @@ var ListContainer = styled.div`
 
 var Container = styled.div`
   width:80%;
-  height:450px;
+  height:470px;
   margin:auto;
   position:relative;
 `;
@@ -110,7 +110,7 @@ var OutfitContainer = styled.div`
   overflow:hidden;
   margin-left:30px;
   margin-right:50px;
-  margin-top:35px;
+  margin-top:20px;
 `
 
 var OutterContainer = styled.div`
