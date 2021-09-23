@@ -148,7 +148,7 @@ class RelatedList extends React.Component {
       <div id ='shade'>
         <div className='seleted'>
 
-            <img src={this.state.currentPhoto} />
+            <img src={this.state.currentPhoto? this.state.currentPhoto : 'https://bashooka.com/wp-content/uploads/2015/10/404-errrrr-page-4.jpg'} />
             <div className = 'innerCantainer'>
               <div>
             <p>{this.state.currentItem.category}</p>
