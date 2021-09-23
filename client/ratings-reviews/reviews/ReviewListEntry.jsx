@@ -13,10 +13,13 @@ class ReviewListEntry extends React.Component {
       helpful: false,
       report: false,
       id: this.props.review.review_id,
-      text: 'Report'
+      text: 'Report',
+      body: this.props.review.body,
+      show: false
     }
     this.markHelpful = this.markHelpful.bind(this);
     this.reportReview = this.reportReview.bind(this);
+    this.toggleBody = this.toggleBody.bind(this);
   }
   componentDidMount() {
     this.formatDate();
@@ -51,6 +54,40 @@ class ReviewListEntry extends React.Component {
       stars += '☆';
     }
     return stars;
+  }
+  toggleBody() {
+    if (!this.state.show) {
+      this.setState({
+        show: true
+      })
+    } else {
+      this.setState({
+        show: false
+      })
+    }
+  }
+  conditionalBody() {
+    if (this.state.body.length > 250) {
+      if (!this.state.show) {
+        return (
+          <div>
+            <SummaryStyle>{this.state.body.slice(0,251)}...</SummaryStyle>
+            <ShowMore onClick={this.toggleBody}>Show more</ShowMore>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <SummaryStyle>{this.state.body}</SummaryStyle>
+            <ShowMore onClick={this.toggleBody}>Show less</ShowMore>
+          </div>
+        );
+      }
+    } else {
+      return (
+        <SummaryStyle>{this.props.review.body}</SummaryStyle>
+      );
+    }
   }
   conditionalResponse() {
     if (this.props.review.response !== null && this.props.review.response.length > 0) {
@@ -115,7 +152,8 @@ class ReviewListEntry extends React.Component {
               </TopRightStyle>
             </TopRowStyle>
             <SummaryStyle> <b>{this.props.review.summary}</b> </SummaryStyle>
-            <SummaryStyle>{this.props.review.body}</SummaryStyle>
+            {/* <SummaryStyle>{this.props.review.body}</SummaryStyle> */}
+            {this.conditionalBody()}
             {this.conditionalRecommend()}
             {this.conditionalResponse()}
             {this.conditionalPhoto()}
@@ -188,5 +226,12 @@ var PhotosStyle = styled.div`
   align-items: center;
   margin-left: 20px;
   margin-bottom: 10px;
+`;
+var ShowMore = styled.div`
+  font-size: 10px;
+  text-decoration: underline;
+  text-align: right;
+  margin-right: 20px;
+  cursor: pointer;
 `;
 export default ReviewListEntry;

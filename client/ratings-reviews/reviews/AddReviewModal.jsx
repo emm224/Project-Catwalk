@@ -89,7 +89,7 @@ export default function Modal({ open, children, onClose }) {
             <InputStyle></InputStyle>
 
           <ReviewStyle>Review summary (60 character max)</ReviewStyle>
-          <BodyStyle placeholder="Example: Best purchase ever!"/>
+          <BodyStyle maxlength="60" placeholder="Example: Best purchase ever!"/>
           <InputStyle></InputStyle>
 
           <ReviewStyle>Review body (1000 character max)</ReviewStyle>
@@ -187,6 +187,7 @@ var BodyStyle = styled.input`
   margin-left: 10px;
   width: 250px;
   margin-bottom: 5px;
+  maxlength: 60;
 `;
 
 var ReviewBodyStyle = styled.textarea`
