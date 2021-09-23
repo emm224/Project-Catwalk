@@ -42,22 +42,21 @@ class QuestionsModal extends React.Component {
 
   addQuestion() {
     this.setState({
-      sent: true,
+      sent: true
     });
+    const params = {
+      body: this.state.question,
+      name: this.state.name,
+      email: this.state.email,
+      product_id: Number(this.props.productID),
+    };
 
-    var newQuestion = {
-      params: {
-        body: this.state.question,
-        name: this.state.name,
-        email: this.state.email,
-        product_id: this.props.productID,
-      }
-    }
-
-    axios.post('/qa/questions', newQuestion)
-      .then((result) => {
-        console.log('Successful post!', result.data);
-        this.props.showModal();
+    axios.post('/qa/questions/:product_id', params)
+      .then((response) => {
+        this.props.toggleQuestionsModal(); // close modal
+      })
+      .catch((error) => {
+        console.log('Cannot post new Q: ', error)
       });
   }
 

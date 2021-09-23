@@ -47,13 +47,15 @@ class AnswersModal extends React.Component {
       sent: true
     });
 
-    axios.post('/qa/questions', {
+    const params = {
       body: this.state.answer,
       name: this.state.name,
-      question_id: this.props.questionID,
       email: this.state.email,
       photo: this.state.photo,
-      })
+      question_id: this.props.questionID,
+    };
+
+    axios.post('/qa/questions', params)
       .then((response) => {
         console.log('Post Ans Success: ', response.data);
         this.props.toggleAnswersModal(); // close modal
