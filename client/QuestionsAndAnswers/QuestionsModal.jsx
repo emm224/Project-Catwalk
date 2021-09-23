@@ -6,11 +6,11 @@ class QuestionsModal extends React.Component {
   constructor(props) {
     super(props);
 
+    // console.log('ProductID Here:', this.props.productID)
     this.state = {
       question: '',
       name: '',
       email: '',
-      product_id: '',
       sent: false
     };
 
@@ -25,32 +25,39 @@ class QuestionsModal extends React.Component {
   }
 
   handleInputChange(event) {
-    event.stopPropagation();
-
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({
-      [name]: value
-    });
+    if (event.target.placeholder === 'Why did you like the product or not?') {
+      this.setState({
+        email: event.target.value,
+      });
+    } else if (event.target.placeholder === 'Example: jackson11!') {
+      this.setState({
+        name: event.target.value,
+      });
+    } else {
+      this.setState({
+        question: event.target.value,
+      });
+    }
   }
 
   addQuestion() {
     this.setState({
-      sent: true
-    })
-    axios.post('/qa/questions', {
-      body: this.state.question,
-      name: this.state.name,
-      email: this.state.email,
-      product_id: this.props.productID
-    })
-      .then((response) => {
-        // console.log('Post Q Success: ', response.data);
-        this.props.toggleQuestionsModal(); // close modal
-      })
-      .catch((error) => {
-        console.log('Cannot post new Question: ', error)
+      sent: true,
+    });
+
+    var newQuestion = {
+      params: {
+        body: this.state.question,
+        name: this.state.name,
+        email: this.state.email,
+        product_id: this.props.productID,
+      }
+    }
+
+    axios.post('/qa/questions', newQuestion)
+      .then((result) => {
+        console.log('Successful post!', result.data);
+        this.props.showModal();
       });
   }
 
@@ -63,7 +70,7 @@ class QuestionsModal extends React.Component {
       <Modal
         className="modal" onClick={this.toggleOnOff} style={modalStyle}>
 
-        <ModalContainer onClick={ this.handleInputChange }>
+        <ModalContainer onClick={(event) => { event.stopPropagation(); }}>
 
         <CloseX className="close" onClick={this.toggleOnOff}>&times;</CloseX>
 
@@ -71,32 +78,48 @@ class QuestionsModal extends React.Component {
             <h1>Ask Your Question</h1>
             <h2>About the {this.props.productName}</h2>
 
+            <em> Please fill out the following form. <b>Mandatory</b> fields are marked with <b><sup>*</sup></b> </em>
+          <br />
+          <label>
+            <b><sup>*</sup>What is your nickname? : </b>
             <InputsStyles
-              placeholder="Example: jack543!"
-              type="text"
+              placeholder="Example: jackson11!"
+              required type="text"
               value={this.state.name}
               maxLength="60"
-              onChange={ this.handleInputChange }/>
-
+              autoComplete="off"
+              onChange={(event) => { this.handleInputChange(event); }}/>
             <p>For privacy reasons, do not use your full name or email address</p>
-
+          </label>
+          <br />
+          <label>
+          <b><sup>*</sup>Your email: </b>
             <InputsStyles
               placeholder="Why did you like the product or not?"
-              type="email"
+              required type="email"
               value={this.state.email}
               maxLength="60"
-              onChange={ this.handleInputChange } />
+              autoComplete="off"
+              onChange={(event) => { this.handleInputChange(event); }}/>
             <p>For authentication reasons, you will not be emailed</p>
-
+          </label>
+          <br />
+          <label>
+          <b><sup>*</sup>Your Question: </b>
             <NewQBodyStyle
               placeholder="Enter Question Here..."
-              type="text"
+              required type="text"
               value={this.state.question}
               maxLength="1000"
-              onChange={ this.handleInputChange } />
+              autoComplete="off"
+              onChange={(event) => { this.handleInputChange(event); }}/>
+            </label>
+            <br />
+
 
             <Button onClick={ this.addQuestion }> Submit Question </Button>
             <Button onClick={ this.props.toggleOnOff }> Cancel </Button>
+
 
           </NewForm>
         </ModalContainer>
@@ -166,6 +189,8 @@ const Button = styled.button`
     transition: all ease 0.3s;
   }
 `;
+
+
 
 
 

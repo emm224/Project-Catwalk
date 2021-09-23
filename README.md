@@ -1,5 +1,4 @@
-# Hack Reactor - Front End Capstone Project
-# Project Catwalk: Team Orcus
+# HR Front End Capstone - Project Catwalk: Team Orcus
 
 ## Table of Contents
 - [Team Members](#team-members)
@@ -30,7 +29,7 @@ React <img align="left" alt="React" width="30px" src="https://raw.githubusercont
 Node.js <img align="left" alt="Node JS" width="30px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/nodejs/nodejs.png" />
 <br />
 
-Express <img align="left" alt="Express" width="30px" src="https://github.com/devicons/devicon/blob/master/icons/express/express-original.svg" />
+Express.js <img align="left" alt="Express" width="30px" src="https://github.com/devicons/devicon/blob/master/icons/express/express-original.svg" />
 <br />
 
 ### Compiler
@@ -53,22 +52,11 @@ Slack <img align="left" alt="Slack" width="30px" src="https://github.com/devicon
 <br />
 <br />
 
-
-## How to View
-
-### Installation
-Fork the repo and clone to your local machine. After completion, follow these steps to install.
-
-1. Run `npm init` to initialize node package management setup.
-2. Run `npm install` to download dependencies.
-3. You will need to either set up a `.env.local` or a JS file that's attached to the `.gitignore` file. This file will house the private Github Authentication Token in the following form in your root directory. You can read more about creating a token [here](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
-
-### Development
-After installation is complete, proceed to setup the development environment.
-1. Create new React environment using a [Webpack](https://webpack.js.org) bundler.
-2. Create new Node/Express back-end environment.
-
-### Launch
-After development is complete, proceed to launch application into the browser. Ensure that the run scripts are correct within the package.JSON file.
-1. Run `npm run react-dev` to launch the Webpack bundler.
-2. Run `npm run start` to launch the server environment.
+## How to View and Interact with Retail Portal
+To view on a local machine, please follow these instructions:
+1. Fork the repository and clone to your local machine using `git clone https://github.com/Orcus-FEC/FEC.git`
+2. Generate a github personal access token to access the API and save token securely within file. You can read more about creating a token [here](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+3. Run `npm install` to download dependencies.
+4. Run `npm run react-dev` to launch the Webpack bundler.
+5. Run `npm run start` to launch the Server environment.
+6. Open <b>http://localhost:3000/</b> in your Browser.

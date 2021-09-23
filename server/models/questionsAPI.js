@@ -62,46 +62,49 @@ const getQuestions = (query, callback) => {
 };
 
 const postQuestions = (query, callback) => {
-
-  axios.post(
-    `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`, query,
-    {
-      headers: {
-        "Authorization": config.TOKEN,
-        "Content-Type": "application/json"
-      }
-    }
-  )
-  .then((response) => {
-    console.log('Created Question: ', response.data);
-    callback(null, response.data);
-  })
-  .catch((error) => {
-    console.log('Could not create API Q Error: ', error);
-    callback(error);
-  });
-};
-
-const postAnswers = (query, callback) => {
-
-  axios.post(
-    `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${query.question_id}/answers`, query,
-    {
-      headers: {
-        Authorization: config.TOKEN
+  if (!query.product_id) {
+    axios.post(
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${query.question_id}/answers`, query,
+      {
+        headers: {
+          "Authorization": config.TOKEN,
+          "Content-Type": "application/json"
+        },
       },
-    },
-  )
-  .then((response) => {
-    console.log('Created Answer: ', response.data);
-    callback(null, response.data);
-  })
-  .catch((error) => {
-    console.log('Could not create API Q Answer: ', error);
-    callback(error);
-  });
-};
+    )
+      .then((results) => {
+        callback(null, results.data);
+      })
+      .catch((error) => {
+        callback(error);
+      });
+  } else {
 
+    query.product_id = QueryStringInput(query.product_id, '?product_id');
+    query.page = QueryStringInput(query.page, '&page');
+    query.count = QueryStringInput(query.count, '&count=50');
+
+    let queryString = query.product_id + query.page + query.count;
+
+    axios.post(
+      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions${queryString}`, query,
+      {
+        headers: {
+          "Authorization": config.TOKEN,
+          "User-Agent": "request",
+          "Content-Type": "application/json"
+        },
+      },
+    )
+      .then((results) => {
+        console.log('Successful Post')
+        callback(null, results.data);
+      })
+      .catch((error) => {
+        callback(error);
+      });
+  }
+};
 
 const putQuestions = (query, callback) => {
   // if Answers Click
@@ -109,30 +112,32 @@ const putQuestions = (query, callback) => {
     axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/answers/${query.answer_id}/${query.name}`, {},
       {
         headers: {
-          Authorization: config.TOKEN,
+          "Authorization": config.TOKEN,
+          "Content-Type": "application/json"
         },
       },
     )
       .then((results) => {
         callback(null, results.data);
       })
-      .catch((err) => {
-        callback(err, null);
+      .catch((error) => {
+        callback(error);
       });
   } else {
     // if Questions Click
     axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${query.question_id}/${query.name}`, {},
       {
         headers: {
-          Authorization: config.TOKEN,
+          "Authorization": config.TOKEN,
+          "Content-Type": "application/json"
         },
       },
     )
       .then((results) => {
         callback(null, results.data);
       })
-      .catch((err) => {
-        callback(err, null);
+      .catch((error) => {
+        callback(error);
       });
   }
 };

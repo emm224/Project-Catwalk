@@ -29,7 +29,7 @@ class App extends React.Component {
 
     this.state = {
       productID: '37311',//default to 37311 when page load
-      productName:'',
+      productName:'Camo Onesie',
     };
 
     this.handleClickRelatedList = this.handleClickRelatedList.bind(this);

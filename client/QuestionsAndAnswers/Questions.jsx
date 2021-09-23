@@ -9,7 +9,7 @@ class Questions extends React.Component {
   constructor(props) {
     super(props);
 
-    // console.log('Questions ITEM: ', this.props.item)
+    console.log('Questions ITEM: ', this.props.item.question_id)
     // console.log('Helpfulness counter: ', this.props.item.question_id)
 
     const helpfulCounter = this.props.item.question_helpfulness;
@@ -83,12 +83,31 @@ class Questions extends React.Component {
 
   getAnswersData() {
     let answerArr = Object.values(this.props.item.answers);
-    console.log('Answers RAW:', answerArr);
-    console.log('Answers SORTED:', answerArr.sort((a,b)=> b.helpfulness - a.helpfulness));
+    // console.log('Answers RAW:', answerArr);
+    // console.log('Answers SORTED:', answerArr.sort((a,b)=> b.helpfulness - a.helpfulness));
+    let sellersResponse = false;
 
-    this.setState({
-      answersData: answerArr
-    });
+    for (let i = 0; i < answerArr.length; i++) {
+      let currentAnswer = answerArr[i];
+      let answererName = currentAnswer.answerer_name;
+      let sellerName = this.props.item.asker_name;
+
+      if (answererName === sellerName) {
+        answerArr.splice(i, 1);
+        answerArr.unshift(currentAnswer);
+        sellersResponse = true;
+      }
+    }
+
+    if (sellersResponse) {
+      this.setState({
+        answersData: answerArr
+      })
+    } else {
+      this.setState({
+        answersData: answerArr.sort((a,b)=> {b.helpfulness - a.helpfulness})
+      });
+    }
   }
 
   render() {
@@ -138,23 +157,27 @@ class Questions extends React.Component {
               ))}
             </ScrollList>
           )}
+          <br />
 
           {answersData.length > 2 ? (
-              <div>
-                {(!expandList) ? (
-                  <MoreAnswersButton onClick={ this.showMore}> <b> See More Answers </b> </MoreAnswersButton>
-                ) : (
-                  <MoreAnswersButton onClick={ this.showMore}> <b> Collapse Answers </b> </MoreAnswersButton>
-                )}
-              </div>
+              <AnsContainer>
+
+                  {(!expandList) ? (
+                    <MoreAnswersButton onClick={ this.showMore}> <b> See More Answers </b> </MoreAnswersButton>
+                  ) : (
+                    <MoreAnswersButton onClick={ this.showMore}> <b> Collapse Answers </b> </MoreAnswersButton>
+                  )}
+
+              </AnsContainer>
             ) : (null)}
 
-          {answersData.map((answer) => (
+          {answersData.map((answer, index) => (
             <AnswersModal
+              key={index}
               item={answer}
               showModal={showModal}
               toggleAnswersModal={this.toggleAnswersModal}
-              productID={this.props.productID}/>
+              questionID={this.props.item.question_id}/>
           ))}
         </div>
       </Container>
@@ -166,7 +189,7 @@ const Container = styled.div`
   width: 100%;
   border-top: 0px solid grey;
   border-radius: 10px;
-  margin: 10px;
+  margin: 0;
   padding: 0px 20px 0px 20px;
   display: block;
 `;
@@ -180,6 +203,7 @@ const AnsContainer = styled.div`
   padding:0px;
   margin:0px;
 `;
+
 
 const QuestionLinks = styled.div`
   display: inline;
@@ -204,7 +228,7 @@ const Button = styled.button`
     text-align:center;
     background:white;
     padding: 20px;
-    margin-left: 25px;
+    margin-left: 0;
     white-space: nowrap;
     cursor: pointer;
 

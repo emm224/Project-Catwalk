@@ -8,15 +8,18 @@ import config from '../../config.js';
 
 import Questions from './Questions.jsx';
 import QuestionsModal from './QuestionsModal.jsx';
-// import Search from './SearchBar.jsx';
 
 class QuestionsAndAnswers extends React.Component {
   constructor(props) {
     super(props);
 
+    // const sortQuestions = (results) => Object.values(results.data.results).sort((a, b) => b.question_helpfulness - a.question_helpfulness);
+
+    // console.log('ProductID:', this.props.productID)
     this.state = {
       questionsData: [],
       searchTerm: '',
+      noSearchResults: false,
       filteredData: [],
       questionsDisplayed: 4,
       expandList: false,
@@ -25,15 +28,17 @@ class QuestionsAndAnswers extends React.Component {
 
     this.showMoreQA = this.showMoreQA.bind(this);
     this.getData = this.getData.bind(this);
-    this.handleSearchInput = this.handleSearchInput.bind(this);
-    this.searchData = this.searchData.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.searchQuestions = this.searchQuestions.bind(this);
+
+    // this.showSearchedQuestions = this.showSearchedQuestions.bind(this);
     this.toggleQuestionsModal = this.toggleQuestionsModal.bind(this);
+    this.originalRender = this.originalRender.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState){
     if (this.props.productID !== prevProps.productID) {
-      // console.log('PRODUCT ID-->', this.props.productID);
-      this.getData();
+      this.originalRender();
     }
   }
   ///needed here
@@ -41,26 +46,25 @@ class QuestionsAndAnswers extends React.Component {
     this.getData();
   }
 
-  handleSearchInput() {
-
+  handleSearch() {
     this.setState({
-      searchTerm: event.target.value
-     }, () => {
-      if (event.target.value.length >= 3 || event.target.value === '' ) {
-        this.searchData(() => {});
+      searchTerm: event.target.value,
+    }, () => {
+      if (event.target.value.length > 2 || event.target.value === '') {
+        this.searchQuestions();
       }
     });
   }
 
-  searchData() {
+  searchQuestions() {
 
     if (this.state.searchTerm.length === 0) {
       this.setState({
-        filteredData: this.state.questionsData
+        filteredData: this.state.questionsData,
       });
     } else {
       const filteredArr = [];
-      for (let i = 0; i < this.state.filteredData.length; i++) {
+      for (let i = 0; i < this.state.filteredData.length; i += 1) {
         if (this.state.filteredData[i].question_body.toLowerCase().includes(this.state.searchTerm)) {
           filteredArr.push(this.state.filteredData[i]);
         }
@@ -74,13 +78,11 @@ class QuestionsAndAnswers extends React.Component {
   getData() {
     axios.get(`/qa/questions/?product_id=${this.props.productID}`)
       .then((results)=>{
-        // console.log('GET RESULTS', results.data)
+        console.log('GET RESULTS', results.data.results)
         this.setState({
-          questionsData: results.data.results.sort((a,b) => { a.helpfulness - b.helpfulness}),
-          filteredData: results.data.results.sort((a,b) => { a.helpfulness - b.helpfulness})
-        })
-        // console.log('QuestionsData: ', this.state.questionsData);
-      // console.log('FilteredData: ', this.state.filteredData);
+          questionsData: results.data.results.sort((a,b) =>  b.question_helpfulness - a.question_helpfulness),
+          filteredData: results.data.results.sort((a,b) =>  b.question_helpfulness - a.question_helpfulness)
+        });
       })
       .catch((error) => {
         console.log('QA FETCH Error')
@@ -108,6 +110,17 @@ class QuestionsAndAnswers extends React.Component {
     }
   }
 
+  originalRender() {
+    axios.get(`/qa/questions/?product_id=${this.props.productID}`)
+      .then((results)=>{
+        // console.log('GET RESULTS', results.data)
+        this.setState({
+          questionsData: results.data.results.sort((a,b) => { b.question_helpfulness - a.question_helpfulness}),
+          filteredData: results.data.results.sort((a,b) => { b.question_helpfulness - a.question_helpfulness})
+        })
+      })
+  }
+
   render() {
 
     return (
@@ -116,17 +129,17 @@ class QuestionsAndAnswers extends React.Component {
         <Container>
           <h3>QUESTIONS & ANSWERS</h3>
 
-          <form onSubmit={(event) => {event.preventDefault(); }}>
+          <form onSubmit={(event) => { event.preventDefault(); }}>
           {/* {console.log('FILTERED', this.state.filteredData)} */}
             <SearchBar
-              placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
+              placeholder="Have a question? Search for answers…"
               type="text"
               value={this.state.searchTerm}
-              onChange={(event) => {event.preventDefault(); this.handleSearchInput}} />
+              onChange={(event) => { event.preventDefault(); this.handleSearch(); }} />
 
-            <SearchButton />
 
-          </form>
+            </form>
+
 
           <QuestionsContainer>
             {this.state.filteredData.slice(0, this.state.questionsDisplayed).map((item) => (

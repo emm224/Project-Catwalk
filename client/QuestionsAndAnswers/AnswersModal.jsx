@@ -6,17 +6,19 @@ class AnswersModal extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('AnswersModal ITEM: ', this.props.answersData)
+    console.log('AnswersModal ITEM: ', this.props.item)
+    console.log('AnswersModal ID: ', this.props.questionID)
     this.state = {
       answer: '',
       name: '',
       email: '',
       photo: [],
-      product_id: '',
       sent: false
     };
-
     this.toggleOnOff = this.toggleOnOff.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.addAnswer = this.addAnswer.bind(this);
+    this.addPhoto = this.addPhoto.bind(this);
   }
 
   toggleOnOff(event) {
@@ -25,30 +27,33 @@ class AnswersModal extends React.Component {
   }
 
   handleInputChange(event) {
-
-    event.stopPropagation();
-
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value
-    });
+    if (event.target.placeholder === 'Example: jack@email.com') {
+      this.setState({
+        email: event.target.value,
+      });
+    } else if (event.target.placeholder === 'Example: jack543!') {
+      this.setState({
+        name: event.target.value,
+      });
+    } else {
+      this.setState({
+        answer: event.target.value,
+      });
+    }
   }
 
   addAnswer() {
     this.setState({
       sent: true
-    })
+    });
 
     axios.post('/qa/questions', {
       body: this.state.answer,
       name: this.state.name,
+      question_id: this.props.questionID,
       email: this.state.email,
       photo: this.state.photo,
-      product_id: this.props.productID
-    })
+      })
       .then((response) => {
         console.log('Post Ans Success: ', response.data);
         this.props.toggleAnswersModal(); // close modal
@@ -59,7 +64,12 @@ class AnswersModal extends React.Component {
   }
 
   addPhoto(event) {
+    const photos = [];
+    photos.push(URL.createObjectURL(event.target.files[0]));
 
+    this.setState({
+      images: photos,
+    }, () => {});
   }
 
   render() {
@@ -71,7 +81,7 @@ class AnswersModal extends React.Component {
       <Modal
         className="modal" onClick={this.toggleOnOff} style={modalStyle}>
 
-        <ModalContainer onClick={ this.handleInputChange }>
+        <ModalContainer onClick={(event) => { event.stopPropagation(); }}>
 
           <CloseX className="close" onClick={this.toggleOnOff}>&times;</CloseX>
 
@@ -79,31 +89,49 @@ class AnswersModal extends React.Component {
             <h1>Submit your Answer</h1>
             <h2>{this.props.productName}: </h2>
 
+            <em> Please fill out the following form. <b>Mandatory</b> fields are marked with <b><sup>*</sup></b> </em>
+          <br />
+          <label>
+          <b><sup>*</sup>What is your nickname? : </b>
             <InputsStyles
               placeholder="Example: jack543!"
-              type="text"
+              required type="text"
               value={this.state.name}
               maxLength="60"
-              onChange={ this.handleInputChange }/>
+              autoComplete="off"
+              onChange={(event) => { this.handleInputChange(event); }}/>
 
             <p>For privacy reasons, do not use your full name or email address</p>
-
+            </label>
+          <br />
+            <label>
+            <b><sup>*</sup>Your email: </b>
             <InputsStyles
               placeholder="Example: jack@email.com"
-              type="email"
+              required type="email"
               value={this.state.email}
               maxLength="60"
-              onChange={ this.handleInputChange } />
+              autoComplete="off"
+              onChange={(event) => { this.handleInputChange(event); }}/>
             <p>For authentication reasons, you will not be emailed</p>
-
+            </label>
+          <br />
+          <label>
+          <b><sup>*</sup>Your Answer: </b>
             <NewQBodyStyle
               placeholder="Enter Question Here..."
-              type="text"
+              required type="text"
               value={this.state.question}
               maxLength="1000"
-              onChange={ this.handleInputChange } />
-
-            <Button onClick={ this.addAnswer }> Submit Question </Button>
+              autoComplete="off"
+              onChange={(event) => { this.handleInputChange(event); }}/>
+            </label>
+          <br />
+            <label>
+            <b>Upload your photos: </b>
+            <AddPhoto type="file" onChange={this.addPhoto} />
+            </label>
+            <Button onClick={ this.addAnswer }> Submit Answer </Button>
             <Button onClick={ this.props.toggleOnOff }> Cancel </Button>
 
           </NewForm>
@@ -173,6 +201,10 @@ const Button = styled.button`
   border-radius: 5px;
   transition: all ease 0.3s;
   }
+`;
+
+const AddPhoto = styled.input`
+margin-left: auto;
 `;
 
 
