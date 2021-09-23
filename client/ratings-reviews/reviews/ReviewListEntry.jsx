@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import PhotoEntry from './PhotoEntry.jsx';
+import StarRating from '../../StarRating.js';
 
 class ReviewListEntry extends React.Component {
   constructor(props) {
@@ -23,7 +24,6 @@ class ReviewListEntry extends React.Component {
   }
   componentDidMount() {
     this.formatDate();
-    this.starRating();
   }
   formatDate() {
     // Get rid of unnecessary time zone and put into an array formatted MM/DD/YYYY
@@ -42,18 +42,6 @@ class ReviewListEntry extends React.Component {
     this.setState({
       date: formatted
     })
-  }
-  starRating() {
-    var filled = this.state.stars;
-    var empty = 5 - filled;
-    var stars = '';
-    for (var i = 0; i < Math.floor(filled); i++) {
-      stars += '★';
-    }
-    for (var i = 0; i < Math.ceil(empty); i++) {
-      stars += '☆';
-    }
-    return stars;
   }
   toggleBody() {
     if (!this.state.show) {
@@ -146,7 +134,9 @@ class ReviewListEntry extends React.Component {
         {this.props.review ?
           <ReviewListEntryStyle>
             <TopRowStyle>
-              <div>{this.starRating()}</div>
+          {this.state.stars ?
+            <StarRating rating={this.state.stars}/>
+          : '' }
               <TopRightStyle>
                 {this.props.review.reviewer_name}, {this.state.date}
               </TopRightStyle>

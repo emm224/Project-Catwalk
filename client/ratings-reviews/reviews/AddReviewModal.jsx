@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import StarRating from '../../StarRating.js';
+import OldStarRating from './OldStarRating.js';
 
 export default function Modal({ open, children, onClose }) {
   if(!open) {return null;}
@@ -13,7 +13,7 @@ export default function Modal({ open, children, onClose }) {
 
           <InputStyle>
             <LabelStyle>Overall rating</LabelStyle>
-            <StarRating/>
+            <OldStarRating />
           </InputStyle>
 
           <InputStyle>
