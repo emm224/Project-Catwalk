@@ -144,7 +144,7 @@ class RelatedList extends React.Component {
       <button id="relatedslideLeft" type="button" onClick = {this.handleClickRelated}> &#60;</button>
       <button id="relatedslideRight" type="button"onClick = {this.handleClickRelated}> &#62; </button>
       <div id ='pop' style = {{display: this.state.display}}>
-      <button id='popbtn' onClick = {this.hide} >X</button>
+      <button id='popbtn' onClick = {this.hide} ><i className="fas fa-times"></i></button>
       <div id ='shade'>
         <div className='seleted'>
             <img src={this.state.currentPhoto} />
@@ -180,13 +180,14 @@ var ListContainer = styled.div`
   }
 `;
 var Container = styled.div`
-  height: 450px;
+  height: 465px;
   width:80%;
   margin:0 auto;
   position:relative;
   background-image: url(https://www.themoviedb.org/assets/2/v4/misc/trending-bg-39afc2a5f77e31d469b25c187814c0a2efef225494c038098d62317d923f8415.svg);
   background-repeat: no-repeat;
   background-position: 50% 200px;
+
 `;
 
 var RelatedContainer = styled.div`
