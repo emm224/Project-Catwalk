@@ -11,7 +11,7 @@ class RelatedList extends React.Component {
       currentItem:[],
       relateId : [],
       relatedList :[],
-      selected:{},
+      selected:{features:[1,2,3,4,5,6]},
       photo:'',
       display:'none',
       currentPhoto:'',
@@ -147,16 +147,36 @@ class RelatedList extends React.Component {
       <button id='popbtn' onClick = {this.hide} ><i className="fas fa-times"></i></button>
       <div id ='shade'>
         <div className='seleted'>
+
             <img src={this.state.currentPhoto} />
+            <div className = 'innerCantainer'>
+              <div>
             <p>{this.state.currentItem.category}</p>
             <p>{this.state.currentItem.name}</p>
             <p>${this.state.currentItem.default_price}</p>
+              </div>
+              <div>
+              {this.state.currentItem.features? this.state.currentItem.features.map((item,index)=>
+              <p key = {index}>{item.feature}: {item.value}</p>
+              ):''}
+              </div>
+            </div>
         </div>
         <div className='seleted'>
             <img src={this.state.photo?this.state.photo: 'https://bashooka.com/wp-content/uploads/2015/10/404-errrrr-page-4.jpg'} />
+            <div className = 'innerCantainer'>
+              <div>
             <p>{this.state.selected.category}</p>
             <p>{this.state.selected.name}</p>
             <p>${this.state.selected.default_price}</p>
+              </div>
+              <div>
+              {this.state.selected.features? this.state.selected.features.map((item,index)=>
+              <p key = {index}>{item.feature}: {item.value}</p>
+              ):''}
+                </div>
+            </div>
+
         </div>
         </div>
       </div>

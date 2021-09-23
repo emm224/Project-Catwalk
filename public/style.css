@@ -145,6 +145,10 @@ body {
   justify-content: space-between;
   padding:5px;
 }
+.innerCantainer{
+  display:flex;
+  justify-content: space-around;
+}
 
 #shade{
   width:100%;

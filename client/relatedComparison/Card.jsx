@@ -57,8 +57,8 @@ class Card extends React.Component {
             <p>{this.props.item.name}</p>
             {this.state.styles[this.state.styleIndex].sale_price?
             <>
-            <p style={{textDecoration:'line-through'}}>${this.state.styles[0].original_price}</p>
-            <p style={{color:'red'}}>${this.state.styles[this.state.styleIndex].sale_price}</p> </>:<p>${this.state.styles[0].original_price}</p>}
+            <p style={{textDecoration:'line-through'}}>${this.state.styles[this.state.styleIndex].original_price}</p>
+            <p style={{color:'red'}}>${this.state.styles[this.state.styleIndex].sale_price}</p> </>:<p>${this.state.styles[this.state.styleIndex].original_price}</p>}
             </div>
             <div className = 'buttonConatainer'>
             <StarRating rating = {this.state.rating}/>
