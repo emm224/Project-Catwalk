@@ -20,17 +20,15 @@ const getReviewMetadata = function(req, res) {
   });
 }
 
-// const addReview = function(req, res) {
-//   console.log(req.body);
-//   models.reviewModels.addReview(req.body.id, req.body.review, (err, review) => {
-//     if (err) {
-//       res.status(500).send(err);
-//     } else {
-//       console.log('Review posted');
-//       res.sendStatus(201);
-//     }
-//   });
-// }
+const addReview = function(req, res) {
+  models.reviewModels.addReview(req.body.params, (err, review) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.sendStatus(201);
+    }
+  });
+}
 
 const markHelpful = function(req, res) {
   models.reviewModels.markHelpful(req.body.id, (err, data) => {
@@ -55,7 +53,7 @@ const reportReview = function(req, res) {
 module.exports = {
   getReviews,
   getReviewMetadata,
-  // addReview,
+  addReview,
   markHelpful,
   reportReview
 }
