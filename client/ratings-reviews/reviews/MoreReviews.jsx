@@ -9,22 +9,26 @@ class MoreReviews extends React.Component {
   }
 
   conditionalText() {
-    if(this.props.number === 2) {
-      return (
-        <div onClick={this.handleClick}>
-          <MoreReviewsStyle>
-            <p>ALL REVIEWS</p>
-          </MoreReviewsStyle>
-        </div>
-      );
-    } else if (this.props.number === this.props.length){
-      return (
-        <div onClick={this.handleClick}>
-          <MoreReviewsStyle>
-            <p>COLLAPSE REVIEWS</p>
-          </MoreReviewsStyle>
-        </div>
-      );
+    if (this.props.length <= 2) {
+      return;
+    } else {
+      if(this.props.number === 2) {
+        return (
+          <div onClick={this.handleClick}>
+            <MoreReviewsStyle>
+              <p>ALL REVIEWS</p>
+            </MoreReviewsStyle>
+          </div>
+        );
+      } else if (this.props.number === this.props.length){
+        return (
+          <div onClick={this.handleClick}>
+            <MoreReviewsStyle>
+              <p>COLLAPSE REVIEWS</p>
+            </MoreReviewsStyle>
+          </div>
+        );
+      }
     }
   }
 

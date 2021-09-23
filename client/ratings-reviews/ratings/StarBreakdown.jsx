@@ -5,16 +5,16 @@ class StarBreakdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      five: this.reviewDistribution(5),
-      four: this.reviewDistribution(4),
-      three: this.reviewDistribution(3),
-      two: this.reviewDistribution(2),
-      one: this.reviewDistribution(1),
-      fiveCount: this.ratingCount(5),
-      fourCount: this.ratingCount(4),
-      threeCount: this.ratingCount(3),
-      twoCount: this.ratingCount(2),
-      oneCount: this.ratingCount(1)
+      '5': 0,
+      '4': 0,
+      '3': 0,
+      '2': 0,
+      '1': 0,
+      c5: 0,
+      c4: 0,
+      c3: 0,
+      c2: 0,
+      c1: 0
     }
   }
 
@@ -22,23 +22,19 @@ class StarBreakdown extends React.Component {
     this.percentRecommended();
     this.starAverage();
     this.starDisplay();
+    this.reviewDistribution();
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(this.props.ratings !== prevProps.ratings) {
+      this.reviewDistribution();
+    }
+  };
+
   percentRecommended() {
     var x = Number(this.props.recommended.true);
     var y = Number(this.props.recommended.false);
     var percent = Math.round((x / (x + y)) * 100) + '%';
-    return percent;
-  }
-  reviewDistribution(n) {
-    var count = this.props.ratings[n];
-    var total = 0;
-    for (var key in this.props.ratings) {
-      total += Number(this.props.ratings[key]);
-    }
-    var percent = count / total * 100;
-    if (Number.isNaN(percent)) {
-      percent = 0;
-    }
     return percent;
   }
   starAverage() {
@@ -60,18 +56,70 @@ class StarBreakdown extends React.Component {
   }
   starDisplay() {
     var filled = this.starAverage();
+    var percent = Math.floor((filled - Math.floor(filled)) * 100);
     var empty = 5 - this.starAverage();
-    var stars = '';
+    var filledStars = '';
+    var emptyStars = '';
     for (var i = 0; i < Math.floor(filled); i++) {
-      stars += '★';
+      filledStars += '★';
     }
     for (var i = 0; i < Math.ceil(empty); i++) {
-      stars += '☆';
+      emptyStars += '☆';
     }
-    return stars;
+    return (
+      <StarStyles>
+        {filledStars}
+        {/* <HalfStarStyles width={percent}>
+          <UShStyles>☆</UShStyles>
+        </HalfStarStyles> */}
+        {emptyStars}
+      </StarStyles>
+    );
   }
-  ratingCount(n) {
-    return Number(this.props.ratings[n]);
+  reviewDistribution() {
+    var one = this.props.ratings[1];
+    var two = this.props.ratings[2];
+    var three = this.props.ratings[3];
+    var four = this.props.ratings[4];
+    var five = this.props.ratings[5];
+    var total = 0;
+    for (var key in this.props.ratings) {
+      total += Number(this.props.ratings[key]);
+    }
+
+    var oneP = one / total * 100;
+    var twoP = two / total * 100;
+    var threeP = three / total * 100;
+    var fourP = four / total * 100;
+    var fiveP = five / total * 100;
+
+    if (Number.isNaN(oneP)) {
+      oneP = 0;
+    }
+    if (Number.isNaN(twoP)) {
+      twoP = 0;
+    }
+    if (Number.isNaN(threeP)) {
+      threeP = 0;
+    }
+    if (Number.isNaN(fourP)) {
+      fourP = 0;
+    }
+    if (Number.isNaN(fiveP)) {
+      fiveP = 0;
+    }
+    this.setState({
+      '5': fiveP,
+      '4': fourP,
+      '3': threeP,
+      '2': twoP,
+      '1': oneP ,
+      c5: five,
+      c4: four,
+      c3: three,
+      c2: two,
+      c1: one
+    });
   }
 
   render() {
@@ -85,51 +133,58 @@ class StarBreakdown extends React.Component {
           {this.percentRecommended()} of reviews recommend this product
         </StarBarGraphStyle>
         <StarBarGraphStyle>
-          <u>5 star(s)</u>
+          <Text onClick={this.props.f5}>5 star(s)</Text>
           <BarStyle>
-            <FiveShadedStyle shade={this.state.five}>x</FiveShadedStyle>
-            <FiveUnshadedStyle unshade={this.state.five}>x</FiveUnshadedStyle>
+            <FiveShadedStyle shade={this.state[5]} onClick={this.props.f5}>x</FiveShadedStyle>
+            <FiveUnshadedStyle unshade={this.state[5]}>x</FiveUnshadedStyle>
           </BarStyle>
-          <StarCountStyle>{this.state.fiveCount}</StarCountStyle>
+          <StarCountStyle onClick={this.props.f5}>{this.state.c5}</StarCountStyle>
         </StarBarGraphStyle>
         <StarBarGraphStyle>
-          <u>4 star(s)</u>
+          <Text onClick={this.props.f4}>4 star(s)</Text>
           <BarStyle>
-            <FourShadedStyle shade={this.state.four}>x</FourShadedStyle>
-            <FourUnshadedStyle unshade={this.state.four}>x</FourUnshadedStyle>
+            <FourShadedStyle shade={this.state[4]} onClick={this.props.f4}>x</FourShadedStyle>
+            <FourUnshadedStyle unshade={this.state[4]}>x</FourUnshadedStyle>
           </BarStyle>
-          <StarCountStyle>{this.state.fourCount}</StarCountStyle>
+          <StarCountStyle onClick={this.props.f4}>{this.state.c4}</StarCountStyle>
         </StarBarGraphStyle>
         <StarBarGraphStyle>
-          <u>3 star(s)</u>
+          <Text onClick={this.props.f3}>3 star(s)</Text>
           <BarStyle>
-            <ThreeShadedStyle shade={this.state.three}>x</ThreeShadedStyle>
-            <ThreeUnshadedStyle unshade={this.state.three}>x</ThreeUnshadedStyle>
+            <ThreeShadedStyle shade={this.state[3]} onClick={this.props.f3}>x</ThreeShadedStyle>
+            <ThreeUnshadedStyle unshade={this.state[3]}>x</ThreeUnshadedStyle>
           </BarStyle>
-          <StarCountStyle>{this.state.threeCount}</StarCountStyle>
+          <StarCountStyle onClick={this.props.f3}>{this.state.c3}</StarCountStyle>
         </StarBarGraphStyle>
         <StarBarGraphStyle>
-          <u>2 star(s)</u>
+          <Text onClick={this.props.f2}>2 star(s)</Text>
           <BarStyle>
-            <TwoShadedStyle shade={this.state.two}>x</TwoShadedStyle>
-            <TwoUnshadedStyle unshade={this.state.two}>x</TwoUnshadedStyle>
+            <TwoShadedStyle shade={this.state[2]} onClick={this.props.f2}>x</TwoShadedStyle>
+            <TwoUnshadedStyle unshade={this.state[2]}>x</TwoUnshadedStyle>
           </BarStyle>
-          <StarCountStyle>{this.state.twoCount}</StarCountStyle>
+          <StarCountStyle onClick={this.props.f2}>{this.state.c2}</StarCountStyle>
         </StarBarGraphStyle>
         <StarBarGraphStyle>
-          <u>1 star(s)</u>
+          <Text onClick={this.props.f1}>1 star(s)</Text>
           <BarStyle>
-            <OneShadedStyle shade={this.state.one}>x</OneShadedStyle>
-            <OneUnshadedStyle unshade={this.state.one}>x</OneUnshadedStyle>
+            <OneShadedStyle shade={this.state[1]} onClick={this.props.f1}>x</OneShadedStyle>
+            <OneUnshadedStyle unshade={this.state[1]}>x</OneUnshadedStyle>
           </BarStyle>
-          <StarCountStyle>{this.state.oneCount}</StarCountStyle>
+          <StarCountStyle onClick={this.props.f1}>{this.state.c1}</StarCountStyle>
         </StarBarGraphStyle>
+        <FilterStyle onClick={this.props.resetFilter}>Remove filters</FilterStyle>
         <br></br>
       </div>
     );
   }
 }
 
+
+
+var Text = styled.div`
+  cursor: pointer;
+  text-decoration: underline;
+`;
 var StarBreakdownStyle = styled.div`
   display: flex;
   margin-bottom: 20px;
@@ -155,6 +210,10 @@ var OneShadedStyle = styled.div`
   margin-left: 10px;
   color: green;
   font-size: 1px;
+  cursor: pointer;
+  &:hover {
+    background-color: lightgreen;
+  }
 `;
 var OneUnshadedStyle = styled.div`
   background: lightgray;
@@ -169,6 +228,10 @@ var TwoShadedStyle = styled.div`
   margin-left: 10px;
   color: green;
   font-size: 1px;
+  cursor: pointer;
+  &:hover {
+    background-color: lightgreen;
+  }
 `;
 var TwoUnshadedStyle = styled.div`
   background: lightgray;
@@ -183,6 +246,10 @@ var ThreeShadedStyle = styled.div`
   margin-left: 10px;
   color: green;
   font-size: 1px;
+  cursor: pointer;
+  &:hover {
+    background-color: lightgreen;
+  }
 `;
 var ThreeUnshadedStyle = styled.div`
   background: lightgray;
@@ -197,6 +264,10 @@ var FourShadedStyle = styled.div`
   margin-left: 10px;
   color: green;
   font-size: 1px;
+  cursor: pointer;
+  &:hover {
+    background-color: lightgreen;
+  }
 `;
 var FourUnshadedStyle = styled.div`
   background: lightgray;
@@ -211,6 +282,10 @@ var FiveShadedStyle = styled.div`
   margin-left: 10px;
   color: green;
   font-size: 1px;
+  cursor: pointer;
+  &:hover {
+    background-color: lightgreen;
+  }
 `;
 var FiveUnshadedStyle = styled.div`
   background: lightgray;
@@ -223,6 +298,30 @@ var StarCountStyle= styled.div`
   vertical-align: top;
   margin-left: -16px;
   margin-top: -2px;
+  text-decoration: underline;
+  cursor: pointer;
 `;
 
+var FilterStyle = styled.div`
+  font-size: 10px;
+  text-align: right;
+  margin-top: -10px;
+  margin-right: 80px;
+  text-decoration: underline;
+  cursor: pointer;
+`;
+var StarStyles = styled.div`
+  display: flex;
+`;
+
+var HalfStarStyles = styled.div`
+  background: linear-gradient(90deg, black  ${props => props.width}%, white ${props => 100 - props.width}%);
+`;
+
+var ShStyles = styled.div`
+`;
+var UShStyles = styled.div`
+`;
+//  background: linear-gradient(90deg, black  ${props => props.width}%, white ${props => 100 - props.width}%);
+// ${props => 100 - props.width}%;
 export default StarBreakdown;

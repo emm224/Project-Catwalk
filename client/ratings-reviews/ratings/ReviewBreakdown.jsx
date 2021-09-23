@@ -8,7 +8,7 @@ class ReviewBreakdown extends React.Component {
 
   conditionalSize() {
     if(this.props.characteristics.Size) {
-      var size = Math.round((this.props.characteristics.Size.value / 5) * 100);
+      var size = Math.round((this.props.characteristics.Size.value / 5) * 100) * .94;
       return (
         <div>
           <TextStyle>Size</TextStyle>
@@ -29,7 +29,7 @@ class ReviewBreakdown extends React.Component {
   }
   conditionalWidth() {
     if(this.props.characteristics.Width) {
-      var width = Math.round((this.props.characteristics.Width.value / 5) * 100);
+      var width = Math.round((this.props.characteristics.Width.value / 5) * 100) * .94;
       return (
         <div>
           <TextStyle>Width</TextStyle>
@@ -50,7 +50,9 @@ class ReviewBreakdown extends React.Component {
   }
   conditionalComfort() {
     if(this.props.characteristics.Comfort) {
-      var comfort = Math.round((this.props.characteristics.Comfort.value / 5) * 100);
+      var comfort = Math.round((this.props.characteristics.Comfort.value / 5) * 100) * .94;
+      // -1 min scale
+      //94 max scale
       return (
         <div>
           <TextStyle>Comfort</TextStyle>
@@ -70,7 +72,7 @@ class ReviewBreakdown extends React.Component {
   }
   conditionalQuality() {
     if(this.props.characteristics.Quality) {
-      var quality = Math.round((this.props.characteristics.Quality.value / 5) * 100);
+      var quality = Math.round((this.props.characteristics.Quality.value / 5) * 100) * .94;
       return (
         <div>
           <TextStyle>Quality</TextStyle>
@@ -90,7 +92,7 @@ class ReviewBreakdown extends React.Component {
   }
   conditionalFit() {
     if(this.props.characteristics.Fit) {
-      var fit = Math.round((this.props.characteristics.Fit.value / 5) * 100);
+      var fit = Math.round((this.props.characteristics.Fit.value / 5) * 100) * .94;
       return (
         <div>
           <TextStyle>Fit</TextStyle>
@@ -111,7 +113,7 @@ class ReviewBreakdown extends React.Component {
   }
   conditionalLength() {
     if(this.props.characteristics.Length) {
-      var length = Math.round((this.props.characteristics.Length.value / 5) * 100);
+      var length = Math.round((this.props.characteristics.Length.value / 5) * 100) * .94;
       return (
         <div>
           <TextStyle>Length</TextStyle>
