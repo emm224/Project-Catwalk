@@ -1,5 +1,9 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 .contentContainer {
-  width:80%;
+  width:70%;
   margin: 0 auto;
 }
 .on {
@@ -8,22 +12,65 @@
 .off {
   color: rgb(230, 230, 230);
 }
-.star {
-  font-size: large;
-  position: absolute;
-  top:10px;
-  right:10px;
-  cursor:pointer;
-  font-weight: bold;
-  color:red;
-  z-index: 999;
+
+.stars-outer {
+  display: inline-block;
+  position: relative;
+  font-family: FontAwesome;
+  color: rgba(170, 179, 177,0.8)
 }
-.delete {
+
+.stars-outer::before {
+  content: "\f006 \f006 \f006 \f006 \f006";
+}
+
+.stars-inner {
+  font-family: FontAwesome;
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.stars-inner::before {
+  content: '\f005 \f005 \f005 \f005 \f005';
+  color: black;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+}
+.stars{
+  margin-left:14px;
+}
+
+.myTitle{
+  margin-left: 50px;
+  padding-top:10px;
+}
+.star {
   font-size: 20px;
   position: absolute;
-  right:5px;
+  top:10px;
+  right:0px;
+  cursor:pointer;
+  font-weight: bold;
+  z-index: 999;
+  color: aliceblue;
+}
+.delete {
+  font-size: 25px;
+  position: absolute;
+  right:10px;
+  bottom:5px;
   cursor:pointer;
   z-index: 60;
+}
+.addtoOutfit{
+  background-color: transparent;
+  outline: none;
+  border:none;
+  cursor:pointer;
+  padding-bottom: 2px;
 }
 #slideLeft {
   position: absolute;
@@ -89,6 +136,14 @@
   cursor:pointer;
   padding:30px 12px;
 }
+
+.itemInfo{
+  margin-left:10px;
+  margin-top:10px;
+}
+.starStyle {
+  margin-left: 10px;
+}
 #pop {
   position:fixed;
   width:55vw;
@@ -115,6 +170,15 @@
   }
 }
 
+.buttonConatainer{
+  display:flex;
+  justify-content: space-between;
+  padding:5px;
+}
+.innerCantainer{
+  display:flex;
+  justify-content: space-around;
+}
 
 #shade{
   width:100%;
@@ -142,7 +206,6 @@
   top:0;
   right:0;
 }
-
 
 .left-arrow, .right-arrow {
   position: absolute;
@@ -209,3 +272,4 @@ i {
 }
 
 /* media queries */
+
