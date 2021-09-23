@@ -46,6 +46,7 @@ class App extends React.Component {
   }
   addtoOutfit(item){
     this.setState({addItem:item})
+
   }
   handleClickOutgitList(item){
     console.log('clicked')

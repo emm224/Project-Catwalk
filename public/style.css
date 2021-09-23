@@ -13,6 +13,36 @@ body {
   color: rgb(230, 230, 230);
 }
 
+.stars-outer {
+  display: inline-block;
+  position: relative;
+  font-family: FontAwesome;
+  color: rgba(170, 179, 177,0.8)
+}
+
+.stars-outer::before {
+  content: "\f006 \f006 \f006 \f006 \f006";
+}
+
+.stars-inner {
+  font-family: FontAwesome;
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.stars-inner::before {
+  content: '\f005 \f005 \f005 \f005 \f005';
+  color: black;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+}
+.stars{
+  margin-left:14px;
+}
+
 .myTitle{
   margin-left: 50px;
   padding-top:10px;
