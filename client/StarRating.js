@@ -10,7 +10,7 @@ class StarRating extends React.Component {
   }
   render(){
     return (
-      <div>
+      <div className='starStyle'>
       {['one',2,3,4,5].map((star, index) => {
         index += 1;
         return (
@@ -20,8 +20,9 @@ class StarRating extends React.Component {
             className={index <= this.state.rating ? "on" : "off"}
             onClick={() => this.setState({rating:index})}
           >
-            <span className="stars">&#9733;</span>
+            <span className="stars"><i className="fas fa-star"></i></span>
           </Button>
+
         );
       })}
     </div>
