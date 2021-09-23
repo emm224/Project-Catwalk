@@ -4,7 +4,7 @@ import StarBreakdown from './StarBreakdown.jsx';
 import ReviewBreakdown from './ReviewBreakdown.jsx';
 
 const Ratings = (props) => (
-  <div>{console.log(props.metadata)}
+  <div>
     {props.metadata.product_id ?
       <RatingsStyle>
 

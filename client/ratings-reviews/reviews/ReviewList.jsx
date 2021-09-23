@@ -66,7 +66,7 @@ class ReviewList extends React.Component {
 
             <ReviewButtonsStyle>
               {this.conditionalMoreReviews()}
-              <AddReview />
+              <AddReview characteristics={this.props.characteristics}/>
             </ReviewButtonsStyle>
           </ReviewListStyle>
 

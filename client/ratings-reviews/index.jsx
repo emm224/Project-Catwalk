@@ -57,7 +57,6 @@ class RateReview extends React.Component {
       .catch((err) => {
         console.log(err);
       })
-    console.log(this.state.reviews);
   }
   getRatings() {
     var product = {
@@ -245,6 +244,7 @@ class RateReview extends React.Component {
                 sortRelevance={this.sortRelevance}
                 sortHelpful={this.sortHelpful}
                 sortNew={this.sortNew}
+                characteristics={this.state.metadata.characteristics}
               />
             </RateReviewStyle>
           </HeaderStyle>

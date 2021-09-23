@@ -13,6 +13,7 @@ const Reviews = (props) => (
           sortNew={props.sortNew}
           sortHelpful={props.sortHelpful}
           sortRelevance={props.sortRelevance}
+          characteristics={props.characteristics}
         />
       </ReviewsStyle>
     :
