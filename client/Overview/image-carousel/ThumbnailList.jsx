@@ -55,7 +55,7 @@ class ThumbnailList extends React.Component {
       <ThumbnailFrame className="thumbnail-frame" >
         < ArrowUp
           // show={showUpArrow}
-          onClick={this.scrollThumbnailUp} >
+          onClick={this.scrollThumbnailDown} >
           ▲
         </ArrowUp>
         {
@@ -71,7 +71,7 @@ class ThumbnailList extends React.Component {
         }
         <ArrowDown
           // show={showDownArrow}
-          onClick={this.scrollThumbnailDown}>
+          onClick={this.scrollThumbnailUp}>
           ▼
         </ArrowDown>
       </ThumbnailFrame >
