@@ -271,6 +271,7 @@ const Button = styled.button`
     margin-left: 0;
     white-space: nowrap;
     cursor: pointer;
+    border-radius:50px;
 
   &:hover {
     background-color: lightgrey;

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -47,15 +48,13 @@ class AnswersModal extends React.Component {
       sent: true
     });
 
-    const params = {
+    axios.post('/qa/questions', {
       body: this.state.answer,
       name: this.state.name,
+      question_id: this.props.questionID,
       email: this.state.email,
       photo: this.state.photo,
-      question_id: this.props.questionID,
-    };
-
-    axios.post('/qa/questions', params)
+      })
       .then((response) => {
         console.log('Post Ans Success: ', response.data);
         this.props.toggleAnswersModal(); // close modal
@@ -96,8 +95,8 @@ class AnswersModal extends React.Component {
           <label>
           <b><sup>*</sup>What is your nickname? : </b>
             <InputsStyles
-              placeholder="Example: jack543!" required
-              type="text"
+              placeholder="Example: jack543!"
+              required type="text"
               value={this.state.name}
               maxLength="60"
               autoComplete="off"
@@ -109,8 +108,8 @@ class AnswersModal extends React.Component {
             <label>
             <b><sup>*</sup>Your email: </b>
             <InputsStyles
-              placeholder="Example: jack@email.com" required
-              type="email"
+              placeholder="Example: jack@email.com"
+              required type="email"
               value={this.state.email}
               maxLength="60"
               autoComplete="off"
@@ -121,8 +120,8 @@ class AnswersModal extends React.Component {
           <label>
           <b><sup>*</sup>Your Answer: </b>
             <NewQBodyStyle
-              placeholder="Enter Question Here..." required
-              type="text"
+              placeholder="Enter Question Here..."
+              required type="text"
               value={this.state.question}
               maxLength="1000"
               autoComplete="off"
@@ -142,7 +141,6 @@ class AnswersModal extends React.Component {
     );
   }
 }
-
 const Modal = styled.div`
   position: fixed;
   top: 0;
@@ -165,6 +163,7 @@ const ModalContainer = styled.div`
   padding: 10px;
   border: 1px solid black;
   zIndex: 1000;
+  border-radius:50px;
 `;
 
 const CloseX = styled.span`
@@ -197,6 +196,7 @@ const Button = styled.button`
   background-color: white;
   padding: 10px;
   margin-top: 10px;
+
   &:hover {
     background-color: lightgrey;
     border: 1px solid black;

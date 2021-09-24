@@ -2,18 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Modal = styled.div`
-  background-color: rgb(0,0,0);
-  backdrop-filter: blur(4px);
-  background-color: rgba(0,0,0,0.4);
-  z-index: 150;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  position: fixed;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .7);
+  zIndex: 1000;
   overflow: auto;
-  padding-top: 200px;
-  margin: auto;
 `;
 
 const Photo = styled.img`

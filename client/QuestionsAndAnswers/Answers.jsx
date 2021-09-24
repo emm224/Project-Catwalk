@@ -123,6 +123,7 @@ const Button = styled.button`
   border: none;
   cursor: pointer;
   display: inline;
+  border-radius:50px;
 
   &:hover {
     text-decoration: none;

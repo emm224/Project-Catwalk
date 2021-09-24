@@ -114,7 +114,6 @@ class QuestionsAndAnswers extends React.Component {
           <h3>QUESTIONS & ANSWERS</h3>
         <span>
           <form onSubmit={(event) => { event.preventDefault(); }}>
-          {/* {console.log('FILTERED', this.state.filteredData)} */}
             <SearchBar
               placeholder="Have a question? Search for answers…"
               type="text"
@@ -195,6 +194,7 @@ const MoreAnswersButton = styled.button`
   margin-left: 25px;
   white-space: nowrap;
   cursor: pointer;
+  border-radius:50px;
 
   &:hover {
     background-color: lightgrey;
@@ -210,6 +210,7 @@ const AddAQuestionButton = styled.button`
   margin-left: 25px;
   white-space: nowrap;
   cursor: pointer;
+  border-radius:50px;
 
   &:hover {
     background-color: lightgrey;

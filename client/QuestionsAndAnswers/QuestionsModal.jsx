@@ -6,7 +6,7 @@ class QuestionsModal extends React.Component {
   constructor(props) {
     super(props);
 
-    // console.log('QModal ProductID Here:', this.props.productID)
+    console.log('QModal ProductID Here:', this.props.productID)
     this.state = {
       question: '',
       name: '',
@@ -149,11 +149,12 @@ const ModalContainer = styled.div`
   padding: 10px;
   border: 1px solid black;
   zIndex: 1000;
+  border-radius:50px;
 `;
 
 const CloseX = styled.span`
    color: #aaaaaa;
-   float: right; /* Positioned to the right of the parent container whichever size it is */
+   float: right;
    font-size: 25px;
    font-weight: bold;
 `;
@@ -181,11 +182,12 @@ const Button = styled.button`
   background-color: white;
   padding: 10px;
   margin-top: 10px;
+
   &:hover {
     background-color: lightgrey;
     border: 1px solid black;
-    border-radius: 5px;
-    transition: all ease 0.3s;
+  border-radius: 5px;
+  transition: all ease 0.3s;
   }
 `;
 
