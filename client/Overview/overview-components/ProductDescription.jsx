@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ProductDescription = (props) => {
-  if (props.currentProduct === '') {
+  if (!props.currentProduct) {
     return ''
   }
 

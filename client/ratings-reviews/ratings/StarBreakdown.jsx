@@ -79,7 +79,7 @@ class StarBreakdown extends React.Component {
       <div>
         <StarBreakdownStyle>
           <NumberStyle>{this.starAverage()}</NumberStyle>
-          <div>{this.starDisplay()}</div>
+          <div id='star-display'>{this.starDisplay()}</div>
         </StarBreakdownStyle>
         <StarBarGraphStyle>
           {this.percentRecommended()} of reviews recommend this product

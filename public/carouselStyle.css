@@ -1,3 +1,8 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .thumbnail-icon {
   z-index: 10;
   height: 50px;
@@ -8,3 +13,11 @@
   border: #1e1d51 solid 1px;
   opacity: 0.8;
 }
+
+.default-image {
+height: 100%;
+width: 100%;
+object-fit: 'cover';
+cursor: 'pointer';
+}
+

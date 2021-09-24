@@ -51,7 +51,7 @@ class App extends React.Component {
       </TitleHeader>
       <div className = 'contentContainer'>
       <div id='productOverview'>Product Overview Placeholder
-        <ProductOverview />
+        <ProductOverview selectedProductID={this.state.productID}/>
       </div>
 
       <div id ='relatedAndComparison'>
