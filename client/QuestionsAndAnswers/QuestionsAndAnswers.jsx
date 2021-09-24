@@ -172,6 +172,7 @@ const FlexContainer = styled.div`
   justify-content: center;
   padding: 20px;
   margin-left:5%;
+
 `;
 
 const Container = styled.div`
@@ -262,6 +263,15 @@ const SearchButton = styled.button`
   cursor: pointer;
   font-size: 30px;
   margin-bottom:20px;
+
+  &:selection {
+    background: red;
+  }
+
+  ::-moz-selection {
+    background: #ffb7b7; /
+  }
+
 
   &:hover {
     background-color: lightgrey;
