@@ -159,10 +159,10 @@ class Questions extends React.Component {
       <Container>
         <QContainer>
 
-          <h3> Q: {this.props.query !== '' && this.props.item.question_body.includes(this.props.query) ?
+          <h2> Q: {this.props.query !== '' && this.props.item.question_body.includes(this.props.query) ?
           (<SearchHighlight
             query={this.props.query}
-            body={this.props.item.question_body} />) : this.props.item.question_body}</h3>
+            body={this.props.item.question_body} />) : this.props.item.question_body}</h2>
 
           <QuestionLinks>
             <HelpfulSpacing> Helpful? </HelpfulSpacing>
@@ -237,7 +237,7 @@ const Container = styled.div`
   width: 100%;
   border-top: 0px solid grey;
   border-radius: 10px;
-  margin: 0;
+  margin: 0px;
   padding: 0px 20px 0px 20px;
   display: block;
 `;
@@ -245,6 +245,8 @@ const Container = styled.div`
 const QContainer = styled.div`
   flex-direction:row;
   display: flex;
+  margin-right:10%;
+
 `;
 
 const QHeader = styled.div`
@@ -264,6 +266,7 @@ const AnsContainer = styled.div`
 const QuestionLinks = styled.div`
   display: inline;
   margin-left: auto;
+  font-size:18px;
 `;
 
 const Button = styled.button`
@@ -273,6 +276,7 @@ const Button = styled.button`
   outline: none;
   cursor: pointer;
   display: inline;
+  font-size:14px;
 
   &:hover {
     text-decoration: none;
@@ -287,8 +291,8 @@ const Button = styled.button`
     font-size:18px;
     font-weight:700px;
     padding:15px 60px;
-    background-color: papayawhip;
-    color: blue;
+    background-image: linear-gradient(120deg, hsla(175,55%,55%,0.5), hsla(235,55%,55%,0.5));
+    color: black;
 
   &:hover {
     opacity:0.9;
@@ -306,6 +310,7 @@ const DividerSpacing = styled.p`
 
 const HelpfulSpacing = styled.p`
   display: inline;
+  font-size:16px;
 `;
 
 const ScrollList = styled.ul`

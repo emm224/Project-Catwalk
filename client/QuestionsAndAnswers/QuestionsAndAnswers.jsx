@@ -116,7 +116,7 @@ class QuestionsAndAnswers extends React.Component {
     return (
       <FlexContainer>
         <Container>
-          <h3>QUESTIONS & ANSWERS</h3>
+          <h2>QUESTIONS & ANSWERS</h2>
         <span>
           <form onSubmit={(event) => { event.preventDefault(); }}>
             <SearchBar
@@ -167,15 +167,17 @@ class QuestionsAndAnswers extends React.Component {
 };
 
 const FlexContainer = styled.div`
-
+  display:flex;
+  flex-direction:column;
   justify-content: center;
   padding: 20px;
+  margin-left:5%;
 `;
 
 const Container = styled.div`
   border-radius: 10px;
   padding: 5px;
-  margin: 5px;
+  margin: 0px;
   display:inline;
 `;
 
@@ -192,36 +194,41 @@ const ButtonContainer = styled.div`
 `;
 
 const MoreAnswersButton = styled.button`
-  display:inline;
-  text-align:center;
-  background:white;
-  padding: 20px;
-  margin-left: 25px;
-  white-space: nowrap;
-  cursor: pointer;
   border-radius:50px;
+  border:none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  font-size:18px;
+  font-weight:700px;
+  padding:15px 60px;
+  background-image: linear-gradient(120deg, hsla(175,55%,55%,0.5), hsla(235,55%,55%,0.5));
+  color: black;
+  margin-left:40px;
 
   &:hover {
-    background-color: lightgrey;
-    border: 1px solid black;
-    transition: all ease 0.3s;
+  opacity:0.9;
+  transform: scale(0.95);
+  background-color: lightgrey;
+}
 `;
 
 const AddAQuestionButton = styled.button`
-  display:inline;
-  text-align:center;
-  background:white;
-  padding: 20px;
-  margin-left: 25px;
-  white-space: nowrap;
-  cursor: pointer;
   border-radius:50px;
+  border:none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  font-size:18px;
+  font-weight:700px;
+  padding:15px 60px;
+  background-image: linear-gradient(120deg, hsla(175,55%,55%,0.5), hsla(235,55%,55%,0.5));
+  color: black;
+  margin-left:40px;
 
   &:hover {
-    background-color: lightgrey;
-    border: 1px solid black;
-    transition: all ease 0.3s;
-  }
+  opacity:0.9;
+  transform: scale(0.95);
+  background-color: lightgrey;
+}
 `;
 
 const photoContainers = styled.div`
@@ -232,32 +239,29 @@ const photoContainers = styled.div`
 `;
 
 const SearchBar = styled.input`
-<<<<<<< HEAD
-  width: 100%;
-=======
-  width: 1000px;
+  width: 90%;
   height: 50px;
->>>>>>> f94512e5afd275520eb18204c485c50e936c8b06
   box-sizing: border-box;
   border: 1px lightgrey;
   border-style: groove;
   font-size: 16px;
-  padding: 10px 20px;
+  padding: 0px 20px;
   position: relative;
-
-
+  margin-bottom:20px;
 `;
 
 const SearchButton = styled.button`
   width: 50px;
   height: 50px;
   border: none;
+  padding: 0px 20px;
   background:transparent;
   text-align: center;
-  color: black;
+  color: linear-gradient(120deg, hsla(175,55%,55%,0.5), hsla(235,55%,55%,0.5));
   border-radius: 0 5px 5px 0;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 30px;
+  margin-bottom:20px;
 
   &:hover {
     background-color: lightgrey;
