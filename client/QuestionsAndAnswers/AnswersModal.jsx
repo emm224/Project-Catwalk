@@ -96,8 +96,8 @@ class AnswersModal extends React.Component {
           <label>
           <b><sup>*</sup>What is your nickname? : </b>
             <InputsStyles
-              placeholder="Example: jack543!"
-              required type="text"
+              placeholder="Example: jack543!" required
+              type="text"
               value={this.state.name}
               maxLength="60"
               autoComplete="off"
@@ -109,8 +109,8 @@ class AnswersModal extends React.Component {
             <label>
             <b><sup>*</sup>Your email: </b>
             <InputsStyles
-              placeholder="Example: jack@email.com"
-              required type="email"
+              placeholder="Example: jack@email.com" required
+              type="email"
               value={this.state.email}
               maxLength="60"
               autoComplete="off"
@@ -121,8 +121,8 @@ class AnswersModal extends React.Component {
           <label>
           <b><sup>*</sup>Your Answer: </b>
             <NewQBodyStyle
-              placeholder="Enter Question Here..."
-              required type="text"
+              placeholder="Enter Question Here..." required
+              type="text"
               value={this.state.question}
               maxLength="1000"
               autoComplete="off"

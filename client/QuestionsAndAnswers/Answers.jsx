@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 import AnswersPhoto from './AnswersPhoto.jsx';
 
+import SearchHighlight from './SearchHighlight.jsx';
+
 class Answers extends React.Component {
   constructor(props) {
     super(props);
@@ -57,7 +59,11 @@ class Answers extends React.Component {
         <AnswersContainer>
           <h3> A: </h3>
             <AnswerBody>
-              {this.props.item.body}
+              {/* {this.props.item.body} */}
+              {this.props.query !== '' && this.props.item.body.includes(this.props.query) ?
+                (<SearchHighlight
+                  query={this.props.query}
+                  body={this.props.item.body} />) : this.props.item.body}
             </AnswerBody>
         </AnswersContainer>
 

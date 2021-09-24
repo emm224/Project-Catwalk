@@ -6,7 +6,7 @@ class QuestionsModal extends React.Component {
   constructor(props) {
     super(props);
 
-    // console.log('ProductID Here:', this.props.productID)
+    console.log('QModal ProductID Here:', this.props.productID)
     this.state = {
       question: '',
       name: '',
@@ -82,8 +82,8 @@ class QuestionsModal extends React.Component {
           <label>
             <b><sup>*</sup>What is your nickname? : </b>
             <InputsStyles
-              placeholder="Example: jackson11!"
-              required type="text"
+              placeholder="Example: jackson11!" required
+              type="text"
               value={this.state.name}
               maxLength="60"
               autoComplete="off"
@@ -94,8 +94,8 @@ class QuestionsModal extends React.Component {
           <label>
           <b><sup>*</sup>Your email: </b>
             <InputsStyles
-              placeholder="Why did you like the product or not?"
-              required type="email"
+              placeholder="Why did you like the product or not?" required
+              type="email"
               value={this.state.email}
               maxLength="60"
               autoComplete="off"
@@ -106,8 +106,8 @@ class QuestionsModal extends React.Component {
           <label>
           <b><sup>*</sup>Your Question: </b>
             <NewQBodyStyle
-              placeholder="Enter Question Here..."
-              required type="text"
+              placeholder="Enter Question Here..." required
+              type="text"
               value={this.state.question}
               maxLength="1000"
               autoComplete="off"

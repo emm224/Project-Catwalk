@@ -13,27 +13,25 @@ class QuestionsAndAnswers extends React.Component {
   constructor(props) {
     super(props);
 
-    // const sortQuestions = (results) => Object.values(results.data.results).sort((a, b) => b.question_helpfulness - a.question_helpfulness);
-
-    // console.log('ProductID:', this.props.productID)
     this.state = {
       questionsData: [],
       searchTerm: '',
       noSearchResults: false,
       filteredData: [],
-      questionsDisplayed: 4,
+      maximumQsDisplayed: 4,
       expandList: false,
       showModal: false
     };
-
     this.showMoreQA = this.showMoreQA.bind(this);
     this.getData = this.getData.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.searchQuestions = this.searchQuestions.bind(this);
-
-    // this.showSearchedQuestions = this.showSearchedQuestions.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.filterQuestions = this.filterQuestions.bind(this);
     this.toggleQuestionsModal = this.toggleQuestionsModal.bind(this);
     this.originalRender = this.originalRender.bind(this);
+  }
+
+  componentDidMount(){
+    this.getData();
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -41,27 +39,22 @@ class QuestionsAndAnswers extends React.Component {
       this.originalRender();
     }
   }
-  ///needed here
-  componentDidMount(){
-    this.getData();
-  }
 
-  handleSearch() {
+  handleSearchChange() {
     this.setState({
       searchTerm: event.target.value,
     }, () => {
       if (event.target.value.length > 2 || event.target.value === '') {
-        this.searchQuestions();
+        this.filterQuestions();
       }
     });
   }
 
-  searchQuestions() {
-
+  filterQuestions() {
     if (this.state.searchTerm.length === 0) {
       this.setState({
         filteredData: this.state.questionsData,
-      });
+      })
     } else {
       const filteredArr = [];
       for (let i = 0; i < this.state.filteredData.length; i += 1) {
@@ -78,10 +71,11 @@ class QuestionsAndAnswers extends React.Component {
   getData() {
     axios.get(`/qa/questions/?product_id=${this.props.productID}`)
       .then((results)=>{
-        console.log('GET RESULTS', results.data.results)
+        console.log('Getting data for ProductID:', results.data.product_id)
+        console.log('Data Results are:', results.data.results)
         this.setState({
-          questionsData: results.data.results.sort((a,b) =>  b.question_helpfulness - a.question_helpfulness),
-          filteredData: results.data.results.sort((a,b) =>  b.question_helpfulness - a.question_helpfulness)
+          questionsData: results.data.results.sort((a,b) => { b.question_helpfulness - a.question_helpfulness}),
+          filteredData: results.data.results.sort((a,b) => { b.question_helpfulness - a.question_helpfulness})
         });
       })
       .catch((error) => {
@@ -97,14 +91,14 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   showMoreQA() {
-    if (this.state.questionsDisplayed === 4) {
+    if (this.state.maximumQsDisplayed === 4) {
       this.setState({
-        questionsDisplayed: this.state.filteredData.length,
+        maximumQsDisplayed: this.state.filteredData.length,
         expandList: true
       });
     } else {
       this.setState({
-        questionsDisplayed: 4,
+        maximumQsDisplayed: 4,
         expandList: false
       });
     }
@@ -117,8 +111,11 @@ class QuestionsAndAnswers extends React.Component {
         this.setState({
           questionsData: results.data.results.sort((a,b) => { b.question_helpfulness - a.question_helpfulness}),
           filteredData: results.data.results.sort((a,b) => { b.question_helpfulness - a.question_helpfulness})
-        })
+        });
       })
+      .catch((error) => {
+        console.log('QA FETCH Error')
+    });
   }
 
   render() {
@@ -128,30 +125,31 @@ class QuestionsAndAnswers extends React.Component {
       <FlexContainer>
         <Container>
           <h3>QUESTIONS & ANSWERS</h3>
-
+        <span>
           <form onSubmit={(event) => { event.preventDefault(); }}>
           {/* {console.log('FILTERED', this.state.filteredData)} */}
             <SearchBar
               placeholder="Have a question? Search for answers…"
               type="text"
               value={this.state.searchTerm}
-              onChange={(event) => { event.preventDefault(); this.handleSearch(); }} />
+              onChange={(event) => { event.preventDefault(); this.handleSearchChange(); }} />
 
-
-            </form>
-
+          </form>
+        </span>
 
           <QuestionsContainer>
-            {this.state.filteredData.slice(0, this.state.questionsDisplayed).map((item) => (
+
+            {this.state.filteredData.slice(0, this.state.maximumQsDisplayed).map((item) => (
               <Questions
                 item={item}
                 key={item.question_id}
+                query={this.state.searchTerm}
                 productID={this.props.productID} />
             ))}
           </QuestionsContainer>
 
           <ButtonContainer>
-            {this.state.filteredData.length > 4 && this.state.expandList === false ? (
+            {this.state.filteredData.length > 4 && !(this.state.expandList) ? (
 
           <MoreAnswersButton
             onClick={this.showMoreQA}>
