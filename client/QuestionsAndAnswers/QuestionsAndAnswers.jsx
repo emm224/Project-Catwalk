@@ -180,7 +180,8 @@ const FlexContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 20px;
-
+  width:100%;
+  flex-direction: column
 `;
 
 const Container = styled.div`
@@ -240,7 +241,7 @@ const photoContainers = styled.div`
 `;
 
 const SearchBar = styled.input`
-  width: 1000px;
+  width: 100%;
   box-sizing: border-box;
   border: 1px lightgrey;
   border-style: groove;
