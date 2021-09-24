@@ -5,11 +5,13 @@ import styled from 'styled-components';
 import Answers from './Answers.jsx';
 import AnswersModal from './AnswersModal.jsx';
 
+import SearchHighlight from './SearchHighlight.jsx';
+
 class Questions extends React.Component {
   constructor(props) {
     super(props);
 
-    // console.log('Questions ITEM: ', this.props.item.question_id)
+    // console.log('Questions ITEM: ', this.props.item)
     // console.log('Helpfulness counter: ', this.props.item.question_id)
 
     const helpfulCounter = this.props.item.question_helpfulness;
@@ -27,11 +29,18 @@ class Questions extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.showMore = this.showMore.bind(this);
     this.toggleAnswersModal = this.toggleAnswersModal.bind(this);
+    this.exitAnswersModal = this.exitAnswersModal.bind(this);
     this.getAnswersData = this.getAnswersData.bind(this);
   }
 
   componentDidMount() {
     this.getAnswersData();
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if (this.props.productID !== prevProps.productID) {
+      this.originalRender();
+    }
   }
 
   handleClick(event) {
@@ -78,10 +87,42 @@ class Questions extends React.Component {
     this.setState({
       showModal: !(this.state.showModal)
     });
-    console.log('Toggle CLICKED: ', this.state.showModal)
+  }
+
+  exitAnswersModal() {
+    this.setState({showModal: false});
   }
 
   getAnswersData() {
+    let answerArr = Object.values(this.props.item.answers);
+    // console.log('Answers RAW:', answerArr);
+    // console.log('Answers SORTED:', answerArr.sort((a,b)=> b.helpfulness - a.helpfulness));
+    let sellersResponse = false;
+
+    for (let i = 0; i < answerArr.length; i++) {
+      let currentAnswer = answerArr[i];
+      let answererName = currentAnswer.answerer_name;
+      let sellerName = this.props.item.asker_name;
+
+      if (answererName === sellerName) {
+        answerArr.splice(i, 1);
+        answerArr.unshift(currentAnswer);
+        sellersResponse = true;
+      }
+    }
+
+    if (sellersResponse) {
+      this.setState({
+        answersData: answerArr
+      })
+    } else {
+      this.setState({
+        answersData: answerArr.sort((a,b)=> {b.helpfulness - a.helpfulness})
+      });
+    }
+  }
+
+  originalRender() {
     let answerArr = Object.values(this.props.item.answers);
     // console.log('Answers RAW:', answerArr);
     // console.log('Answers SORTED:', answerArr.sort((a,b)=> b.helpfulness - a.helpfulness));
@@ -117,7 +158,11 @@ class Questions extends React.Component {
     return (
       <Container>
         <QContainer>
-          <h3> Q: {this.props.item.question_body} </h3>
+
+          <h3> Q: {this.props.query !== '' && this.props.item.question_body.includes(this.props.query) ?
+          (<SearchHighlight
+            query={this.props.query}
+            body={this.props.item.question_body} />) : this.props.item.question_body}</h3>
 
           <QuestionLinks>
             <HelpfulSpacing> Helpful? </HelpfulSpacing>
@@ -139,7 +184,8 @@ class Questions extends React.Component {
               key={answer.id}
               productID={this.props.productID}
               sellerName={this.props.item}
-              itemReported={this.props.item.reported} />
+              itemReported={this.props.item.reported}
+              exitAnswersModal={this.exitAnswersModal} />
             </AnsContainer>
             ))}
           </div>
@@ -152,7 +198,8 @@ class Questions extends React.Component {
                 key={answer.id}
                 productID={this.props.productID}
                 sellerName={this.props.item}
-                itemReported={this.props.item.reported} />
+                itemReported={this.props.item.reported}
+                exitAnswersModal={this.exitAnswersModal} />
               </AnsContainer>
               ))}
             </ScrollList>
@@ -177,6 +224,7 @@ class Questions extends React.Component {
               item={answer}
               showModal={showModal}
               toggleAnswersModal={this.toggleAnswersModal}
+              exitAnswersModal={this.exitAnswersModal}
               questionID={this.props.item.question_id}/>
           ))}
         </div>
@@ -197,6 +245,14 @@ const Container = styled.div`
 const QContainer = styled.div`
   flex-direction:row;
   display: flex;
+`;
+
+const QHeader = styled.div`
+  padding: 10px 15px;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
 `;
 
 const AnsContainer = styled.div`
@@ -224,19 +280,20 @@ const Button = styled.button`
   }`;
 
   const MoreAnswersButton = styled.button`
-    display:inline;
-    text-align:center;
-    background:white;
-    padding: 20px;
-    margin-left: 0;
-    white-space: nowrap;
+    border-radius:50px;
+    border:none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     cursor: pointer;
+    font-size:18px;
+    font-weight:700px;
+    padding:15px 60px;
+    background-color: papayawhip;
+    color: blue;
 
   &:hover {
+    opacity:0.9;
+    transform: scale(0.95);
     background-color: lightgrey;
-    border: 1px solid black;
-    border-radius: 5px;
-    transition: all ease 0.3s;
   }
 `;
 

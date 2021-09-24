@@ -1,3 +1,4 @@
+
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -16,14 +17,29 @@ class AnswersModal extends React.Component {
       sent: false
     };
     this.toggleOnOff = this.toggleOnOff.bind(this);
+    this.escFunction = this.escFunction.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.addAnswer = this.addAnswer.bind(this);
     this.addPhoto = this.addPhoto.bind(this);
   }
 
+  componentDidMount() {
+    document.addEventListener('keydown', this.escFunction, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.escFunction, false);
+  }
+
   toggleOnOff(event) {
     event.stopPropagation();
     this.props.toggleAnswersModal();
+  }
+
+  escFunction(event) {
+    if (event.keyCode === 27) {
+      this.props.exitAnswersModal();
+    }
   }
 
   handleInputChange(event) {
@@ -140,7 +156,6 @@ class AnswersModal extends React.Component {
     );
   }
 }
-
 const Modal = styled.div`
   position: fixed;
   top: 0;
@@ -163,6 +178,7 @@ const ModalContainer = styled.div`
   padding: 10px;
   border: 1px solid black;
   zIndex: 1000;
+  border-radius:50px;
 `;
 
 const CloseX = styled.span`
@@ -195,6 +211,7 @@ const Button = styled.button`
   background-color: white;
   padding: 10px;
   margin-top: 10px;
+
   &:hover {
     background-color: lightgrey;
     border: 1px solid black;

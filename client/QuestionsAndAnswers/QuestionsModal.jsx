@@ -6,7 +6,7 @@ class QuestionsModal extends React.Component {
   constructor(props) {
     super(props);
 
-    // console.log('ProductID Here:', this.props.productID)
+    console.log('QModal ProductID Here:', this.props.productID)
     this.state = {
       question: '',
       name: '',
@@ -15,13 +15,28 @@ class QuestionsModal extends React.Component {
     };
 
     this.toggleOnOff = this.toggleOnOff.bind(this);
+    this.escFunction = this.escFunction.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.addQuestion = this.addQuestion.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.escFunction, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.escFunction, false);
   }
 
   toggleOnOff(event) {
     event.stopPropagation();
     this.props.toggleQuestionsModal();
+  }
+
+  escFunction(event) {
+    if (event.keyCode === 27) {
+      this.props.exitQuestionsModal();
+    }
   }
 
   handleInputChange(event) {
@@ -42,22 +57,21 @@ class QuestionsModal extends React.Component {
 
   addQuestion() {
     this.setState({
-      sent: true,
+      sent: true
     });
+    const params = {
+      body: this.state.question,
+      name: this.state.name,
+      email: this.state.email,
+      product_id: Number(this.props.productID),
+    };
 
-    var newQuestion = {
-      params: {
-        body: this.state.question,
-        name: this.state.name,
-        email: this.state.email,
-        product_id: this.props.productID,
-      }
-    }
-
-    axios.post('/qa/questions', newQuestion)
-      .then((result) => {
-        console.log('Successful post!', result.data);
-        this.props.showModal();
+    axios.post('/qa/questions/:product_id', params)
+      .then((response) => {
+        this.props.toggleQuestionsModal(); // close modal
+      })
+      .catch((error) => {
+        console.log('Cannot post new Q: ', error)
       });
   }
 
@@ -83,8 +97,8 @@ class QuestionsModal extends React.Component {
           <label>
             <b><sup>*</sup>What is your nickname? : </b>
             <InputsStyles
-              placeholder="Example: jackson11!"
-              required type="text"
+              placeholder="Example: jackson11!" required
+              type="text"
               value={this.state.name}
               maxLength="60"
               autoComplete="off"
@@ -95,8 +109,8 @@ class QuestionsModal extends React.Component {
           <label>
           <b><sup>*</sup>Your email: </b>
             <InputsStyles
-              placeholder="Why did you like the product or not?"
-              required type="email"
+              placeholder="Why did you like the product or not?" required
+              type="email"
               value={this.state.email}
               maxLength="60"
               autoComplete="off"
@@ -107,8 +121,8 @@ class QuestionsModal extends React.Component {
           <label>
           <b><sup>*</sup>Your Question: </b>
             <NewQBodyStyle
-              placeholder="Enter Question Here..."
-              required type="text"
+              placeholder="Enter Question Here..." required
+              type="text"
               value={this.state.question}
               maxLength="1000"
               autoComplete="off"
@@ -140,21 +154,25 @@ const Modal = styled.div`
 `;
 
 const ModalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: auto;
-  margin: auto;
-  width: 30%;
-  background-color: gainsboro;
-  padding: 10px;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
   border: 1px solid black;
-  zIndex: 1000;
+  border-radius: 10px;
+  z-index: 1000;
+  background-color: gainsboro;
+  width: 500px;
+  max-width:80%;
+
+
+
+
 `;
 
 const CloseX = styled.span`
    color: #aaaaaa;
-   float: right; /* Positioned to the right of the parent container whichever size it is */
+   float: right;
    font-size: 25px;
    font-weight: bold;
 `;
@@ -182,11 +200,12 @@ const Button = styled.button`
   background-color: white;
   padding: 10px;
   margin-top: 10px;
+
   &:hover {
     background-color: lightgrey;
     border: 1px solid black;
-    border-radius: 5px;
-    transition: all ease 0.3s;
+  border-radius: 5px;
+  transition: all ease 0.3s;
   }
 `;
 

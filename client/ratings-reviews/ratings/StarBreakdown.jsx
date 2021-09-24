@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import StarRating from '../../StarRating.js';
 
 class StarBreakdown extends React.Component {
   constructor(props) {
@@ -21,7 +22,6 @@ class StarBreakdown extends React.Component {
   componentDidMount() {
     this.percentRecommended();
     this.starAverage();
-    this.starDisplay();
     this.reviewDistribution();
   }
 
@@ -53,27 +53,6 @@ class StarBreakdown extends React.Component {
     var averageRating = sumRatings / countRatings;
     var rounded = Math.round(averageRating * 10) /10;
     return rounded;
-  }
-  starDisplay() {
-    var filled = Math.round(this.starAverage());
-    var empty = 5 - filled;
-    var filledStars = '';
-    var emptyStars = '';
-    for (var i = 0; i < Math.floor(filled); i++) {
-      filledStars += '★';
-    }
-    for (var i = 0; i < Math.ceil(empty); i++) {
-      emptyStars += '☆';
-    }
-    return (
-      <StarStyles>
-        {filledStars}
-        {/* <HalfStarStyles width={percent}>
-          <UShStyles>☆</UShStyles>
-        </HalfStarStyles> */}
-        {emptyStars}
-      </StarStyles>
-    );
   }
   reviewDistribution() {
     var one = this.props.ratings[1];
@@ -125,11 +104,15 @@ class StarBreakdown extends React.Component {
     return (
       <div>
         <StarBreakdownStyle>
+
           {Object.keys(this.props.ratings).length !== 0 ?
             <NumberStyle>{this.starAverage()}</NumberStyle>
           : '' }
 
-          <div>{this.starDisplay()}</div>
+          {Object.keys(this.props.ratings).length !== 0 ?
+            <StarRating rating={this.starAverage()}/>
+          : '' }
+
         </StarBreakdownStyle>
 
         {Object.keys(this.props.ratings).length !== 0 ?
@@ -311,7 +294,6 @@ var StarCountStyle= styled.div`
   text-decoration: underline;
   cursor: pointer;
 `;
-
 var FilterStyle = styled.div`
   font-size: 10px;
   text-align: right;
@@ -323,15 +305,12 @@ var FilterStyle = styled.div`
 var StarStyles = styled.div`
   display: flex;
 `;
-
 var HalfStarStyles = styled.div`
   background: linear-gradient(90deg, black  ${props => props.width}%, white ${props => 100 - props.width}%);
 `;
-
 var ShStyles = styled.div`
 `;
 var UShStyles = styled.div`
 `;
-//  background: linear-gradient(90deg, black  ${props => props.width}%, white ${props => 100 - props.width}%);
-// ${props => 100 - props.width}%;
+
 export default StarBreakdown;

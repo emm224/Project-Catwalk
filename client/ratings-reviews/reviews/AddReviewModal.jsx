@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import StarRating from '../../StarRating.js';
+import OldStarRating from './OldStarRating.js';
 
 export default function Modal({ open, children, onClose }) {
   if(!open) {return null;}
@@ -13,7 +13,7 @@ export default function Modal({ open, children, onClose }) {
 
           <InputStyle>
             <LabelStyle>Overall rating</LabelStyle>
-            <StarRating/>
+            <OldStarRating />
           </InputStyle>
 
           <InputStyle>
@@ -23,73 +23,130 @@ export default function Modal({ open, children, onClose }) {
           </InputStyle>
 
           <FeatureStyle>Rate features</FeatureStyle>
-            <G>
-            <F>
+            <RFeats>
+
               <RadioStyle>
                 <FRadio>Comfort</FRadio>
-                <input type="radio" name='comfort'/>1
-                <input type="radio" name='comfort'/>2
-                <input type="radio" name='comfort'/>3
-                <input type="radio" name='comfort'/>4
-                <input type="radio" name='comfort'/>5
+                <G>
+                <input type="radio" name='comfort'/><Text>Uncomfortable</Text>
+                </G>
+                <G>
+                <input type="radio" name='comfort'/><Text>Slightly uncomfortable</Text>
+                </G>
+                <G>
+                <input type="radio" name='comfort'/><Text>What I expected</Text>
+                </G>
+                <G>
+                <input type="radio" name='comfort'/><Text>Comfortable</Text>
+                </G>
+                <G>
+                <input type="radio" name='comfort'/><Text>Perfect</Text>
+                </G>
                 <LabelStyle></LabelStyle>
               </RadioStyle>
               <RadioStyle>
                 <FRadio>Quality</FRadio>
-                <input type="radio" name='quality'/>1
-                <input type="radio" name='quality'/>2
-                <input type="radio" name='quality'/>3
-                <input type="radio" name='quality'/>4
-                <input type="radio" name='quality'/>5
+                <G>
+                <input type="radio" name='quality'/><Text>Poor</Text>
+                </G>
+                <G>
+                <input type="radio" name='quality'/><Text>Below average</Text>
+                </G>
+                <G>
+                <input type="radio" name='quality'/><Text>Average</Text>
+                </G>
+                <G>
+                <input type="radio" name='quality'/><Text>Above average</Text>
+                </G>
+                <G>
+                <input type="radio" name='quality'/><Text>Perfect</Text>
+                </G>
+
                 <LabelStyle></LabelStyle>
               </RadioStyle>
               <RadioStyle>
                 <FRadio>Fit</FRadio>
-                <input type="radio" name='fit'/>1
-                <input type="radio" name='fit'/>2
-                <input type="radio" name='fit'/>3
-                <input type="radio" name='fit'/>4
-                <input type="radio" name='fit'/>5
+                <G>
+                <input type="radio" name='fit'/><Text>Runs tight</Text>
+                </G>
+                <G>
+                <input type="radio" name='fit'/><Text>Runs slightly tight</Text>
+                </G>
+                <G>
+                <input type="radio" name='fit'/><Text>Perfect</Text>
+                </G>
+                <G>
+                <input type="radio" name='fit'/><Text>Runs slightly long</Text>
+                </G>
+                <G>
+                <input type="radio" name='fit'/><Text>Runs long</Text>
+                </G>
                 <LabelStyle></LabelStyle>
               </RadioStyle>
-            </F>
-            <F>
+            </RFeats>
+            <RFeats>
               <RadioStyle>
                 <FRadio>Size</FRadio>
-                <input type="radio" name='size'/>1
-                <input type="radio" name='size'/>2
-                <input type="radio" name='size'/>3
-                <input type="radio" name='size'/>4
-                <input type="radio" name='size'/>5
+                <G>
+                <input type="radio" name='size'/><Text>A size too small</Text>
+                </G>
+                <G>
+                <input type="radio" name='size'/><Text>½ a size too small</Text>
+                </G>
+                <G>
+                <input type="radio" name='size'/><Text>Perfect</Text>
+                </G>
+                <G>
+                <input type="radio" name='size'/><Text>½ a size too big</Text>
+                </G>
+                <G>
+                <input type="radio" name='size'/><Text>A size too big</Text>
+                </G>
                 <LabelStyle></LabelStyle>
               </RadioStyle>
               <RadioStyle>
                 <FRadio>Length</FRadio>
-                <input type="radio" name='length'/>1
-                <input type="radio" name='length'/>2
-                <input type="radio" name='length'/>3
-                <input type="radio" name='length'/>4
-                <input type="radio" name='length'/>5
+                <G>
+                <input type="radio" name='length'/><Text>Runs short</Text>
+                </G>
+                <G>
+                <input type="radio" name='length'/><Text>Runs slightly short</Text>
+                </G>
+                <G>
+                <input type="radio" name='length'/><Text>Perfect</Text>
+                </G>
+                <G>
+                <input type="radio" name='length'/><Text>Runs slightly long</Text>
+                </G>
+                <G>
+                <input type="radio" name='length'/><Text>Runs long</Text>
+                </G>
                 <LabelStyle></LabelStyle>
               </RadioStyle>
               <RadioStyle>
                 <FRadio>Width</FRadio>
-                <input type="radio" name='width'/>1
-                <input type="radio" name='width'/>2
-                <input type="radio" name='width'/>3
-                <input type="radio" name='width'/>4
-                <input type="radio" name='width'/>5
+                <G>
+                <input type="radio" name='width'/><Text>Too narrow</Text>
+                </G>
+                <G>
+                <input type="radio" name='width'/><Text>Slightly narrow</Text>
+                </G>
+                <G>
+                <input type="radio" name='width'/><Text>Perfect</Text>
+                </G>
+                <G>
+                <input type="radio" name='width'/><Text>Slightly wide</Text>
+                </G>
+                <G>
+                <input type="radio" name='width'/><Text>Too wide</Text>
+                </G>
                 <LabelStyle></LabelStyle>
               </RadioStyle>
-            </F>
-
-              <div>Chart Placeholder</div>
-
-            </G>
+            </RFeats>
             <InputStyle></InputStyle>
 
           <ReviewStyle>Review summary (60 character max)</ReviewStyle>
-          <BodyStyle placeholder="Example: Best purchase ever!"/>
+          <BodyStyle maxlength="60" placeholder="Example: Best purchase ever!"/>
           <InputStyle></InputStyle>
 
           <ReviewStyle>Review body (1000 character max)</ReviewStyle>
@@ -187,13 +244,14 @@ var BodyStyle = styled.input`
   margin-left: 10px;
   width: 250px;
   margin-bottom: 5px;
+  maxlength: 60;
 `;
 
 var ReviewBodyStyle = styled.textarea`
   type: text;
   margin-left: 10px;
-  width: 400px;
-  height: 100px;
+  width: 250px;
+  height: 50px;
   resize: none;
 `;
 
@@ -202,14 +260,28 @@ var F = styled.div`
 `;
 var FRadio = styled.div`
   border-bottom: 1px solid black;
+  font-size: 15px;
 `;
 var G = styled.div`
   display: flex;
 `;
+var RFeats = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
+
 var Button = styled.button`
   margin-left: 10px;
   margin-bottom: 5px;
 `;
 var BB = styled.button`
   margin-left: 10px;
+`;
+
+var Table = styled.table`
+  font-size: 8px;
+`;
+var Text = styled.div`
+  font-size: 12px;
+  margin-top: 4px;
 `;

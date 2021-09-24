@@ -1,23 +1,25 @@
 import React from 'react';
 import Carousel from './Carousel.jsx';
+import ExpandedCarousel from './Expanded/ExpandedCarousel.jsx';
 // import ThumbnailList from './ThumbnailList.jsx';
 
 class ImageGallery extends React.Component {
   constructor(props) {
     super(props);
-    // this.containerRef = React.createRef();
     this.state = {
       imageIndex: 0,
       thumbNailIndex: 0,
       zoomedIn: false,
-      // photos: props.selectedStyle.photos
+      zoomLens: false,
     }
     this.zoomFunction = this.zoomFunction.bind(this);
     this.nextImage = this.nextImage.bind(this);
     this.previousImage = this.previousImage.bind(this);
     this.scrollThumbnailUp = this.scrollThumbnailUp.bind(this);
     this.scrollThumbnailDown = this.scrollThumbnailDown.bind(this);
-    this.clickThumbnail = this.clickThumbnail.bind(this)
+    this.clickThumbnail = this.clickThumbnail.bind(this);
+    this.setImageIndex = this.setImageIndex.bind(this);
+    this.openZoomLens = this.openZoomLens.bind(this);
   }
 
 
@@ -51,8 +53,9 @@ class ImageGallery extends React.Component {
 
   zoomFunction() {
     this.setState({
-      zoomedIn: !zoomedIn
+      zoomedIn: !(this.state.zoomedIn)
     })
+    { console.log('poopy') }
   }
 
   // set major image index to index of thumbnail clicked
@@ -64,19 +67,57 @@ class ImageGallery extends React.Component {
     })
   }
 
+  setImageIndex(index) {
+    this.setState({
+      imageIndex: index
+    })
+  }
+
+  // open zoom lens when mouseover expanded image
+  openZoomLens (event) {
+    event.preventDefault()
+    this.setState({
+      zoomLens: true
+    })
+  }
 
 
   render() {
     const carouselStyle = {
       height: '100%',
       width: '100%',
-      backgroundColor: '#ddd',
-      position: 'relative',
+      position: 'relative'
     }
     return (
-      <div style={carouselStyle} >
-        <Carousel style={carouselStyle} photos={this.props.selectedStyle.photos} imageIndex={this.state.imageIndex} onImageClick={this.zoomFunction} nextImage={this.nextImage} prevImage={this.previousImage} thumbnailIndex={this.state.thumbnailIndex} scrollThumbnailUp={this.scrollThumbnailUp} scrollThumbnailDown={this.scrollThumbnailDown} clickThumbnail={this.clickThumbnail}>
-        </Carousel>
+      <div>
+        <div style={carouselStyle} >
+          <Carousel
+            style={carouselStyle}
+            photos={this.props.selectedStyle.photos}
+            imageIndex={this.state.imageIndex}
+            onImageClick={this.zoomFunction}
+            nextImage={this.nextImage}
+            prevImage={this.previousImage}
+            thumbnailIndex={this.state.thumbnailIndex}
+            scrollThumbnailUp={this.scrollThumbnailUp}
+            scrollThumbnailDown={this.scrollThumbnailDown}
+            clickThumbnail={this.clickThumbnail}>
+          </Carousel>
+        </div>
+        {this.state.zoomedIn &&
+            <ExpandedCarousel
+
+              photos={this.props.selectedStyle.photos}
+              imageIndex={this.state.imageIndex}
+              zoomOut={this.zoomFunction}
+              nextImage={this.nextImage}
+              prevImage={this.previousImage}
+              clickIcon={this.setImageIndex}
+              openZoomLens={this.openZoomLens}
+            >
+            </ExpandedCarousel>
+
+        }
       </div>
 
 

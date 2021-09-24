@@ -1,12 +1,12 @@
 const axios = require('axios');
 const config = require('../../config.js');
 
-const QueryStringInput = (input, flag='') => {
+const QueryStringInput = (input, text='') => {
 
   if (input === undefined) {
     return '';
-  } else if (flag) {
-    return `${flag}=${input}`;
+  } else if (text) {
+    return `${text}=${input}`;
   } else {
   return `/${input}`;
   }
@@ -21,7 +21,7 @@ const getQuestions = (query, callback) => {
 
   // GET QUESTIONS
   let queryString = query.product_id + query.page + query.count;
-  console.log('QUESTIONS QueryString: ', queryString);
+  // console.log('QUESTIONS QueryString: ', queryString);
 
   // GET ANSWERS
   if (query.question_id) {
@@ -38,9 +38,8 @@ const getQuestions = (query, callback) => {
     }
 
     queryString = `/${query.question_id}/answers/${query.page}${query.count}`;
-    console.log('ANSWERS QueryString: ', queryString);
+    // console.log('ANSWERS QueryString: ', queryString);
   }
-
 
   axios.get(
     `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions${queryString}`,
@@ -61,49 +60,47 @@ const getQuestions = (query, callback) => {
   });
 };
 
+
+//from AnswersModal
+const postAnswers = (query, callback) => {
+
+  axios.post(
+    `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${query.question_id}/answers`, query,
+    {
+      headers: {
+        "Authorization": config.TOKEN,
+        "Content-Type": "application/json"
+      },
+    },
+  )
+  .then((results) => {
+    console.log('Successful Answers Post')
+    callback(null, results.data);
+  })
+  .catch((error) => {
+    callback(error);
+  });
+};
+// QuestionsModal
 const postQuestions = (query, callback) => {
-  if (!query.product_id) {
-    axios.post(
-      `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${query.question_id}/answers`, query,
-      {
-        headers: {
-          "Authorization": config.TOKEN,
-          "Content-Type": "application/json"
-        },
+
+  axios.post(
+    `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions?product_id=${query.product_id}`, query,
+    {
+      headers: {
+        "Authorization": config.TOKEN,
+        "Content-Type": "application/json"
       },
-    )
-      .then((results) => {
-        callback(null, results.data);
-      })
-      .catch((error) => {
-        callback(error);
-      });
-  } else {
+    },
+  )
+  .then((results) => {
+    console.log('Successful Questions Post')
+    callback(null, results.data);
+  })
+  .catch((error) => {
 
-    query.product_id = QueryStringInput(query.product_id, '?product_id');
-    query.page = QueryStringInput(query.page, '&page');
-    query.count = QueryStringInput(query.count, '&count=50');
-
-    let queryString = query.product_id + query.page + query.count;
-
-    axios.post(
-      'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions', query,
-      {
-        headers: {
-          "Authorization": config.TOKEN,
-          "User-Agent": "request",
-          "Content-Type": "application/json"
-        },
-      },
-    )
-      .then((results) => {
-        console.log('Successful Post')
-        callback(null, results.data);
-      })
-      .catch((error) => {
-        callback(error);
-      });
-  }
+    callback(error);
+  });
 };
 
 const putQuestions = (query, callback) => {
@@ -143,5 +140,6 @@ const putQuestions = (query, callback) => {
 };
 
 module.exports.getQuestions = getQuestions;
+module.exports.postAnswers = postAnswers;
 module.exports.postQuestions = postQuestions;
 module.exports.putQuestions = putQuestions;
