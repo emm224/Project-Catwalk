@@ -232,8 +232,12 @@ const photoContainers = styled.div`
 `;
 
 const SearchBar = styled.input`
+<<<<<<< HEAD
+  width: 100%;
+=======
   width: 1000px;
   height: 50px;
+>>>>>>> f94512e5afd275520eb18204c485c50e936c8b06
   box-sizing: border-box;
   border: 1px lightgrey;
   border-style: groove;

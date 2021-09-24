@@ -32,7 +32,11 @@ class Outfit extends React.Component {
   }
   componentDidUpdate(pp){
     if (this.props.item !== pp.item){
-      this.setState({relatedList:[...this.state.relatedList, this.props.item]})
+      if((this.state.relatedList).includes(this.props.item)){
+        console.log('exists')
+      } else {
+        this.setState({relatedList:[...this.state.relatedList, this.props.item]})
+      }
     }
 
   }
