@@ -260,6 +260,7 @@ const QHeader = styled.div`
 const AnsContainer = styled.div`
   padding:0px;
   margin:0px;
+  margin-top:10px;
 `;
 
 
