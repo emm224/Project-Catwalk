@@ -260,6 +260,8 @@ var HeaderStyle = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   margin-right: 50px;
   margin-top: 50px;
+  width:100%;
+  margin-left:100px;
 `;
 const FlexContainer = styled.div`
   display: flex;

@@ -113,7 +113,7 @@ class Product extends React.Component {
 
 var Grid = styled.div`
   display: grid;
-  grid-template-columns: 600px 600px;
+  grid-template-columns: repeat(2, 1fr);
   margin-top: 20px;
   margin-bot: 20px
 `
