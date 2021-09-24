@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import PhotoEntry from './PhotoEntry.jsx';
+import StarRating from '../../StarRating.js';
 
 class ReviewListEntry extends React.Component {
   constructor(props) {
@@ -13,14 +14,16 @@ class ReviewListEntry extends React.Component {
       helpful: false,
       report: false,
       id: this.props.review.review_id,
-      text: 'Report'
+      text: 'Report',
+      body: this.props.review.body,
+      show: false
     }
     this.markHelpful = this.markHelpful.bind(this);
     this.reportReview = this.reportReview.bind(this);
+    this.toggleBody = this.toggleBody.bind(this);
   }
   componentDidMount() {
     this.formatDate();
-    this.starRating();
   }
   formatDate() {
     // Get rid of unnecessary time zone and put into an array formatted MM/DD/YYYY
@@ -40,22 +43,44 @@ class ReviewListEntry extends React.Component {
       date: formatted
     })
   }
-  starRating() {
-    var filled = this.state.stars;
-    var empty = 5 - filled;
-    var stars = '';
-    for (var i = 0; i < Math.floor(filled); i++) {
-      stars += '★';
+  toggleBody() {
+    if (!this.state.show) {
+      this.setState({
+        show: true
+      })
+    } else {
+      this.setState({
+        show: false
+      })
     }
-    for (var i = 0; i < Math.ceil(empty); i++) {
-      stars += '☆';
+  }
+  conditionalBody() {
+    if (this.state.body.length > 250) {
+      if (!this.state.show) {
+        return (
+          <div>
+            <SummaryStyle>{this.state.body.slice(0,251)}...</SummaryStyle>
+            <ShowMore onClick={this.toggleBody}>Show more</ShowMore>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <SummaryStyle>{this.state.body}</SummaryStyle>
+            <ShowMore onClick={this.toggleBody}>Show less</ShowMore>
+          </div>
+        );
+      }
+    } else {
+      return (
+        <SummaryStyle>{this.props.review.body}</SummaryStyle>
+      );
     }
-    return stars;
   }
   conditionalResponse() {
-    if (this.props.review.response !== null) {
+    if (this.props.review.response !== null && this.props.review.response.length > 0) {
       return (
-        <ResponseStyle>
+        <ResponseStyle>{console.log(this.props.review.response)}
           <ResponseHeaderStyle>Response: </ResponseHeaderStyle> <br></br>
           {this.props.review.response}
         </ResponseStyle>
@@ -109,13 +134,16 @@ class ReviewListEntry extends React.Component {
         {this.props.review ?
           <ReviewListEntryStyle>
             <TopRowStyle>
-              <div>{this.starRating()}</div>
+          {this.state.stars ?
+            <StarRating rating={this.state.stars}/>
+          : '' }
               <TopRightStyle>
                 {this.props.review.reviewer_name}, {this.state.date}
               </TopRightStyle>
             </TopRowStyle>
             <SummaryStyle> <b>{this.props.review.summary}</b> </SummaryStyle>
-            <SummaryStyle>{this.props.review.body}</SummaryStyle>
+            {/* <SummaryStyle>{this.props.review.body}</SummaryStyle> */}
+            {this.conditionalBody()}
             {this.conditionalRecommend()}
             {this.conditionalResponse()}
             {this.conditionalPhoto()}
@@ -142,6 +170,7 @@ var TopRowStyle = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  margin-right: 10px;
 `;
 var TopRightStyle = styled.div`
   font-size: 12px;
@@ -187,5 +216,12 @@ var PhotosStyle = styled.div`
   align-items: center;
   margin-left: 20px;
   margin-bottom: 10px;
+`;
+var ShowMore = styled.div`
+  font-size: 10px;
+  text-decoration: underline;
+  text-align: right;
+  margin-right: 20px;
+  cursor: pointer;
 `;
 export default ReviewListEntry;

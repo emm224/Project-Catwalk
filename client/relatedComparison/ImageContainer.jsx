@@ -1,7 +1,7 @@
 import React, {useState, useEffect}from 'react'
 import styled from 'styled-components';
 
-const ImageContainer = ({children, show}) => {
+const ImageContainer = ({children, show, onClick}) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [length, setLength] = useState(children.length)
 
@@ -13,12 +13,14 @@ const ImageContainer = ({children, show}) => {
   const next = () => {
     if (currentIndex < (length - 1)) {
         setCurrentIndex(prevState => prevState + 1)
+        onClick(currentIndex+1)
     }
   }
 
   const prev = () => {
     if (currentIndex > 0) {
         setCurrentIndex(prevState => prevState - 1)
+        onClick(currentIndex-1)
     }
   }
 
@@ -57,7 +59,7 @@ const CarouselContainer = styled.div`
 const CarouselContentWrapper = styled.div`
   overflow: hidden;
   width: 100%;
-  height:240px;
+  height:260px;
 `
 const CarouselWrapper = styled.div`
   display: flex;

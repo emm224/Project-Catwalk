@@ -8,10 +8,8 @@ class Answers extends React.Component {
   constructor(props) {
     super(props);
 
-
     // console.log('Answers Item:', this.props.item)
     // console.log('SellerName:', this.props.sellerName)
-
 
     this.state = {
       helpful: this.props.item.helpfulness,
@@ -73,8 +71,8 @@ class Answers extends React.Component {
 
         <FooterContainer>
            by {' '} {answerer}
-            <b> {seller === answerer ? ( ' - Seller' ):('')} </b>
-           {', '}
+            <b> {seller === answerer ? ( ' -Seller' ):('')} </b>
+           {' '}
            {new Date(this.props.item.date).toLocaleDateString('en-US', {
             weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
 

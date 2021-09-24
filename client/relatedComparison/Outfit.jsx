@@ -7,34 +7,34 @@ class Outfit extends React.Component {
   constructor(){
     super()
     this.state = {
-      currentViewingId:'37317', // what is the product_Id that user is currnely viewing
-      relateId : [],
-      relatedList :[],
+      relatedList :[{
+        "id": 37311,
+        "campus": "hr-rfe",
+        "name": "Camo Onesie",
+        "slogan": "Blend in to your crowd",
+        "description": "The So Fatigues will wake you up and fit you in. This high energy camo will have you blending in to even the wildest surroundings.",
+        "category": "Jackets",
+        "default_price": "140.00",
+        "created_at": "2021-08-13T14:37:33.145Z",
+        "updated_at": "2021-08-13T14:37:33.145Z",
+        "features": [
+            {
+                "feature": "Fabric",
+                "value": "Canvas"
+            },
+            {
+                "feature": "Buttons",
+                "value": "Brass"
+            }
+        ]
+    }],
     }
   }
-  componentDidMount(){
-    var option={
-      headers:{
-        'Authorization':config.TOKEN,
-        'Content-Type': 'application/json'
-      }
+  componentDidUpdate(pp){
+    if (this.props.item !== pp.item){
+      this.setState({relatedList:[...this.state.relatedList, this.props.item]})
     }
-    fetch(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${this.state.currentViewingId}/related`,option)
-    .then(data=> data.json())
-    .then(data=>{
-      this.setState({relateId:data})
-      // console.log(this.state.relateId)
-    })
-    .then(()=>{
-      this.state.relateId.map(id =>{
-        fetch(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${id}`,option)
-        .then(data=> data.json())
-        .then(data=>{
-          this.setState({relatedList:[...this.state.relatedList, data]})
-        })
-      })
-    }
-    )
+
   }
   handleClickOutfit(){
     const buttonRight = document.getElementById('slideRight');
@@ -55,7 +55,9 @@ class Outfit extends React.Component {
     return (
     <Container>
       <OutterContainer>
-      <h3>Your Outfit</h3>
+      <div className = 'myTitle'>
+      <h3>OUTFIT</h3>
+      </div>
       <OutfitContainer id = 'outfit'>
       <ListContainer>
       {this.state.relatedList.map(item=>
@@ -82,12 +84,24 @@ var ListContainer = styled.div`
     top: 0px;
     right: 0px;
     opacity: 1;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
+  }
+  ::before {
+    transition: all 0.3s linear 0s;
+    content: "";
+    width: 70px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 1;
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
   }
 `;
 
 var Container = styled.div`
   width:80%;
-  height:500px;
+  height:470px;
   margin:auto;
   position:relative;
 `;
@@ -96,8 +110,7 @@ var OutfitContainer = styled.div`
   overflow:hidden;
   margin-left:30px;
   margin-right:50px;
-  margin-top:70px;
-  opacity:1;
+  margin-top:20px;
 `
 
 var OutterContainer = styled.div`

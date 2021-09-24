@@ -48,8 +48,9 @@ class ReviewList extends React.Component {
     return(
       <div>
         {this.props.reviews ?
+
           <ReviewListStyle>
-            {this.props.reviews.length} reviews, sorted by {' '}
+            {this.props.reviews.length} review(s), sorted by {' '}
             <select
             value={this.state.sort}
             onChange={this.handleSelect}
@@ -65,9 +66,10 @@ class ReviewList extends React.Component {
 
             <ReviewButtonsStyle>
               {this.conditionalMoreReviews()}
-              <AddReview />
+              <AddReview characteristics={this.props.characteristics}/>
             </ReviewButtonsStyle>
           </ReviewListStyle>
+
         : '' }
       </div>
     );
@@ -76,12 +78,16 @@ class ReviewList extends React.Component {
 
 var ReviewButtonsStyle = styled.div`
   display: flex;
+  margin-top: 10px;
 `;
 var ReviewListStyle = styled.div`
   width: 650px;
 `;
 var ReviewStyle = styled.div`
-
+  margin-top: 10px;
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 export default ReviewList;
