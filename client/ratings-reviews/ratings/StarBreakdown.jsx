@@ -104,6 +104,7 @@ class StarBreakdown extends React.Component {
     return (
       <div>
         <StarBreakdownStyle>
+
           {Object.keys(this.props.ratings).length !== 0 ?
             <NumberStyle>{this.starAverage()}</NumberStyle>
           : '' }

@@ -19,7 +19,7 @@ class ThumbnailList extends React.Component {
     const { startIndex, endIndex } = this.state;
     const { photos } = this.props;
     const arrayToDisplay = [];
-    for (var i = startIndex; i < endIndex && i < photos.length; i++) {
+    for (var i = startIndex; i <= endIndex && i < photos.length; i++) {
       arrayToDisplay.push(photos[i])
     }
     return arrayToDisplay
@@ -27,7 +27,7 @@ class ThumbnailList extends React.Component {
 
   scrollThumbnailUp() {
     const { startIndex, endIndex } = this.state;
-    this.props.scrollThumbnailUp()
+    // this.props.scrollThumbnailUp()
     const thumbnailPhotoArray = this.props.photos;
     if (endIndex <= thumbnailPhotoArray.length - 1) {
       this.setState({
@@ -39,7 +39,7 @@ class ThumbnailList extends React.Component {
 
   scrollThumbnailDown() {
     const { startIndex, endIndex } = this.state;
-    this.props.scrollThumbnailUp()
+    // this.props.scrollThumbnailUp()
     const thumbnailPhotoArray = this.props.photos;
     if (startIndex > 0) {
       this.setState({
@@ -47,6 +47,7 @@ class ThumbnailList extends React.Component {
         endIndex: endIndex - 1
       })
     }
+    {console.log('hello')}
   }
 
   render() {
@@ -54,7 +55,7 @@ class ThumbnailList extends React.Component {
       <ThumbnailFrame className="thumbnail-frame" >
         < ArrowUp
           // show={showUpArrow}
-          onClick={this.props.scrollThumbnailUp} >
+          onClick={this.scrollThumbnailDown} >
           ▲
         </ArrowUp>
         {
@@ -70,7 +71,7 @@ class ThumbnailList extends React.Component {
         }
         <ArrowDown
           // show={showDownArrow}
-          onClick={this.props.scrollThumbnailDown}>
+          onClick={this.scrollThumbnailUp}>
           ▼
         </ArrowDown>
       </ThumbnailFrame >
@@ -82,23 +83,25 @@ const ThumbnailFrame = styled.div`
   position: absolute;
   top: 0px;
   left: 0px;
+  bottom: 0px;
   width: 90px
 `;
 
 const ArrowUp = styled.button`
-  margin-left: 40px;
+  margin-left: 30px;
   z-index: 10;
   cursor: pointer;
-  font-size: 2rem;
-  transform: translate(-50%, -50%)
+  font-size: 1rem;
+  top: 0px;
 `;
 
 
 const ArrowDown = styled.button`
-  margin-left: 40px;
+  margin-left: 30px;
   z-index: 10;
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 1rem;
+  bottom: 0px;
 `;
 
 export default ThumbnailList;

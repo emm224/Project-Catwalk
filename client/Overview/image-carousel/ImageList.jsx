@@ -20,7 +20,7 @@ const ImageList = (props) => {
   return (
     <div className="testDiv">
       <ImageFrame className="image-frame">
-        <Image imageUrl={props.photos[props.imageIndex].url} />
+        <Image imageUrl={props.photos[props.imageIndex].url} onImageClick={props.onImageClick} imageIndex={props.imageIndex} />
         <ArrowLeft
           show={showLeftArrow}
           onClick={props.prevImage}>
@@ -45,7 +45,8 @@ var ImageFrame = styled.div`
   overflow: hidden;
   flex-wrap: no-wrap;
   position: relative;
-  margin: 0 auto
+  margin: 0 auto;
+  cursor: pointer
 
 `;
 
