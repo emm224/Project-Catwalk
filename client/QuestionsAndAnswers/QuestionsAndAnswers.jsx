@@ -167,7 +167,7 @@ class QuestionsAndAnswers extends React.Component {
 };
 
 const FlexContainer = styled.div`
-  display: flex;
+
   justify-content: center;
   padding: 20px;
 
@@ -241,6 +241,8 @@ const SearchBar = styled.input`
   font-size: 16px;
   padding: 10px 20px;
   position: relative;
+
+
 `;
 
 const SearchButton = styled.button`
