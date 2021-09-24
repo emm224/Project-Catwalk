@@ -12,14 +12,33 @@ const Carousel = (props) => {
 
   return (
     <div>
-      <ImageList className="imageList" photos={props.photos} imageIndex={props.imageIndex} onImageClick={props.onImageClick} imageIndex={props.imageIndex} prevImage={props.prevImage} nextImage={props.nextImage}/>
-      <ThumbnailList photos={props.photos} thumbnailIndex={props.thumbnailIndex} scrollThumbnailUp={props.scrollThumbnailUp} scrollThumbnailDown={props.scrollThumbnailDown} clickThumbnail={props.clickThumbnail}/>
+      <ImageList className="imageList"
+      photos={props.photos}
+      imageIndex={props.imageIndex}
+      onImageClick={props.onImageClick}
+      imageIndex={props.imageIndex}
+      prevImage={props.prevImage}
+      nextImage={props.nextImage}
+      thumbnailIndex={props.thumbnailIndex}
+      scrollThumbnailUp={props.scrollThumbnailUp}
+      scrollThumbnailDown={props.scrollThumbnailDown}
+      clickThumbnail={props.clickThumbnail}
+      />
     </div>
   );
 };
 
 
 export default Carousel;
+
+
+{/* <ThumbnailList
+photos={props.photos}
+thumbnailIndex={props.thumbnailIndex}
+scrollThumbnailUp={props.scrollThumbnailUp}
+scrollThumbnailDown={props.scrollThumbnailDown}
+clickThumbnail={props.clickThumbnail}
+/> */}
 
 
 

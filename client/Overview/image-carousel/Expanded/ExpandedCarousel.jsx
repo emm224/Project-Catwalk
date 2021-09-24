@@ -69,23 +69,23 @@ const ExpandedCarousel = (props) => {
           onMouseMove={moveLens}
         >
         </Image>
-        <ArrowLeft
-          id='nav-left'
-          className='fas fa-angle-left'
-          show={showLeftArrow}
-          onClick={props.prevImage}>
-        </ArrowLeft>
-        <ArrowRight
-          id='nav-right'
-          className='fas fa-angle-right'
-          show={showRightArrow}
-          onClick={props.nextImage}>
-        </ArrowRight>
       </div>
-      <IconIndicator
-        photos={props.photos}
-        selectedIndex={props.imageIndex}
-        clickIcon={props.clickIcon}
+      <ArrowLeft
+        id='nav-left'
+        className='fas fa-angle-left'
+        show={showLeftArrow}
+        onClick={props.prevImage}>
+      </ArrowLeft>
+      <ArrowRight
+        id='nav-right'
+        className='fas fa-angle-right'
+        show={showRightArrow}
+        onClick={props.nextImage}>
+      </ArrowRight>
+        <IconIndicator
+          photos={props.photos}
+          selectedIndex={props.imageIndex}
+          clickIcon={props.clickIcon}
         >
         </IconIndicator>
     </div>

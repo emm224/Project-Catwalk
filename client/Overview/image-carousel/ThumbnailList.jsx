@@ -59,9 +59,12 @@ class ThumbnailList extends React.Component {
           ▲
         </ArrowUp>
         {
-          this.thumbnailsToDisplay().map((thumbnailIcon) => {
+          this.thumbnailsToDisplay().map((thumbnailIcon, index) => {
             return (
               <ThumbnailIcon
+                selectedPhotoUrl={this.props.photos[this.props.imageIndex].url}
+                thumbnailId={thumbnailIcon.url}
+                imageIndex={this.props.imageIndex}
                 thumbnailUrl={thumbnailIcon.thumbnail_url}
                 key={thumbnailIcon.thumbnail_url}
                 thumbnailClick={this.props.clickThumbnail}
@@ -81,6 +84,7 @@ class ThumbnailList extends React.Component {
 
 const ThumbnailFrame = styled.div`
   position: absolute;
+  order: 1;
   top: 0px;
   left: 0px;
   bottom: 0px;
