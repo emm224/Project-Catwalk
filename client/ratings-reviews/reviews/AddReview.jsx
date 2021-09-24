@@ -11,7 +11,7 @@ class AddReview extends React.Component {
   render() {
     return (
       <AddReviewStyle>
-        <ModalApp></ModalApp>
+        <ModalApp char={this.props.characteristics}></ModalApp>
       </AddReviewStyle>
     );
   }

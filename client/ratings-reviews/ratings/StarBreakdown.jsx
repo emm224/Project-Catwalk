@@ -55,9 +55,8 @@ class StarBreakdown extends React.Component {
     return rounded;
   }
   starDisplay() {
-    var filled = this.starAverage();
-    var percent = Math.floor((filled - Math.floor(filled)) * 100);
-    var empty = 5 - this.starAverage();
+    var filled = Math.round(this.starAverage());
+    var empty = 5 - filled;
     var filledStars = '';
     var emptyStars = '';
     for (var i = 0; i < Math.floor(filled); i++) {
@@ -126,12 +125,18 @@ class StarBreakdown extends React.Component {
     return (
       <div>
         <StarBreakdownStyle>
-          <NumberStyle>{this.starAverage()}</NumberStyle>
+          {Object.keys(this.props.ratings).length !== 0 ?
+            <NumberStyle>{this.starAverage()}</NumberStyle>
+          : '' }
+
           <div>{this.starDisplay()}</div>
         </StarBreakdownStyle>
-        <StarBarGraphStyle>
-          {this.percentRecommended()} of reviews recommend this product
-        </StarBarGraphStyle>
+
+        {Object.keys(this.props.ratings).length !== 0 ?
+          <StarBarGraphStyle>
+            {this.percentRecommended()} of reviews recommend this product
+          </StarBarGraphStyle>
+        : <NaN>No metadata available</NaN> }
         <StarBarGraphStyle>
           <Text onClick={this.props.f5}>5 star(s)</Text>
           <BarStyle>
@@ -184,6 +189,11 @@ class StarBreakdown extends React.Component {
 var Text = styled.div`
   cursor: pointer;
   text-decoration: underline;
+`;
+var NaN = styled.div`
+  margin-top: -20px;
+  margin-bottom: 10px;
+  text-align: left;
 `;
 var StarBreakdownStyle = styled.div`
   display: flex;
