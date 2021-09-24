@@ -15,13 +15,28 @@ class QuestionsModal extends React.Component {
     };
 
     this.toggleOnOff = this.toggleOnOff.bind(this);
+    this.escFunction = this.escFunction.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.addQuestion = this.addQuestion.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.escFunction, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.escFunction, false);
   }
 
   toggleOnOff(event) {
     event.stopPropagation();
     this.props.toggleQuestionsModal();
+  }
+
+  escFunction(event) {
+    if (event.keyCode === 27) {
+      this.props.exitQuestionsModal();
+    }
   }
 
   handleInputChange(event) {
@@ -134,22 +149,20 @@ const Modal = styled.div`
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, .7);
-  zIndex: 1000;
+  zIndex: 1000000;
   overflow: auto;
 `;
 
 const ModalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: auto;
-  margin: auto;
-  width: 30%;
-  background-color: gainsboro;
-  padding: 10px;
-  border: 1px solid black;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(120deg, hsla(175,55%,55%,0.8), hsla(235,55%,55%,0.8));
+  padding: 50px;
   zIndex: 1000;
-  border-radius:50px;
+  width: 800px;
+  border-radius:80px;
 `;
 
 const CloseX = styled.span`
