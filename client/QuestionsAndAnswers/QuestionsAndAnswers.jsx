@@ -1,9 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-
 import dummyDataQA from './QuestionsDummyData.js';
-
 import config from '../../config.js';
 
 import Questions from './Questions.jsx';
@@ -16,7 +14,6 @@ class QuestionsAndAnswers extends React.Component {
     this.state = {
       questionsData: [],
       searchTerm: '',
-      noSearchResults: false,
       filteredData: [],
       maximumQsDisplayed: 4,
       expandList: false,
@@ -35,7 +32,9 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    if (this.props.productID !== prevProps.productID) {
+    const { productID } = this.props;
+
+    if (productID !== prevProps.productID) {
       this.originalRender();
     }
   }
@@ -51,49 +50,41 @@ class QuestionsAndAnswers extends React.Component {
   }
 
   filterQuestions() {
-    if (this.state.searchTerm.length === 0) {
-      this.setState({
-        filteredData: this.state.questionsData,
-      })
+    const { searchTerm, filteredData, questionsData } = this.state;
+
+    if (searchTerm.length === 0) {
+      this.setState({ filteredData: questionsData })
     } else {
       const filteredArr = [];
-      for (let i = 0; i < this.state.filteredData.length; i += 1) {
-        if (this.state.filteredData[i].question_body.toLowerCase().includes(this.state.searchTerm)) {
-          filteredArr.push(this.state.filteredData[i]);
+      for (let i = 0; i < filteredData.length; i += 1) {
+        if (filteredData[i].question_body.toLowerCase().includes(searchTerm)) {
+          filteredArr.push(filteredData[i]);
         }
       }
-      this.setState({
-        filteredData: filteredArr,
-      });
+      this.setState({ filteredData: filteredArr });
     }
   }
 
   getData() {
     axios.get(`/qa/questions/?product_id=${this.props.productID}`)
       .then((results)=>{
-        console.log('Getting data for ProductID:', results.data.product_id)
-        console.log('Data Results are:', results.data.results)
         this.setState({
           questionsData: results.data.results.sort((a,b) => { b.question_helpfulness - a.question_helpfulness}),
           filteredData: results.data.results.sort((a,b) => { b.question_helpfulness - a.question_helpfulness})
         });
       })
-      .catch((error) => {
-        console.log('QA FETCH Error')
-    });
+      .catch((error) => {console.log('Could not fetch All Questions')});
   }
 
   toggleQuestionsModal() {
-    this.setState({
-      showModal: !(this.state.showModal)
-    });
-    // console.log('Toggle CLICKED: ', this.state.showModal)
+    this.setState({showModal: !(this.state.showModal)});
   }
 
   showMoreQA() {
-    if (this.state.maximumQsDisplayed === 4) {
+    const { maximumQsDisplayed, filteredData } = this.state;
+    if (maximumQsDisplayed === 4) {
       this.setState({
-        maximumQsDisplayed: this.state.filteredData.length,
+        maximumQsDisplayed: filteredData.length,
         expandList: true
       });
     } else {
@@ -107,21 +98,17 @@ class QuestionsAndAnswers extends React.Component {
   originalRender() {
     axios.get(`/qa/questions/?product_id=${this.props.productID}`)
       .then((results)=>{
-        // console.log('GET RESULTS', results.data)
         this.setState({
           questionsData: results.data.results.sort((a,b) => { b.question_helpfulness - a.question_helpfulness}),
           filteredData: results.data.results.sort((a,b) => { b.question_helpfulness - a.question_helpfulness})
         });
       })
-      .catch((error) => {
-        console.log('QA FETCH Error')
-    });
+      .catch((error) => {console.log('Could not fetch All Questions')});
   }
 
   render() {
 
     return (
-
       <FlexContainer>
         <Container>
           <h3>QUESTIONS & ANSWERS</h3>
@@ -133,7 +120,7 @@ class QuestionsAndAnswers extends React.Component {
               type="text"
               value={this.state.searchTerm}
               onChange={(event) => { event.preventDefault(); this.handleSearchChange(); }} />
-
+            <SearchButton className="fas fa-search" />
           </form>
         </span>
 
@@ -239,6 +226,7 @@ const photoContainers = styled.div`
 
 const SearchBar = styled.input`
   width: 1000px;
+  height: 50px;
   box-sizing: border-box;
   border: 1px lightgrey;
   border-style: groove;
@@ -248,26 +236,21 @@ const SearchBar = styled.input`
 `;
 
 const SearchButton = styled.button`
-  width: 50px;
-  height: 50px;
-  border: 1px lightgrey;
-  background:lightgrey;
-  text-align: center;
-  color: black;
-  cursor: pointer;
-
-  &:hover {
-    background-color: white;
-    border: 1px solid black;
-    transition: all ease 0.3s;
-  }
-
-  img{
-    position: relative;
-    margin-top: 0;
-    top: 55px;
-    left: calc(100% - 50px);
-  }
+width: 50px;
+height: 50px;
+border: none;
+background:transparent;
+text-align: center;
+color: black;
+border-radius: 0 5px 5px 0;
+cursor: pointer;
+font-size: 20px;
+&:hover {
+  background-color: lightgrey;
+  border: none;
+border-radius: 5px;
+transition: all ease 0.3s;
+}
 `;
 
 export default QuestionsAndAnswers;

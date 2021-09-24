@@ -6,7 +6,7 @@ class QuestionsModal extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('QModal ProductID Here:', this.props.productID)
+    // console.log('QModal ProductID Here:', this.props.productID)
     this.state = {
       question: '',
       name: '',

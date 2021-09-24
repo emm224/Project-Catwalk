@@ -11,7 +11,7 @@ class Questions extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('Questions ITEM: ', this.props.item)
+    // console.log('Questions ITEM: ', this.props.item)
     // console.log('Helpfulness counter: ', this.props.item.question_id)
 
     const helpfulCounter = this.props.item.question_helpfulness;
@@ -116,7 +116,6 @@ class Questions extends React.Component {
         answersData: answerArr.sort((a,b)=> {b.helpfulness - a.helpfulness})
       });
     }
-    console.log('Anwer Arr: ', answerArr);
   }
 
   originalRender() {
