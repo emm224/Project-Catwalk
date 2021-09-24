@@ -24,6 +24,7 @@ class QuestionsAndAnswers extends React.Component {
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.filterQuestions = this.filterQuestions.bind(this);
     this.toggleQuestionsModal = this.toggleQuestionsModal.bind(this);
+    this.exitQuestionsModal = this.exitQuestionsModal.bind(this);
     this.originalRender = this.originalRender.bind(this);
   }
 
@@ -78,6 +79,10 @@ class QuestionsAndAnswers extends React.Component {
 
   toggleQuestionsModal() {
     this.setState({showModal: !(this.state.showModal)});
+  }
+
+  exitQuestionsModal() {
+    this.setState({showModal: false});
   }
 
   showMoreQA() {
@@ -150,6 +155,7 @@ class QuestionsAndAnswers extends React.Component {
           <QuestionsModal
             showModal={this.state.showModal}
             toggleQuestionsModal={this.toggleQuestionsModal}
+            exitQuestionsModal={this.exitQuestionsModal}
             productID={this.props.productID}
             productName={this.props.productName}/>
 
@@ -216,6 +222,7 @@ const AddAQuestionButton = styled.button`
     background-color: lightgrey;
     border: 1px solid black;
     transition: all ease 0.3s;
+  }
 `;
 
 const photoContainers = styled.div`
@@ -237,20 +244,21 @@ const SearchBar = styled.input`
 `;
 
 const SearchButton = styled.button`
-width: 50px;
-height: 50px;
-border: none;
-background:transparent;
-text-align: center;
-color: black;
-border-radius: 0 5px 5px 0;
-cursor: pointer;
-font-size: 20px;
-&:hover {
-  background-color: lightgrey;
+  width: 50px;
+  height: 50px;
   border: none;
-border-radius: 5px;
-transition: all ease 0.3s;
+  background:transparent;
+  text-align: center;
+  color: black;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+
+  &:hover {
+    background-color: lightgrey;
+    border: none;
+    border-radius: 5px;
+    transition: all ease 0.3s;
 }
 `;
 
