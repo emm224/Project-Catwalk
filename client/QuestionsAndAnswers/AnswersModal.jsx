@@ -17,14 +17,29 @@ class AnswersModal extends React.Component {
       sent: false
     };
     this.toggleOnOff = this.toggleOnOff.bind(this);
+    this.escFunction = this.escFunction.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.addAnswer = this.addAnswer.bind(this);
     this.addPhoto = this.addPhoto.bind(this);
   }
 
+  componentDidMount() {
+    document.addEventListener('keydown', this.escFunction, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.escFunction, false);
+  }
+
   toggleOnOff(event) {
     event.stopPropagation();
     this.props.toggleAnswersModal();
+  }
+
+  escFunction(event) {
+    if (event.keyCode === 27) {
+      this.props.exitAnswersModal();
+    }
   }
 
   handleInputChange(event) {

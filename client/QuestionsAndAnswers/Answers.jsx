@@ -60,7 +60,6 @@ class Answers extends React.Component {
         <AnswersContainer>
           <h3> A: </h3>
             <AnswerBody>
-              {/* {this.props.item.body} */}
               {this.props.query !== '' && this.props.item.body.includes(this.props.query) ?
                 (<SearchHighlight
                   query={this.props.query}
@@ -72,7 +71,8 @@ class Answers extends React.Component {
           {this.props.item.photos.map((photo, index) => (
             <AnswersPhoto
               photo={photo}
-              key={index} />
+              key={index}
+              exitAnswersModal={this.props.exitAnswersModal} />
             ))}
         </PhotosContainer>
 
