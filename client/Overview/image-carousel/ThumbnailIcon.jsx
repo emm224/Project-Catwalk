@@ -13,7 +13,7 @@ import styled from 'styled-components';
 // }
 const ThumbnailIcon = (props) => {
   return (
-      <img className="thumbnail-icon" src={props.thumbnailUrl} onClick={props.thumbnailClick} />
+      <img id={props.selectedPhotoUrl === props.thumbnailId ? 'selected-pic' : 'notSelected'}className="thumbnail-icon" src={props.thumbnailUrl} onClick={props.thumbnailClick} />
   )
 }
 

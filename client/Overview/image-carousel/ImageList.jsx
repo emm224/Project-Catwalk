@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Image from './Image.jsx'
 import styled from 'styled-components';
+import ThumbnailList from './ThumbnailList.jsx';
 
 const ImageList = (props) => {
   // const [current, setCurrent] = useState(0)
@@ -18,7 +19,6 @@ const ImageList = (props) => {
 
 
   return (
-    <div className="testDiv">
       <ImageFrame className="image-frame">
         <Image imageUrl={props.photos[props.imageIndex].url} onImageClick={props.onImageClick} imageIndex={props.imageIndex} />
         <ArrowLeft
@@ -31,8 +31,8 @@ const ImageList = (props) => {
           onClick={props.nextImage}>
           &gt;
         </ArrowRight>
+        <ThumbnailList photos={props.photos} imageIndex={props.imageIndex} thumbnailIndex={props.thumbnailIndex} scrollThumbnailUp={props.scrollThumbnailUp} scrollThumbnailDown={props.scrollThumbnailDown} clickThumbnail={props.clickThumbnail}/>
       </ImageFrame>
-    </div>
   )
 }
 
@@ -42,7 +42,6 @@ var ImageFrame = styled.div`
   height: 500px;
   width: 400px;
   display: flex;
-  overflow: hidden;
   flex-wrap: no-wrap;
   position: relative;
   margin: 0 auto;
@@ -54,7 +53,7 @@ const ArrowLeft = styled.button`
   border: none;
   position: absolute;
   top: 50%;
-  left: 24px;
+  left: 75px;
   cursor: pointer;
   font-size: 2rem;
   display: ${props => props.show ? 'inline-block' : 'none'};
