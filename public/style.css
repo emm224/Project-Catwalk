@@ -281,12 +281,21 @@ i {
 }
 
 /* style selector */
-.style-selector-icon:hover {
+
+.style-selector-icon {
   cursor: pointer;
-  border: 4px solid rgb(11, 247, 43)
+  border: 4px solid transparent;
+
 }
 
+.style-selector-icon:hover {
+  cursor: pointer;
+  border: 4px solid rgb(11, 247, 43);
+}
 
+#selected-style {
+  border: 4px solid rgb(11, 247, 43)
+}
 
 
 /* Image Zoom */

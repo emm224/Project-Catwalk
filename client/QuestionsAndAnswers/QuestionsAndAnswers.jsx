@@ -199,7 +199,7 @@ const MoreAnswersButton = styled.button`
   border:none;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   cursor: pointer;
-  font-size:18px;
+
   font-weight:700px;
   padding:15px 60px;
   background-image: linear-gradient(120deg, hsla(175,55%,55%,0.5), hsla(235,55%,55%,0.5));
@@ -218,7 +218,7 @@ const AddAQuestionButton = styled.button`
   border:none;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   cursor: pointer;
-  font-size:18px;
+
   font-weight:700px;
   padding:15px 60px;
   background-image: linear-gradient(120deg, hsla(175,55%,55%,0.5), hsla(235,55%,55%,0.5));
@@ -261,7 +261,7 @@ const SearchButton = styled.button`
   color: linear-gradient(120deg, hsla(175,55%,55%,0.5), hsla(235,55%,55%,0.5));
   border-radius: 0 5px 5px 0;
   cursor: pointer;
-  font-size: 30px;
+
   margin-bottom:20px;
 
   &:selection {

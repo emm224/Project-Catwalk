@@ -51,6 +51,9 @@ var MoreReviewsStyle = styled.div`
   padding-left: 10px;
   margin-right: 10px;
   cursor: pointer;
+  background-image: linear-gradient(120deg, hsla(175,55%,55%,0.7), hsla(235,55%,55%,0.7));
+  border-radius: 50px;
+
 `;
 
 export default MoreReviews;

@@ -17,7 +17,7 @@ const CurrentStyle = (props) => {
   }
 
   return (
-      <SelectorIcon className="style-selector-icon" value={props.style_id} currentStyle={props.style.photos[0].thumbnail_url} onClick={updateStyle} />
+      <SelectorIcon id={props.selectedStyle.style_id === props.style_id ? 'selected-style' : 'notSelected'} className="style-selector-icon" value={props.style_id} currentStyle={props.style.photos[0].thumbnail_url} onClick={updateStyle} />
   )
 }
 
@@ -31,7 +31,6 @@ background-size: center;
 margin-top: 5px;
 margin-left: 10px;
 margin-right: 10px;
-border: #1e1d51 solid 1px;
 opacity: 0.8;
 border-radius: 50%
 `

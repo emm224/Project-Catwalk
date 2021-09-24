@@ -176,37 +176,37 @@ var ComfortMiddleStyle = styled.div`
   margin-top: 3px;
 `;
 var CPointerStyle = styled.div`
-  color: green;
+  color: cornflowerblue;
   font-size: 14px;
   position: absolute;
   left: ${props => props.pos}%
 `;
 var QPointerStyle = styled.div`
-  color: green;
+  color: cornflowerblue;
   font-size: 14px;
   position: absolute;
   left: ${props => props.pos}%
 `;
 var FPointerStyle = styled.div`
-  color: green;
+  color: cornflowerblue;
   font-size: 14px;
   position: absolute;
   left: ${props => props.pos}%
 `;
 var LPointerStyle = styled.div`
-  color: green;
+  color: cornflowerblue;
   font-size: 14px;
   position: absolute;
   left: ${props => props.pos}%
 `;
 var SPointerStyle = styled.div`
-  color: green;
+  color: cornflowerblue;
   font-size: 14px;
   position: absolute;
   left: ${props => props.pos}%
 `;
 var WPointerStyle = styled.div`
-  color: green;
+  color: cornflowerblue;
   font-size: 14px;
   position: absolute;
   left: ${props => props.pos}%

@@ -6,7 +6,8 @@ import ProductDetail from './overview-components/ProductDetail.jsx';
 import PriceDisplay from './overview-components/PriceDisplay.jsx';
 import StyleSelector from './style-selector/StyleSelector.jsx';
 import ProductDescription from './overview-components/ProductDescription.jsx';
-import SocialShare from './overview-components/SocialShare.jsx'
+import SocialShare from './overview-components/SocialShare.jsx';
+import StarRating from '../StarRating.js';
 
 class Product extends React.Component {
   constructor(props) {
@@ -95,8 +96,15 @@ class Product extends React.Component {
         </LeftContainer>
         <RightContainer className="rightContainer">
           <section className='link-review'>
-            {(document.getElementById('star-display') === null) ? (<div>Loading...</div>) :
-              (<div className='star-display'>{document.getElementById('star-display').innerHTML}</div>)}
+            {(document.getElementById('star-number') === null)  ?
+            (<div>Loading...</div>) :
+
+              (<Stars>
+                <NumberStyle className='star-display'>{document.getElementById('star-number').innerHTML}</NumberStyle>
+                <StarRating rating={document.getElementById('star-number').innerHTML} />
+              </Stars>
+              )}
+
             {(!document.getElementById('rateReview')) ? (<div>View All Reviews</div>) :
               <a onClick={this.scrollToReviews}>View All Reviews</a>}
           </section>
@@ -132,5 +140,11 @@ var RightContainer = styled.div`
   grid-column-end: 3;
   max-width: 700px
 `
+var Stars = styled.div`
+  display: flex;
+`;
+var NumberStyle = styled.div`
+  font-size: 48px;
+`;
 
 export default Product

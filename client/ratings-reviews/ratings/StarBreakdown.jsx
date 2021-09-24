@@ -103,14 +103,14 @@ class StarBreakdown extends React.Component {
   render() {
     return (
       <div>
-        <StarBreakdownStyle>
+        <StarBreakdownStyle id='star-display'>
 
           {Object.keys(this.props.ratings).length !== 0 ?
-            <NumberStyle>{this.starAverage()}</NumberStyle>
+            <NumberStyle id='star-number'>{this.starAverage()}</NumberStyle>
           : '' }
 
           {Object.keys(this.props.ratings).length !== 0 ?
-            <StarRating rating={this.starAverage()}/>
+            <StarRating id='star-rating' rating={this.starAverage()}/>
           : '' }
 
         </StarBreakdownStyle>
@@ -198,14 +198,14 @@ var NumberStyle = styled.div`
   margin-right: 10px;
 `;
 var OneShadedStyle = styled.div`
-  background: green;
+  background: linear-gradient(120deg, hsla(175,55%,55%,0.7), hsla(235,55%,55%,0.7));
   width: ${props => props.shade}%;
   margin-left: 10px;
   color: green;
   font-size: 1px;
   cursor: pointer;
   &:hover {
-    background-color: lightgreen;
+    background: lightgreen;
   }
 `;
 var OneUnshadedStyle = styled.div`
@@ -216,14 +216,14 @@ var OneUnshadedStyle = styled.div`
   margin-right: 25px;
 `;
 var TwoShadedStyle = styled.div`
-  background: green;
+  background: linear-gradient(120deg, hsla(175,55%,55%,0.7), hsla(235,55%,55%,0.7));
   width: ${props => props.shade}%;
   margin-left: 10px;
   color: green;
   font-size: 1px;
   cursor: pointer;
   &:hover {
-    background-color: lightgreen;
+    background: lightgreen;
   }
 `;
 var TwoUnshadedStyle = styled.div`
@@ -234,14 +234,14 @@ var TwoUnshadedStyle = styled.div`
   margin-right: 25px;
 `;
 var ThreeShadedStyle = styled.div`
-  background: green;
+  background: linear-gradient(120deg, hsla(175,55%,55%,0.7), hsla(235,55%,55%,0.7));
   width: ${props => props.shade}%;
   margin-left: 10px;
   color: green;
   font-size: 1px;
   cursor: pointer;
   &:hover {
-    background-color: lightgreen;
+    background: lightgreen;
   }
 `;
 var ThreeUnshadedStyle = styled.div`
@@ -252,14 +252,14 @@ var ThreeUnshadedStyle = styled.div`
   margin-right: 25px;
 `;
 var FourShadedStyle = styled.div`
-  background: green;
+  background: linear-gradient(120deg, hsla(175,55%,55%,0.7), hsla(235,55%,55%,0.7));
   width: ${props => props.shade}%;
   margin-left: 10px;
   color: green;
   font-size: 1px;
   cursor: pointer;
   &:hover {
-    background-color: lightgreen;
+    background: lightgreen;
   }
 `;
 var FourUnshadedStyle = styled.div`
@@ -270,14 +270,14 @@ var FourUnshadedStyle = styled.div`
   margin-right: 25px;
 `;
 var FiveShadedStyle = styled.div`
-  background: green;
+  background: linear-gradient(120deg, hsla(175,55%,55%,0.7), hsla(235,55%,55%,0.7));
   width: ${props => props.shade}%;
   margin-left: 10px;
   color: green;
   font-size: 1px;
   cursor: pointer;
   &:hover {
-    background-color: lightgreen;
+    background: lightgreen;
   }
 `;
 var FiveUnshadedStyle = styled.div`

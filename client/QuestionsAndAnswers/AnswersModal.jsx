@@ -103,7 +103,6 @@ class AnswersModal extends React.Component {
 
           <NewForm className="addAnswerForm">
             <h1>Submit your Answer</h1>
-            <h2>{this.props.productName}: </h2>
 
             <em> Please fill out the following form. <b>Mandatory</b> fields are marked with <b><sup>*</sup></b> </em>
           <br />
@@ -168,17 +167,15 @@ const Modal = styled.div`
 `;
 
 const ModalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: auto;
-  margin: auto;
-  width: 30%;
-  background-color: gainsboro;
-  padding: 10px;
-  border: 1px solid black;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(120deg, hsla(175,55%,55%,0.8), hsla(235,55%,55%,0.8));
+  padding: 50px;
   zIndex: 1000;
-  border-radius:50px;
+  width: 800px;
+  border-radius:80px;
 `;
 
 const CloseX = styled.span`

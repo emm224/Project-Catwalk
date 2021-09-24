@@ -13,15 +13,10 @@ import Outfit from './relatedComparison/Outfit.jsx';
 const TitleHeader = styled.div`
   width: 100%;
   display: inline;
-
   background-image: linear-gradient(120deg, hsla(175,55%,55%,0.7), hsla(235,55%,55%,0.7));
   display: flex;
   justify-content: flex-start;
   font-family: 'Press Start 2P', cursive;
-  position:sticky;
-  top:0;
-  z-index:9999;
-
 `;
 
 class App extends React.Component {

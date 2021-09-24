@@ -260,14 +260,13 @@ const QHeader = styled.div`
 const AnsContainer = styled.div`
   padding:0px;
   margin:0px;
-  margin-top:10px;
+  margin-top:0px;
 `;
-
 
 const QuestionLinks = styled.div`
   display: inline;
   margin-left: auto;
-  font-size:18px;
+
 `;
 
 const Button = styled.button`
@@ -277,7 +276,7 @@ const Button = styled.button`
   outline: none;
   cursor: pointer;
   display: inline;
-  font-size:14px;
+
 
   &:hover {
     text-decoration: none;
@@ -289,7 +288,7 @@ const Button = styled.button`
     border:none;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     cursor: pointer;
-    font-size:18px;
+
     font-weight:700px;
     padding:15px 60px;
     background-image: linear-gradient(120deg, hsla(175,55%,55%,0.5), hsla(235,55%,55%,0.5));
@@ -311,7 +310,7 @@ const DividerSpacing = styled.p`
 
 const HelpfulSpacing = styled.p`
   display: inline;
-  font-size:16px;
+
 `;
 
 const ScrollList = styled.ul`

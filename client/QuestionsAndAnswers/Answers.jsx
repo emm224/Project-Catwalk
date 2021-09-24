@@ -58,7 +58,7 @@ class Answers extends React.Component {
     return (
       <div>
         <AnswersContainer>
-          <h2> A: </h2>
+          <h2> A:</h2>
             <AnswerBody>
               {this.props.query !== '' && this.props.item.body.includes(this.props.query) ?
                 (<SearchHighlight
@@ -104,22 +104,24 @@ class Answers extends React.Component {
 const AnswersContainer = styled.div`
   flex-direction:row;
   display: flex;
+
 `;
 
 const AnswerBody = styled.p`
-  padding-top: 0px;
-  padding-left: 12px;
-  font-size:24px;
+
+  padding-left: 15px;
+
+  font-size:20px;
   display: flex;
-  flex-direction:row;
-  text-align:top;
+
+
 `;
 
 const FooterContainer = styled.div`
   display: inline;
   white-space: nowrap;
   margin-left: 28px;
-  font-size:18px;
+
 `;
 
 const Button = styled.button`
@@ -129,7 +131,7 @@ const Button = styled.button`
   cursor: pointer;
   display: inline;
   border-radius:50px;
-  font-size:16px;
+
 
   &:hover {
     text-decoration: none;

@@ -104,7 +104,7 @@ var ListContainer = styled.div`
 `;
 
 var Container = styled.div`
-  width:80%;
+  width:90%;
   height:470px;
   margin:auto;
   position:relative;
