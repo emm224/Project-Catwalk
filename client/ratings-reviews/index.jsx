@@ -220,7 +220,7 @@ class RateReview extends React.Component {
 
   render() {
     return (
-      <div>
+      <FlexContainer>
         {this.props.id ?
           <HeaderStyle><b>RATINGS & REVIEWS</b>
             <RateReviewStyle>
@@ -243,7 +243,7 @@ class RateReview extends React.Component {
             </RateReviewStyle>
           </HeaderStyle>
         : ''}
-      </div>
+      </FlexContainer>
     )
   }
 }
@@ -254,11 +254,17 @@ var RateReviewStyle = styled.div`
   margin-top: 10px;
   font-family: Arial, Helvetica, sans-serif;
   justify-content: left;
+  width:
 `;
 var HeaderStyle = styled.div`
   font-family: Arial, Helvetica, sans-serif;
-  margin-left: 200px;
+  margin-right: 50px;
   margin-top: 50px;
+`;
+const FlexContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 `;
 
 export default RateReview;

@@ -170,7 +170,6 @@ const FlexContainer = styled.div`
 
   justify-content: center;
   padding: 20px;
-
 `;
 
 const Container = styled.div`
