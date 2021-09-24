@@ -56,7 +56,7 @@ class App extends React.Component {
         <h1 >Team Orcus LOGO</h1>
       </TitleHeader>
       <div className = 'contentContainer'>
-      <div id='productOverview'> <b>Product Overview</b>
+      <div id='productOverview'>
         <ProductOverview selectedProductID={this.state.productID}/>
       </div>
 
