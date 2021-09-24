@@ -123,7 +123,6 @@ class RateReview extends React.Component {
         }
       }
     }
-    console.log('filtered', newReviews);
     this.setState({
       reviews: newReviews
     })
@@ -145,7 +144,6 @@ class RateReview extends React.Component {
         }
       }
     }
-    console.log('filtered', newReviews);
     this.setState({
       reviews: newReviews
     })
@@ -167,7 +165,6 @@ class RateReview extends React.Component {
         }
       }
     }
-    console.log('filtered', newReviews);
     this.setState({
       reviews: newReviews
     })
@@ -189,7 +186,6 @@ class RateReview extends React.Component {
         }
       }
     }
-    console.log('filtered', newReviews);
     this.setState({
       reviews: newReviews
     })
@@ -211,7 +207,6 @@ class RateReview extends React.Component {
         }
       }
     }
-    console.log('filtered', newReviews);
     this.setState({
       reviews: newReviews
 
@@ -219,7 +214,6 @@ class RateReview extends React.Component {
   }
   resetFilter() {
     this.state.filters = new Set();
-    console.log(this.state.filters);
     this.getReviews();
     this.sortRelevance();
   }
