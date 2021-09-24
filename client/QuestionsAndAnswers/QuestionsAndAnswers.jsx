@@ -164,7 +164,6 @@ const FlexContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 20px;
-
 `;
 
 const Container = styled.div`

@@ -14,13 +14,10 @@ const TitleHeader = styled.div`
   width: 100%;
   display: inline;
 
-  background-color: #525252;
+  background-image: linear-gradient(120deg, hsla(175,55%,55%,0.7), hsla(235,55%,55%,0.7));
   display: flex;
   justify-content: flex-start;
 
-  &:hover {
-    background: linear-gradient(120deg, hsla(175,55%,55%,0.7), hsla(235,55%,55%,0.7));
-  }
 `;
 
 class App extends React.Component {
@@ -59,7 +56,7 @@ class App extends React.Component {
         <h1 >Team Orcus LOGO</h1>
       </TitleHeader>
       <div className = 'contentContainer'>
-      <div id='productOverview'>Product Overview Placeholder
+      <div id='productOverview'> <b>Product Overview</b>
         <ProductOverview selectedProductID={this.state.productID}/>
       </div>
 
