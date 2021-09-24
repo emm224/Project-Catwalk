@@ -4,12 +4,11 @@ import styled from 'styled-components';
 
 import AnswersPhoto from './AnswersPhoto.jsx';
 
+import SearchHighlight from './SearchHighlight.jsx';
+
 class Answers extends React.Component {
   constructor(props) {
     super(props);
-
-    // console.log('Answers Item:', this.props.item)
-    // console.log('SellerName:', this.props.sellerName)
 
     this.state = {
       helpful: this.props.item.helpfulness,
@@ -20,32 +19,36 @@ class Answers extends React.Component {
   }
 
   handleClick(event) {
-    if (!this.state.clickedYes && event.target.name === 'helpful') {
+    const { item } = this.props;
+    const { clickedYes, helpful } = this.state;
+
+    if (!clickedYes && event.target.name === 'helpful') {
       // if Helpful
-        // if not, then Report
+       // if not, then Report
       axios.put('/qa/questions', {
-        answer_id: this.props.item.id,
+        answer_id: item.id,
         name: event.target.name,
       })
         .then((response) => {
           this.setState({
             clickedYes: true,
-            helpful: this.state.helpful + 1
+            helpful: helpful + 1
           });
         });
     } else {
       axios.put('/qa/questions', {
-        answer_id: this.props.item.id,
+        answer_id: item.id,
         name: event.target.name
       })
-        .then(() => {
-          this.setState({
-            clickedReport: true,
-          })
-        })
-        .then(() => {
-          console.log('ANSWER ID: ' + this.props.item.id + ' HAS BEEN REPORTED FOR REVIEW!')
-      });
+      .then(() => {
+        this.setState({
+          clickedReport: true,
+        });
+      })
+      .then(() => {
+        console.log('ANSWER ID: ' + item.id + ' HAS BEEN REPORTED FOR REVIEW!')
+      })
+      .catch((error) => {console.log('Could not report')})
     }
   }
 
@@ -57,7 +60,11 @@ class Answers extends React.Component {
         <AnswersContainer>
           <h3> A: </h3>
             <AnswerBody>
-              {this.props.item.body}
+              {/* {this.props.item.body} */}
+              {this.props.query !== '' && this.props.item.body.includes(this.props.query) ?
+                (<SearchHighlight
+                  query={this.props.query}
+                  body={this.props.item.body} />) : this.props.item.body}
             </AnswerBody>
         </AnswersContainer>
 
@@ -116,6 +123,7 @@ const Button = styled.button`
   border: none;
   cursor: pointer;
   display: inline;
+  border-radius:50px;
 
   &:hover {
     text-decoration: none;

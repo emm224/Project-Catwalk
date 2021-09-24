@@ -16,7 +16,6 @@ app.use(morgan('dev'));
 
 app.use('/api/products', router);
 
-
 // ================ Questions & Answers  ===========================
 app.get('/qa/questions', (req, res) => {
   questions.getQuestions(req.query, (error, results) => {
@@ -29,9 +28,10 @@ app.get('/qa/questions', (req, res) => {
 });
 
 app.post('/qa/questions', (req, res) => {
-  questions.postQuestions(req.body, (error, results) => {
+  questions.postAnswers(req.body, (error, results) => {
     if (error) {
-      console.log('post ERROR', error)
+      console.log('post Answer ERROR req.body', req.body)
+      console.log('post Answer ERROR', error)
       // console.log('Req Body:', req.body.product_id)
       res.status(404).send(req.body);
     } else {
@@ -39,6 +39,22 @@ app.post('/qa/questions', (req, res) => {
     }
   });
 });
+
+app.post('/qa/questions/:product_id', (req, res) => {
+
+  questions.postQuestions(req.body, (error, results) => {
+    if (error) {
+      console.log('post Quest ERROR req.body', req.body)
+      // console.log('post Quest ERROR Query', req.query)
+      console.log('post Quest ERROR', error)
+      console.log('Req Body:', req.body.product_id)
+      res.status(404).send(req.body);
+    } else {
+      res.status(200).send(results);
+    }
+  });
+});
+
 
 app.put('/qa/questions', (req, res) => {
   questions.putQuestions(req.body, (error, results) => {

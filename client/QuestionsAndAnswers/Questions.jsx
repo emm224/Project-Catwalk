@@ -5,11 +5,13 @@ import styled from 'styled-components';
 import Answers from './Answers.jsx';
 import AnswersModal from './AnswersModal.jsx';
 
+import SearchHighlight from './SearchHighlight.jsx';
+
 class Questions extends React.Component {
   constructor(props) {
     super(props);
 
-    // console.log('Questions ITEM: ', this.props.item.question_id)
+    // console.log('Questions ITEM: ', this.props.item)
     // console.log('Helpfulness counter: ', this.props.item.question_id)
 
     const helpfulCounter = this.props.item.question_helpfulness;
@@ -32,6 +34,12 @@ class Questions extends React.Component {
 
   componentDidMount() {
     this.getAnswersData();
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if (this.props.productID !== prevProps.productID) {
+      this.originalRender();
+    }
   }
 
   handleClick(event) {
@@ -110,6 +118,35 @@ class Questions extends React.Component {
     }
   }
 
+  originalRender() {
+    let answerArr = Object.values(this.props.item.answers);
+    // console.log('Answers RAW:', answerArr);
+    // console.log('Answers SORTED:', answerArr.sort((a,b)=> b.helpfulness - a.helpfulness));
+    let sellersResponse = false;
+
+    for (let i = 0; i < answerArr.length; i++) {
+      let currentAnswer = answerArr[i];
+      let answererName = currentAnswer.answerer_name;
+      let sellerName = this.props.item.asker_name;
+
+      if (answererName === sellerName) {
+        answerArr.splice(i, 1);
+        answerArr.unshift(currentAnswer);
+        sellersResponse = true;
+      }
+    }
+
+    if (sellersResponse) {
+      this.setState({
+        answersData: answerArr
+      })
+    } else {
+      this.setState({
+        answersData: answerArr.sort((a,b)=> {b.helpfulness - a.helpfulness})
+      });
+    }
+  }
+
   render() {
 
     const { answersData, helpful, answersDisplayed, showModal, expandList } = this.state;
@@ -117,7 +154,10 @@ class Questions extends React.Component {
     return (
       <Container>
         <QContainer>
-          <h3> Q: {this.props.item.question_body} </h3>
+          <h3> Q: {this.props.query !== '' && this.props.item.question_body.includes(this.props.query) ?
+          (<SearchHighlight
+            query={this.props.query}
+            body={this.props.item.question_body} />) : this.props.item.question_body}</h3>
 
           <QuestionLinks>
             <HelpfulSpacing> Helpful? </HelpfulSpacing>
@@ -231,6 +271,7 @@ const Button = styled.button`
     margin-left: 0;
     white-space: nowrap;
     cursor: pointer;
+    border-radius:50px;
 
   &:hover {
     background-color: lightgrey;

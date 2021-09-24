@@ -1,18 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import PhotosModal from './PhotosModal.jsx';
+
 class AnswersPhoto extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      modal: false,
+      showModal: false,
     };
-    this.selectModal = this.selectModal.bind(this);
+
+    this.togglePhotosModal = this.togglePhotosModal.bind(this);
   }
 
-  selectModal() {
+  togglePhotosModal() {
     this.setState({
-      modal: !this.state.modal,
+      showModal: !(this.state.showModal)
     });
   }
 
@@ -21,8 +25,11 @@ class AnswersPhoto extends React.Component {
     return (
       <div>
         <PhotoContainer className="Photos">
-          <Photos src={this.props.photo} onClick={this.selectModal} />
-
+          <Photos src={this.props.photo} onClick={this.togglePhotosModal} />
+          <PhotosModal
+            photo={this.props.photo}
+            showModal={this.state.showModal}
+            togglePhotosModal={this.togglePhotosModal} />
         </PhotoContainer>
       </div>
     );
