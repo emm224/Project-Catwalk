@@ -11,7 +11,7 @@ const IconIndicator = (props) => {
     props.photos.map((photo, index) => {
       return (
         // <div className='icon-frame'>
-          <div key={index} onClick={()=>{selectIcon(index)}} className='modal-icon'></div>
+          <div id={index === props.selectedIndex ? 'selected-icon' : 'notSelected'} key={index} onClick={()=>{selectIcon(index)}} className='modal-icon'></div>
         // </div>
       )
     })

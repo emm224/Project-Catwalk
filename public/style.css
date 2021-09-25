@@ -401,5 +401,11 @@ i {
   border-radius: 50%;
   cursor: pointer;
 }
+
+
+#selected-icon .modal-icon {
+  background-color: greenyellow;
+  z-index: 3;
+}
 /* media queries */
 
