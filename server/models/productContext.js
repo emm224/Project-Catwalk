@@ -25,15 +25,18 @@ var baseUrl = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe`
 
 let getProductList = (callback) => {
   let options = {
+    method: 'GET',
     url: `${baseUrl}/products`,
-    head: {
-      headers: {
-        Authorization: config.TOKEN
-      }
+    headers: {
+      Authorization: config.TOKEN
     }
+
+    // params: {
+
+    // }
   };
 
-  axios.get(options.url, options.head)
+  axios(options)
     .then((products) => {
       callback(null, products.data)
     })

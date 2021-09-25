@@ -409,3 +409,20 @@ i {
 }
 /* media queries */
 
+/* search bar */
+
+.search-bar {
+  margin-right: 25px;
+}
+.searchform {
+  margin-right: 25px;
+}
+
+.searchinput {
+  margin-top: 25px;
+  margin-right: 5px;
+}
+
+/* search-button {
+.
+} */
