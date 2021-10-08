@@ -1,10 +1,10 @@
 # HR Front End Capstone - Project Catwalk: Team Orcus
 
 ## Table of Contents
-- [Team Members](#team-members)
+- [Team Members](#team-members-&-roles)
 - [Description](#description)
-- [Technologies Used](#tools)
-- [How to View](#view)
+- [Technologies Used](#technologies-used)
+- [How to View](#how-to-view-and-interact-with-retail-portal)
 
 
 ## Team Members & Roles
