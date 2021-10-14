@@ -45,8 +45,7 @@ var ImageFrame = styled.div`
   flex-wrap: no-wrap;
   position: relative;
   margin: 0 auto;
-  cursor: pointer
-
+  cursor: zoom-in
 `;
 
 const ArrowLeft = styled.button`

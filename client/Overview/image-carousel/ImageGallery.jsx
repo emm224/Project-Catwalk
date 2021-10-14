@@ -55,7 +55,7 @@ class ImageGallery extends React.Component {
     this.setState({
       zoomedIn: !(this.state.zoomedIn)
     })
-    { console.log('poopy') }
+
   }
 
   // set major image index to index of thumbnail clicked

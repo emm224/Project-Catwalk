@@ -11,18 +11,18 @@ const Carousel = (props) => {
   }
 
   return (
-    <div>
+    <div className='carousel-container'>
       <ImageList className="imageList"
-      photos={props.photos}
-      imageIndex={props.imageIndex}
-      onImageClick={props.onImageClick}
-      imageIndex={props.imageIndex}
-      prevImage={props.prevImage}
-      nextImage={props.nextImage}
-      thumbnailIndex={props.thumbnailIndex}
-      scrollThumbnailUp={props.scrollThumbnailUp}
-      scrollThumbnailDown={props.scrollThumbnailDown}
-      clickThumbnail={props.clickThumbnail}
+        photos={props.photos}
+        imageIndex={props.imageIndex}
+        onImageClick={props.onImageClick}
+        imageIndex={props.imageIndex}
+        prevImage={props.prevImage}
+        nextImage={props.nextImage}
+        thumbnailIndex={props.thumbnailIndex}
+        scrollThumbnailUp={props.scrollThumbnailUp}
+        scrollThumbnailDown={props.scrollThumbnailDown}
+        clickThumbnail={props.clickThumbnail}
       />
     </div>
   );
@@ -43,7 +43,7 @@ clickThumbnail={props.clickThumbnail}
 
 
 
-{/* <ThumbnailList photos={props.photos} thumbnailIndex={props.thumbnailIndex} scrollThumbnailUp={props.scrollThumbnailUp} scrollThumbnailDown={props.scrollThumbnailDown} /> */}
+{/* <ThumbnailList photos={props.photos} thumbnailIndex={props.thumbnailIndex} scrollThumbnailUp={props.scrollThumbnailUp} scrollThumbnailDown={props.scrollThumbnailDown} /> */ }
 
 
 

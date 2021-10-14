@@ -6,7 +6,6 @@ const Image = (props) => {
 
   const zoomIn = () => {
     props.onImageClick()
-    console.log('poopy')
   }
 
   return (

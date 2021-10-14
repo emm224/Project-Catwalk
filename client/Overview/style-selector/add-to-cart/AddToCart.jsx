@@ -84,21 +84,23 @@ class AddToCart extends React.Component {
 
   render() {
     return (
-      <div className='add-to-cart' >
-        <SizeSelector
-        currentSku={this.props.currentSku}
-        currentSize={this.props.currentSize}
-        selectedStyle={this.props.selectedStyle}
-        styles={this.props.styles}
-        updateSku={this.props.updateSku}
-        />
-        {/* {console.log(this.props.updateSku)} */}
-        <QuantitySelector
-        selectedStyle={this.props.selectedStyle}
-        chooseQuantity={this.props.chooseQuantity}
-        currentQuantity={this.props.currentQuantity}
-        currentSkuId={this.props.currentSkuId}
-        />
+      <div>
+        <div className='add-to-cart' >
+          <SizeSelector
+            currentSku={this.props.currentSku}
+            currentSize={this.props.currentSize}
+            selectedStyle={this.props.selectedStyle}
+            styles={this.props.styles}
+            updateSku={this.props.updateSku}
+          />
+          {/* {console.log(this.props.updateSku)} */}
+          <QuantitySelector
+            selectedStyle={this.props.selectedStyle}
+            chooseQuantity={this.props.chooseQuantity}
+            currentQuantity={this.props.currentQuantity}
+            currentSkuId={this.props.currentSkuId}
+          />
+        </div>
         <button type="button" onClick={this.addItemToCart} className="add-to-cart-button"> Add to Cart </button>
       </div>
     )

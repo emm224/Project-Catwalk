@@ -12,7 +12,7 @@ class ThumbnailList extends React.Component {
     }
     this.thumbnailsToDisplay = this.thumbnailsToDisplay.bind(this);
     this.scrollThumbnailUp = this.scrollThumbnailUp.bind(this);
-    this.scrollThumbnailDown = this.scrollThumbnailDown.bind(this)
+    this.scrollThumbnailDown = this.scrollThumbnailDown.bind(this);
   }
 
   thumbnailsToDisplay() {
@@ -47,14 +47,12 @@ class ThumbnailList extends React.Component {
         endIndex: endIndex - 1
       })
     }
-    {console.log('hello')}
   }
 
   render() {
     return (
       <ThumbnailFrame className="thumbnail-frame" >
         < ArrowUp
-          // show={showUpArrow}
           onClick={this.scrollThumbnailDown} >
           ▲
         </ArrowUp>
@@ -73,7 +71,6 @@ class ThumbnailList extends React.Component {
           })
         }
         <ArrowDown
-          // show={showDownArrow}
           onClick={this.scrollThumbnailUp}>
           ▼
         </ArrowDown>
@@ -84,7 +81,6 @@ class ThumbnailList extends React.Component {
 
 const ThumbnailFrame = styled.div`
   position: absolute;
-  order: 1;
   top: 0px;
   left: 0px;
   bottom: 0px;
