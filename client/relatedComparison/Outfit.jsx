@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card.jsx';
 import styled from 'styled-components';
-import config from '../../config.js'
+// import config from '../../config.js'
 
 class Outfit extends React.Component {
   constructor(){

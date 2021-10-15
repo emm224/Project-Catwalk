@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
-import config from '../config.js';
+// import config from '../config.js';
 import axios from 'axios';
 
 import RelatedList from './relatedComparison/RelatedList.jsx';

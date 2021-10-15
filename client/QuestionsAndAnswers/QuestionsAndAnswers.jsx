@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import dummyDataQA from './QuestionsDummyData.js';
-import config from '../../config.js';
+// import config from '../../config.js';
 
 import Questions from './Questions.jsx';
 import QuestionsModal from './QuestionsModal.jsx';

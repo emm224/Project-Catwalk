@@ -32,7 +32,8 @@
   "scripts": {
     "start": "nodemon server/index.js",
     "test": "jest",
-    "react-dev": "webpack --mode development --watch"
+    "react-dev": "webpack --mode development --watch",
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
