@@ -19,7 +19,7 @@
 // };
 
 const axios = require('axios');
-const config = require('../../config.js');
+// const config = require('../../config.js');
 
 var baseUrl = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe`
 
@@ -28,7 +28,7 @@ let getProductList = (callback) => {
     method: 'GET',
     url: `${baseUrl}/products`,
     headers: {
-      Authorization: config.TOKEN
+      Authorization: process.env.TOKEN
     }
 
     // params: {
@@ -52,7 +52,7 @@ let getProductById = (id, callback) => {
     url: `${baseUrl}/products/${id}`,
     head: {
       headers: {
-        Authorization: config.TOKEN
+        Authorization: process.env.TOKEN
       }
     },
   };
@@ -73,7 +73,7 @@ let getProductStyles = (id, callback) => {
     url: `${baseUrl}/products/${id}/styles`,
     head: {
       headers: {
-        Authorization: config.TOKEN
+        Authorization: process.env.TOKEN
       }
     }
   };
@@ -93,7 +93,7 @@ let addProductToCart = (item, callback) => {
     url: `${baseUrl}/cart`,
     data: item,
     headers: {
-      Authorization: config.TOKEN
+      Authorization: process.env.TOKEN
     }
   };
 
@@ -112,7 +112,7 @@ let getAllInCart = (callback) => {
     url: `${baseUrl}/cart`,
     head: {
       headers: {
-        Authorization: config.TOKEN
+        Authorization: process.env.TOKEN
       }
     }
   };

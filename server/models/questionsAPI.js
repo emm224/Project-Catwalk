@@ -1,5 +1,5 @@
 const axios = require('axios');
-const config = require('../../config.js');
+// const config = require('../../config.js');
 
 const QueryStringInput = (input, text='') => {
 
@@ -45,7 +45,7 @@ const getQuestions = (query, callback) => {
     `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions${queryString}`,
     {
       headers: {
-        "Authorization": config.TOKEN,
+        "Authorization": process.env.TOKEN,
         "Content-Type": "application/json"
       }
     }
@@ -68,7 +68,7 @@ const postAnswers = (query, callback) => {
     `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${query.question_id}/answers`, query,
     {
       headers: {
-        "Authorization": config.TOKEN,
+        "Authorization": process.env.TOKEN,
         "Content-Type": "application/json"
       },
     },
@@ -88,7 +88,7 @@ const postQuestions = (query, callback) => {
     `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions?product_id=${query.product_id}`, query,
     {
       headers: {
-        "Authorization": config.TOKEN,
+        "Authorization": process.env.TOKEN,
         "Content-Type": "application/json"
       },
     },
@@ -109,7 +109,7 @@ const putQuestions = (query, callback) => {
     axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/answers/${query.answer_id}/${query.name}`, {},
       {
         headers: {
-          "Authorization": config.TOKEN,
+          "Authorization": process.env.TOKEN,
           "Content-Type": "application/json"
         },
       },
@@ -125,7 +125,7 @@ const putQuestions = (query, callback) => {
     axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${query.question_id}/${query.name}`, {},
       {
         headers: {
-          "Authorization": config.TOKEN,
+          "Authorization": process.env.TOKEN,
           "Content-Type": "application/json"
         },
       },

@@ -24,7 +24,7 @@ class RelatedList extends React.Component {
       this.setState({currentViewingId:this.props.currentItemId})
       var option={
         headers:{
-          'Authorization':config.TOKEN,
+          'Authorization':process.env.TOKEN,
           'Content-Type': 'application/json'
         }
       }
@@ -59,7 +59,7 @@ class RelatedList extends React.Component {
   componentDidMount(){
     var option={
       headers:{
-        'Authorization':config.TOKEN,
+        'Authorization':process.env.TOKEN,
         'Content-Type': 'application/json'
       }
     }
@@ -102,7 +102,7 @@ class RelatedList extends React.Component {
     this.setState({selected:item,photo,display:'block'});
     var option={
       headers:{
-        'Authorization':config.TOKEN,
+        'Authorization':process.env.TOKEN,
         'Content-Type': 'application/json'
       }
     }

@@ -1,11 +1,11 @@
 const axios = require('axios');
-const config = require('../../config.js');
+// const config = require('../../config.js');
 
 let options = {
   url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews`,
   head: {
     headers: {
-      'Authorization': config.TOKEN
+      'Authorization': process.env.TOKEN
     }
   }
 };
@@ -39,7 +39,7 @@ const addReview = function(review, callback) {
     data: review,
     head: {
       headers: {
-        'Authorization': config.TOKEN
+        'Authorization': process.env.TOKEN
       }
     }
   };

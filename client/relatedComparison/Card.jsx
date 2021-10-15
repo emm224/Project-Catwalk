@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import config from '../../config.js';
+// import config from '../../config.js';
 import StarRating from '../StarRating.js'
 import ImageContainer from './ImageContainer.jsx'
 class Card extends React.Component {
@@ -18,7 +18,7 @@ class Card extends React.Component {
   componentDidMount(){
     var option={
       headers:{
-        'Authorization':config.TOKEN,
+        'Authorization':process.env.TOKEN,
         'Content-Type': 'application/json'
       }
     }
