@@ -53,7 +53,9 @@ Slack <img align="left" alt="Slack" width="30px" src="https://github.com/devicon
 <br />
 
 ## How to View and Interact with Retail Portal
-To view on a local machine, please follow these instructions:
+Open <b>http://18.117.109.228:3000/</b> in your Browser.
+
+To view edit and view on a local machine, please follow these instructions:
 1. Fork the repository and clone to your local machine using `git clone https://github.com/Orcus-FEC/FEC.git`
 2. Generate a github personal access token to access the API and save token securely within file. You can read more about creating a token [here](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
 3. Run `npm install` to download dependencies.
