@@ -6,7 +6,7 @@ const QuantitySelector = (props) => {
   if (!props.currentSkuId || !props.selectedStyle.skus[props.currentSkuId]) {
     return (
       <div>
-        <select disabled></select>
+        <select className='quantity-selector' disabled></select>
         {/* {console.log('this is props.selectedStyle', props.selectedStyle)} */}
       </div>
     )
@@ -24,7 +24,7 @@ const QuantitySelector = (props) => {
   }
 
   return (
-    <select value={props.currentQuantity} onChange={props.chooseQuantity}>
+    <select className='quantity-selector' value={props.currentQuantity} onChange={props.chooseQuantity}>
       <option value={null}>SELECT QUANTITY</option>
       {/* {console.log('this is stock variable', stock)}
       {console.log(arrOfQuantities)} */}

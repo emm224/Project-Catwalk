@@ -7,7 +7,7 @@ class SizeSelector extends React.Component {
     const skusObj = this.props.selectedStyle.skus
     if (!skusObj) {
       return (
-        <div>OUT OF STOCK</div>
+        <div id='size-selector'>OUT OF STOCK</div>
       )
     }
 

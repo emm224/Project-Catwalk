@@ -27,7 +27,7 @@ class StyleSelector extends React.Component {
     })
     // console.log('this is this', this)
     // console.log('this is state', this.state)
-    // document.getElementById('size-selector').selectedIndex = 0
+    document.getElementById('size-selector').selectedIndex = 0
   }
 
   updateSku(event) {
@@ -61,7 +61,7 @@ class StyleSelector extends React.Component {
 
     return (
       <div>
-      Style > {this.props.selectedStyle.name}
+      <b>Style > {this.props.selectedStyle.name} </b> <br/>
         <StyleList
         selectedStyle={this.props.selectedStyle} styles={this.props.styles}
         setPickedStyle={this.props.setPickedStyle}

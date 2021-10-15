@@ -90,6 +90,7 @@ class Product extends React.Component {
     // return (
     //   <div>
     return (
+      <div class='main-container'>
       <Grid className="grid">
         <LeftContainer className="leftContainer">
           {(!this.state.selectedStyle) ? <div></div> : <ImageGallery selectedStyle={this.state.selectedStyle} />}
@@ -105,16 +106,17 @@ class Product extends React.Component {
               </Stars>
               )}
 
-            {(!document.getElementById('rateReview')) ? (<div>View All Reviews</div>) :
-              <a onClick={this.scrollToReviews}>View All Reviews</a>}
+            {(!document.getElementById('rateReview')) ? (<div class='review-scroller' >View All Reviews</div>) :
+              <a class='review-scroller' onClick={this.scrollToReviews}>View All Reviews</a>}
           </section>
           <ProductDetail currentProduct={this.state.currentProduct} />
           <PriceDisplay selectedStyle={this.state.selectedStyle} />
           <StyleSelector selectedStyle={this.state.selectedStyle} styles={this.state.styles} setPickedStyle={this.setPickedStyle} />
           <SocialShare selectedStyle={this.state.selectedStyle} />
         </RightContainer>
-        <ProductDescription currentProduct={this.state.currentProduct} />
       </Grid>
+        <ProductDescription currentProduct={this.state.currentProduct} />
+      </div>
     )
   }
 }
