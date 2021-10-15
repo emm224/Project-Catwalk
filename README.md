@@ -53,7 +53,7 @@ Slack <img align="left" alt="Slack" width="30px" src="https://github.com/devicon
 <br />
 
 ## How to View and Interact with Retail Portal
-Open <b>http://18.117.109.228:3000/</b> in your Browser.
+Open <b>https://project-catwalk-em.herokuapp.com/</b> in your Browser.
 
 To view edit and view on a local machine, please follow these instructions:
 1. Fork the repository and clone to your local machine using `git clone https://github.com/Orcus-FEC/FEC.git`
